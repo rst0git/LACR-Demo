@@ -1,0 +1,11 @@
+﻿Technical feasibility:
+	We are talking about web interface and search engine which will be connected to a database. The database needs to be automatically created form provided XML files. The search engine must have also advanced features. 
+	We do not have any knowledge of business domain. On the other hand, we are familiar with the technology such as Rails, Postresql,...
+	This system can be developed and delivered to our customer in time. 
+	
+Economical feasibility:
+	Development cost should not exceed £18,000 (£27,500). This include labour, (rent), hardware straight-line depreciation and 10% reserve.
+	Annual operational costs are £0
+	Annual benefits – maintenance and implementing extra functionality £120 per hour.
+	This product could be sold to other city councils which digitalise documents into XML format and want to effectively search in them. The software would not be restricted only for city councils and could be sold to any country.
+	We would sell this product for £9,900. We expect to sell 4 – 10 pieces annually. This would mean turnover from £39,600 up to £99,000.
