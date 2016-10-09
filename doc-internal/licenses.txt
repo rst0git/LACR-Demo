@@ -1,0 +1,66 @@
+Summary:
+    * It should be fine for us to use any sofware licensed under the BSD licenses, the Boost License, The ISC license,
+      the MIT license, the Microsoft Public License, The Unlicense, or the Do What the Fuck You Want To Public License
+    * If we want to use sofware with an Academic Free, Apache, Artistic, or Zlib license, we must consider whether we
+      mind stating what changes we have made to the code
+    * We MAY NOT use any software licensed under any version of any GNU license ( that is, the Affero GPL, the GPL,
+      or the LGPL ).
+    * We also MAY NOT use software licensed under the Eclipse Public License, The European Union Public License,
+      the LaTeX Project Public License, the Mozilla Public license, the Microsoft Reciprocal License,
+      the SIL Open Font License, or the Open Software license.
+    * We may use software licensed under the Creative Commons Zero license, but it is not recommended for software.
+    * We will need to discuss any other open-source license
+
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+From http://choosealicense.com/appendix/, and skipping columns that include every license:
+
+* IANAL, so have no idea about the "Patent Use" column[1].
+* We don't want to disclose the source code, thus we are limited to:
+    AFL v3.0
+    Apache 2.0
+    Artistic License 2.0
+    BSD 2-clause
+    BSD 3-clause
+    BSD 3-clause revised
+    Boost 1.0
+    CC-BY 4.0
+    CC-SA 4.0
+    CC-0 1.0 univ.
+    ISC
+    MIT
+    Microsoft PL
+    SIL Open Font 1.1
+    The Unlicense
+    WTFPL
+    zlib
+* I don't think we care about the license and copyright notice; there's no reason to to include a notice about
+  the software we've used in our product.
+* We don't want Network Use is Distribution; then we'd have to give our software to users, AFAIK, but this changes nothing
+* We want to be able to release under a different license; therefore we have to rule out the CC-SA, and the
+  SIL Open Font license.
+* I would prefer not to have to write a notice about changes we've made to code; however, this excludes the AFL, the Apache,
+  the artistic license, CC-BY, and zlib. (SC)
+* We don't care about liability, because no developer in their right mind is going to have a warranty on free software
+* We don't care about trademark use, because we're not going to be using their trademarks.
+
+Therefore, we are left with the BSD licenses, the Boost license, Creative commons Zero, ISC, MIT, Microsoft Public License,
+and the WTFPL.
+
+If we don't mind stating changes made to the code used, we can use the Academic Free License, and Apache, the Artistic
+license, Creative commons Attributative, and the zlib.
+
+* The difference between the BSD licenses is minimal; the big difference being that we can't use the name of the copyright
+  holder for promotion, which I'm sure we weren't planning to do anyway
+* The boost library doesn't really require anything, and from a read-through, is good for our purposes
+* The CC0 basically places one's work into the public domain, but is innapropriate for software.
+* The ISC is functionally equivalent to the BSD 2-clause and the MIT.
+
+Footnotes:
+[1] Note: software is technically not regarded as an invention in the UK; having said that:
+        1.  The UKIPO regularly grants software patents - It's a bit confusing, and again, IANAL, but it does happen
+        2.  Other countries allow software patents, for example the US. If we have a view to release our product elsewhere,
+            we have to respect their laws, esp. as we are targeting governmental institutions
