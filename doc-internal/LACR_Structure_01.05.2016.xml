@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="la">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title/>
+            </titleStmt>
+            <publicationStmt>
+                <authority>HisTEI</authority>
+                <idno/>
+            </publicationStmt>
+            <notesStmt>
+                <note/>
+            </notesStmt>
+            <sourceDesc>
+                <msDesc>
+                    <msIdentifier>
+                        <repository ref="org:org_j2g_fzp_yz"/>
+                        <collection/>
+                        <idno/>
+                        <altIdentifier>
+                            <idno/>
+                        </altIdentifier>
+                    </msIdentifier>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <creation>
+                <date when="1441"/>
+                <settlement type="city" ref="plc:place_rhl_bzp_yq">Aberdeen</settlement>
+                <orgName type="court"/>
+            </creation>
+            <textClass>
+                <catRef target="gen:COURT_ROLL"/>
+            </textClass>
+            <handNotes>
+                <handNote xml:id="hand_001"/>
+            </handNotes>
+        </profileDesc>
+        <revisionDesc>
+            <change when="2016-04-06T19:06:49"/>
+        </revisionDesc>
+    </teiHeader>
+    <facsimile xml:base="../../facsimiles/">
+        <graphic mimeType="image/jpeg" url="Vol5p645.jpg" xml:id="Vol5p645"/>
+        <graphic mimeType="image/jpeg" url="Vol5p647.jpg" xml:id="Vol5p647"/>
+        <graphic mimeType="image/jpeg" url="Vol5p648.jpg" xml:id="Vol5p648"/>
+    </facsimile>
+    <text xml:lang="la">
+        <body>
+            <pb n="645" break="yes" facs="#Vol5p645"
+                xml:base="http://www.scotlandsplaces.gov.uk/digital-volumes/burgh-records/aberdeen-burgh-registers/burgh-register-volume-052/1"/>
+            <div type="court">
+                <p><date when="1441-09-30"></date></p>
+                <div type="heading">
+                <note type="editorial">Reference: ARO vol.5 p.645 e.1</note>
+                    <p><lb break="yes"/>Curia gilde <expan>tenta</expan>
+                        <expan>per</expan> prepositum, <name><expan>Johannem</expan></name> de
+                            <placeName>Fife</placeName>, et decanum gilde, <name>Andree</name><lb
+                            break="yes"/>de Culane, ultimo die <expan>mensis</expan>
+                        <date when="1441-09-30">Septembris, anno <expan>Domini</expan>, etc., xlj<hi
+                                rend="superscript">mo</hi></date>.</p>
+                </div>
+                <div type="admission">
+                    <note type="editorial">Reference: ARO vol.5 p.645 e.2</note>
+                    <head><add place="margin">iij li' vj s' viij d'</add></head>
+                    <p><lb break="yes"/>Quo die <name>Laurencius Thomson'</name> receptus fuit in
+                        liberum burgensem et<lb break="yes"/><expan>confratrem</expan> gilde huius
+                        burgi, <expan>prestito</expan> solito juramento et dabit
+                            <expan>pro</expan><lb break="yes"/>libertate sua iij li. vj s. viij d';
+                        plegio <expan>pro</expan> eo.</p>
+                </div>
+                <div type="admission">
+                    <note type="editorial">Reference: ARO vol.5 p.645 e.3</note>
+                    <head type="sub"><add place="margin">v s'</add></head>
+                    <p><lb break="yes"/>Eodem die <name>Willelmus</name> filius <name>Johannis
+                            Lowson'</name> receptus fuit in <expan>liberum</expan><lb break="yes"
+                            /><expan>burgensem</expan> et <expan>confratrem</expan> gilde huius
+                        burgi, racione <expan>libertatis</expan> paterne<lb break="yes"
+                            /><expan>prestito</expan> solito juramento et dabit <expan>pro</expan>
+                        <expan>libertate</expan> sua. v. s'.; plegio.</p>
+                </div>
+            </div>
+            <note type="editorial">p. 646 is blank</note>
+            <pb n="647" break="yes" facs="#Vol5p647"
+                xml:base="http://www.scotlandsplaces.gov.uk/digital-volumes/burgh-records/aberdeen-burgh-registers/burgh-register-volume-052/3"/>
+            <div type="court">
+                <p><date when="1441"></date></p>
+                <div type="heading">
+                    <note type="editorial">Reference: ARO vol.5 p.647 e.1</note>
+                    <p><lb break="yes"/>Curia gilde <expan>tenta</expan> in <expan>pretorio</expan>
+                        burgi de <settlement>Aberdene</settlement>
+                        <expan>per</expan>
+                        <name><del>Joh</del>
+                            <expan>Matheum</expan><lb break="yes"/>Fichet</name>,
+                            <expan>prepositum</expan>
+                        <unclear reason="overwriting"/> sexto die mensis <expan>Octobris</expan>,
+                            <expan>videlicet</expan> die <expan>veneris</expan>
+                        <expan>proxima</expan><lb break="yes"/>post <expan>festum</expan>
+                        <name>beati michaelis</name> Archangeli, Anno <expan>Domini</expan>, etc.
+                            xlj<hi rend="superscript">mo</hi>.</p>
+                </div>
+                <div type="election">
+                    <note type="editorial">Reference: ARO vol.5 p.647 e.2</note>
+                    <p><lb break="yes"/>Quo die, subscripte <expan>persone</expan> electe fuerunt in
+                            <expan>communes</expan>
+                        <expan>consiliarios</expan>
+                        <expan>dicti</expan><lb break="yes"/>burgi <expan>anni</expan>
+                        <expan>instantis</expan>.</p>
+                    <p>
+                        <list>
+                            <item>
+                                <name><expan>Alexander</expan> de <expan>Camera</expan></name>
+                            </item>
+                            <item>
+                                <name>Johannes Vaus</name>
+                            </item>
+                            <item>
+                                <name>Johannes de Fife</name>
+                            </item>
+                        </list>
+                    </p>
+                </div>
+                <div type="election">
+                    <note type="editorial">Reference: ARO vol.5 p.647 e.3</note>
+                    <p><lb break="yes"/></p>
+                </div>
+                <div type="ordinance">
+                    <note type="editorial">Reference: ARO vol.5 p.647 e.4</note>
+                    <p><lb break="yes"/></p>
+                </div>
+                <div type="ordinance">
+                    <note type="editorial">Reference: ARO vol.5 p.647 e.5</note>
+                    <p><lb break="yes"/></p>
+                </div>
+                <pb n="648" break="yes" facs="#Vol5p648"/>
+                <div type="ordinance">
+                    <p><lb break="yes"/></p>
+                </div>
+            </div>
+        </body>
+    </text>
+</TEI>
