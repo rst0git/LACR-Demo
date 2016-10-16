@@ -1,0 +1,21 @@
+I focused on Neo4j which is Open source, widely used graph db with good support and community.
+A graph database is essentially a collection of nodes and edges. Each node represents an entity (such as a person) and each edge represents a connection or relationship between two nodes. Each node also has a set of properties to define it.
+Pros:
+- very efficiently and easily traverse 100.000 nodes/relationships of any depth
+- It runs on Linux, OSX, Windows
+- schema-free
+- API and other access method: Cypher query language, Java API, RESTful HTTP API. The last one is important for us.
+- support for Ruby, Python programming languages and many others
+- It would be possible to ask really sophisticated queries such as: "how many friends of John (friends index) that have been accused of murder (criminal record index) and talked about the word "Gavin" etc.
+- it is possible to do further data mining and exploring specific patterns.
+- it can be extended with elastic search
+
+Cons:
+- The documents should be in GraphML XML format in order create nodes and relations. No native support for random XML files or TEI.
+- The provided documents would need to be transform to GraphML or CSV files. Which would have graph tags.
+- second alternative is write script which would parse XML files and create new nodes using Neo4j java API
+- there is not any requirement from LACR team for such functionality which would require graph DB. We need efficient full text search tool.
+- It would require more time than implementing elastic search
+
+Overall result:
+- do not use graph DB in this project despite it is powerful tool. If we had more time I would prefer to use graph DB with elasticsearch. 
