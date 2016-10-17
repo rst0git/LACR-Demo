@@ -1,3 +1,26 @@
+2016-10-17:
+    * Re-worded the functional requirement on annotations to be more precise
+    
+    * Removed footnote about unit choice
+    
+    * Added requirement to provide documentation, although what documentation should be provided is still unclear.
+    
+    * Added requirement to be extensible enough to provide different views
+    
+    * Added requirement for CLARIN integration
+    
+    * Added requirement for HisTEI compatability
+    
+    * Added requirement for license
+    
+    * Document now uses the hyperref package, so things such as footnotes and table-of-contents are hyperlinked
+    
+    * Document now uses the footnotebackref package, so footnotes have back-references
+    
+    * Document now includes "\rationale" command, just to ease typesetting rationales
+    
+    - Jan Siemaszko
+    
 2016-10-15:
     * Initial document created from:
         1. CS3028-CHARLIE/coursework/Presentations/Third_presentation/Functional
@@ -26,3 +49,5 @@
       guaruntee it.
     
     * Added a preamble to specify that we will be using SI units of measurement
+    
+    - Jan Siemaszko

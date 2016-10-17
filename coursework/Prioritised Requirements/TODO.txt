@@ -1,0 +1,9 @@
+* Define minimum hardware requirements
+* Define license
+* Work out documentation to be provided to the user
+* I've added a priliminary requirement about data retention, however, we all need to agree on what amount of work we're will to do about this.
+* Decide on HisTEI namespaces to be used
+
+To add:
+
+How should the system be licensed?

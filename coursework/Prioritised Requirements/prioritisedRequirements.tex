@@ -6,7 +6,15 @@
 
 \documentclass[10pt,a4paper]{report}
 \usepackage{fontspec}
+\usepackage[bookmarks]{hyperref}
+\usepackage{footnotebackref}
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 \setmainfont[Ligatures={TeX, Common, Required}]{Linux Libertine}
+\newcommand{\rationale}[1]{
+    \footnote{
+        \textbf{Rationale}: #1
+    }
+}
 \begin{document}
     \begin{center}
         {\LARGE \textsc{Requirements}}\\
@@ -14,7 +22,6 @@
     \end{center}
     \section*{Preamble}
         In the following document, the SI standards will be used for measurements:
-        \footnote{I've chosen SI units since this is what ISPs go by, does everyone agree with me? This is much less than the JEDEC Mbit, which is what most people mean by a megabit}
         \begin{itemize}
             \item \emph{1 second} will be abbreviated as \emph{sec} or \emph{s};
             
@@ -28,42 +35,56 @@
         \end{itemize}
     \section*{Functional requirements (most important first)}
         \begin{enumerate}
+            \item The application will be able to parse all XML tags required by the TEI standards, as well as those required by the \textbf{[x]}, \textbf{[y]} and \textbf{[z]} namespaces
+            \rationale{Nothing can happen without this}
+
             \item User should be able to search through a transcribed document
-            \footnote{Rationale: this is the main purpose of the software, and it would be basically useless without it. The sub-requirements are requirements as a part of this}
+            \rationale{this is the main purpose of the software, and it would be basically useless without it. The sub-requirements are requirements as a part of this}
                 \begin{enumerate}
                     \item User should be able to search for plain-text strings
-                    \footnote{Rationale: Most people won't know the ID of what they want, or a specific name}
+                    \rationale{Most people won't know the ID of what they want, or a specific name}
                     
                     \item User should be able to search through documents by ID (volume, date, page)
-                    \footnote{Rationale: This was specifically stated to be an important requirement}
+                    \rationale{This was specifically stated to be an important requirement}
                     
                     \item User should be able to use simple regular expressions in their searches
-                    \footnote{Rationale: This was also specifically stated, however I didn't get the impression they wanted it as much as the previous requirement}
+                    \rationale{This was also specifically stated, however I didn't get the impression they wanted it as much as the previous requirement}
                     
                     \item User should be able to search through documents by proper names
-                    \footnote{Rationale: Not specifically stated by the LACR team}
+                    \rationale{Not specifically stated by the LACR team}
                     
                     \item User should be able to search through documents by  annotations
                 \end{enumerate}    
             \item User should see the search results and the ten words of context surrounding the result
-            \footnote{Rationale: It's obviously as important to be able to see the search results as to be able to make a query, unless you're using your server as a space-heater}
+            \rationale{It's obviously as important to be able to see the search results as to be able to make a query, unless you're using your server as a space-heater}
             
             \item User should be able to view a list of documents in chronological order 
-            \footnote{Rationale: After searching, this is the other main point of our package}
+            \rationale{After searching, this is the other main point of our package}
+            
+            \item The documents will be stored with a SHA-256 checksum and periodically checked for changes so that, should any data mutate, it may be replaced from a backup.
+            \rationale{Because these are public records, it is important they are always accessible and correct}
             
             \item User should be able to download the XML file of desired document
-            \footnote{Rationale: Although considered important by the LACR team, it only makes sense when there is some way to search for a document}
+            \rationale{Although considered important by the LACR team, it only makes sense when there is some way to search for a document}
             
             \item User should be able to download the original scan of desired document
-            \footnote{Rationale: See above}
-             
-            \item User should be able to turn annotations “off” and “on”
-            \footnote{Rationale: This was considered a nice extra to have by the LACR team AFAIK}
+            \rationale{See above}
+            
+            \item The application will be able to interface with the CLARIN project
+            
+            \item User should be able to turn \emph{all} annotations “off” and “on”
+            \rationale{This was considered a nice extra to have by the LACR team AFAIK}
+            
+            \item User will be provided with \textbf{[DOCUMENTATION]}
+            \rationale{While we should be documenting things as we go, and it is important, there's no point having documentation for vapourware}
         \end{enumerate}
     \section*{Non-functional requirements (most important first)}
         \begin{enumerate}
+            \item The web-application will be licensed under \textbf{[LICENSE]}
+            \rationale{If they don't agree with the license, then there's no sale}
+            
             \item The web-application must be suitable for searching queries, browsing the XML documents, translations, interpretation and scanned pages for these user groups:
-            \footnote{Rationale: being accessible to everyone was considered very important by the LACR team, and thus the usability requirements are the most important non-functional requirements}
+            \rationale{Being accessible to everyone was considered very important by the LACR team, and thus the usability requirements are the most important non-functional requirements}
             \begin{itemize}
                 \item secondary school children aged 11 years old or older;
                 \item University and college students;
@@ -72,10 +93,12 @@
             \end{itemize}
             
             \item The web-application must be accessible from Chrome version 50.+, Firefox version 45.+, Safari version 9.+ , Edge version 38.14393 and higher.
-            \footnote{Rationale: This is also important to accessiblity}
+            \rationale{This is also important to accessiblity}
+            
+            \item It will be possible to extend the application such that translation and interpretation views can be added
             
             \item The web application will be optimized for these screen resolutions:
-            \footnote{Rationale: Whilst it is important to accessability, it will mainly just impose annoyances on the user as opposed to making it unavailable to them}
+            \rationale{Whilst it is important to accessability, it will mainly just impose annoyances on the user as opposed to making it unavailable to them}
             \begin{itemize}
                 \item Extra small devices, Phones: less than 768px
                 \item Small devices Tablet: min-width:768px
@@ -84,16 +107,16 @@
             \end{itemize}
             
             \item User should receive search results within 5 sec. if their device's connection to the Internet has a download speed of 1 Mbps, and their upload speed is 256 Kbps
-            \footnote{Rationale: See above}
+            \rationale{See above}
             
             \item New data (XML files, translations, interpretations and scanned pages) should be imported via SFTP to dedicated folders for them. (via web interface, drag and drop function, filter out directories, only files which are supported) (functional requirement?)
-            \footnote{Rationale: This is about usability for the LACR team, and is probably the part of the system they will have most interaction with}
+            \rationale{This is about usability for the LACR team, and is probably the part of the system they will have most interaction with}
             
             \item The system should be reliable and available at least 363 days in the year.
-            \footnote{Rationale: this also impacts usability to a large extent}
+            \rationale{This also impacts usability to a large extent}
             
             \item It is acceptable to restart the system in the event of failure at most 1 time a week.
-            \footnote{Rationale: See above}
+            \rationale{See above}
             
             \item The web-application should support up to 1000 concurrent users. This requirement is bound with minimal hardware requirement specification.
             
@@ -104,6 +127,6 @@
             \item The system should be running on Ubuntu 16.04 LTS
             
             \item The system should be installed and tested within one week by our team.
-            \footnote{Rationale: As this is a one-time thing, it's pretty unimportant}
+            \rationale{As this is a one-time thing, it's pretty unimportant}
         \end{enumerate}
 \end{document}
