@@ -33,9 +33,14 @@
             
             \item \emph{1 Terabyte} (abbreviated \emph{1 TB}) refers to \emph{$10^{12}$ bytes}
         \end{itemize}
+        The following definitions will also be used:
+        \begin{itemize}
+            \item \emph{data decay} refers to the mutation of some stored data when it is not intended by the user.
+        
+        \end{itemize}
     \section*{Functional requirements (most important first)}
         \begin{enumerate}
-            \item The application will be able to parse all XML tags required by the TEI standards, as well as those required by the \textbf{[x]}, \textbf{[y]} and \textbf{[z]} namespaces
+            \item The application should parse all XML tags required by the TEI standards, as well as those required by the \textbf{[x]}, \textbf{[y]} and \textbf{[z]} namespaces
             \rationale{Nothing can happen without this}
 
             \item User should be able to search through a transcribed document
@@ -47,9 +52,6 @@
                     \item User should be able to search through documents by ID (volume, date, page)
                     \rationale{This was specifically stated to be an important requirement}
                     
-                    \item User should be able to use simple regular expressions in their searches
-                    \rationale{This was also specifically stated, however I didn't get the impression they wanted it as much as the previous requirement}
-                    
                     \item User should be able to search through documents by proper names
                     \rationale{Not specifically stated by the LACR team}
                     
@@ -59,10 +61,15 @@
             \item User should see the search results and the ten words of context surrounding the result
             \rationale{It's obviously as important to be able to see the search results as to be able to make a query, unless you're using your server as a space-heater}
             
+            \item User should see the document ID in the search results
+            
+            \item User should see the date of the document in the search results
+            
             \item User should be able to view a list of documents in chronological order 
             \rationale{After searching, this is the other main point of our package}
             
-            \item The documents will be stored with a SHA-256 checksum and periodically checked for changes so that, should any data mutate, it may be replaced from a backup.
+            \item The application should store the documents with a SHA-256 checksum
+            \item The application should periodically check the stored documents against their checksum so that data can be protected against \emph{data decay}.
             \rationale{Because these are public records, it is important they are always accessible and correct}
             
             \item User should be able to download the XML file of desired document
@@ -71,7 +78,7 @@
             \item User should be able to download the original scan of desired document
             \rationale{See above}
             
-            \item The application will be able to interface with the CLARIN project
+            \item The application should be able to interface with the CLARIN project
             
             \item User should be able to turn \emph{all} annotations “off” and “on”
             \rationale{This was considered a nice extra to have by the LACR team AFAIK}

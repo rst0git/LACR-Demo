@@ -1,3 +1,16 @@
+2016-10-31:
+    * Removed regex requirement
+    
+    * Re-wrote checksum requirement and split into a checksum requirement and a checking requirement
+    
+    * Added definition of data decay
+    
+    * Added doc. ID in search result requirement
+    
+    * Added doc. date in search result requirement
+    
+    - Jan Siemaszko
+    
 2016-10-17:
     * Re-worded the functional requirement on annotations to be more precise
     
