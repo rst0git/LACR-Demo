@@ -1,0 +1,41 @@
+IT DOES NOT WORK FOR CLOUD9
+
+sudo add-apt-repository -y ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get -y install oracle-java8-installer
+java -version
+gem install elasticsearch-model elasticsearch-rails
+add this to gemfile:
+	gem 'elasticsearch-model'
+	gem 'elasticsearch-rails'
+bundle install
+sudo nano /etc/sysctl.conf
+	add last line:
+		vm.max_map_count=262144
+sudo nano /etc/security/limits.conf
+	change number of opened files adding this lines:
+		*    soft nofile 64000
+		*    hard nofile 64000
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.0.deb
+sudo dpkg -i elasticsearch-5.0.0.deb
+sudo update-rc.d elasticsearch defaults 95 10
+sudo nano /etc/elasticsearch/elasticsearch.yml
+	add these lines:
+	network.host: 0.0.0.0
+	http.port: 9200
+restart VM
+sudo service elasticsearch start
+
+link: http://logz.io/blog/installing-elastic-stack-5-0-beta/
+
+
+If you want to run elasticsearch without install as service and not as daemon:
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.0.zip
+unzip elasticsearch-5.0.0.zip
+cd elasticsearch-5.0.0
+./bin/elasticsearch&
+To check if everythings if working well, curl -X GET 'http://localhost:9200' should returns a "status" : 200.
+
+To stop the server, you can use the RESTful API:
+
+curl -X POST 'http://localhost:9200/_cluster/nodes/_local/_shutdown'
