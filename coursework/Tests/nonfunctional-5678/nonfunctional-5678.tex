@@ -1,0 +1,78 @@
+% !TeX program = pdflatex
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[bookmarks]{hyperref}
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
+\author{Jan Siemaszko}
+\title{5678}
+\begin{document}
+
+\begin{enumerate}
+    \setcounter{enumi}{4}
+    \item The web application will be optimized for these screen resolutions:
+        \begin{itemize}
+            \item Extra small devices, Phones: less than 768px
+            \item Small devices Tablet: min-width:768px
+            \item Medium devices Desktops: min-width:992px
+            \item Large devices Desktops: min-width:1200px
+        \end{itemize}
+        
+        This cannot be tested in a sensible manner - apart from relying on the rendering engine used, the test would have to analyse the on-screen result of some particular screen, and thus would be more error-prone than the thing it is trying to test.
+        
+    \item User should receive search results within 5 sec. if their device’s connection to
+    the Internet has a download speed of 1 Mbps, and their upload speed is 256 Kbps.
+        
+        \subsubsection*{Test}
+        \begin{enumerate}
+            \item Computer $A$ sends search data $Q$ across network $N$ to computer $B$, and notes time $T$.
+            \item $B$ receives and runs $Q$, and sends result $R$ across $N$ to $A$
+            \item $A$ receives $R$ and notes time $T'$
+        \end{enumerate}
+        \subsubsection*{Equivalence classes}
+        \begin{tabular}{|l|l|}
+            \hline
+            Upload speed & Download speed\\
+            \hline
+            $<1$ Mbps down & $<256$ Kbps up\\
+            $\geq1$ Mbps down & $\geq 256$ Mbps up\\
+            \hline
+        \end{tabular}
+        \subsubsection*{Boundary partitions}
+        \begin{tabular}{|l|l|}
+            \hline
+            Upload speed & Download speed\\
+            \hline
+            $=1$ Mbps down & $=256$ Kbps up\\
+            \hline
+        \end{tabular}
+        \subsubsection*{Test results}
+        \begin{tabular}{|l|l|}
+            \hline
+            Input & Expected results\\
+            \hline
+            $0.5$ Mbps down, $128$ Kbps up & $A$ receives $R$\\
+            $0.5$ Mbps down, $256$ Kbps up & $A$ receives $R$\\
+            $0.5$ Mbps down, $0.5$ Mbps up & $A$ receives $R$\\
+            $1$ Mbps down, $128$ Kbps up & $A$ receives $R$\\
+            $1$ Mbps down, $256$ Kbps up & $A$ receives $R \wedge (T' - T) \leq 5$ seconds\\
+            $1$ Mbps down, $0.5$ Mbps up & $A$ receives $R \wedge (T' - T) \leq 5$ seconds\\
+            $2$ Mbps down, $128$ Kbps up & $A$ receives $R \wedge (T' - T) \leq 5$ seconds\\
+            $2$ Mbps down, $256$ Kbps up & $A$ receives $R \wedge (T' - T) \leq 5$ seconds\\
+            $2$ Mbps down, $0.5$ Mbps up & $A$ receives $R \wedge (T' - T) \leq 5$ seconds\\
+            \hline
+        \end{tabular}
+    \item New data (XML files, translations, interpretations and scanned pages) should be
+    imported via SFTP to dedicated folders for them. (via web interface, drag and
+    drop function, filter out directories, only files which are supported)
+    
+    This cannot really be tested in a black-box manner because the file-system should not be exposed to the user - thus we cannot know which folder a file actually resides in
+    
+    \item The system should be reliable and available at least 363 days in the year.
+    
+    This is not testable
+\end{enumerate}
+
+\end{document}
