@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
+  get 'search', to: 'search#search'
+  resources :articles
 
-  get 'documents/new'
 
-  get 'documents/index'
+  #get 'documents/new'
 
-  get 'documents/show'
+  #get 'documents/index'
 
-  get 'documents/edit'
+  #get 'documents/show'
+
+  #get 'documents/edit'
 
   # Home page routes
   root 'home#index'
@@ -14,10 +17,12 @@ Rails.application.routes.draw do
   get '/contact', to: 'home#contact'
 
   # Documents routes
-  get 'doc', to: "documents#index"
-  get 'doc/new', to: "documents#new" # Must be accessible only from Admin
-  get 'doc/edit', to: "documents#edit" # Must be accessible only from Admin
-  get 'doc/(:id)', to: "documents#show"
+  get 'doc', to: "articles#index"
+  get 'doc/new', to: "articles#new" # Must be accessible only from Admin
+  #get 'doc/edit', to: "documents#edit" # Must be accessible only from Admin
+  #get 'doc/example', to: "documents#example" # Only for the prototype
+  #post 'doc/new', to: "documents#create"
+  get 'doc/show', to: "articles#show"
 
   # Download routes
   get 'downloads/zipped'
