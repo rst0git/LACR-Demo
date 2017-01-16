@@ -26,7 +26,7 @@ files.each do |file|
 
 				record.search('div').each do |tr|
 					metadata = Hash[tr.keys.zip(tr.values)]
-					data = tr.text.to_s.strip
+					data = tr.text.to_s.gsub(/\s+/, " ")
 
 					p "--------Document------------"
 					p metadata, date
