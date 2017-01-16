@@ -1,0 +1,19 @@
+<hr>
+<div class="container">
+  <h1>Documents</h1> <hr>
+  <ul>
+    <% @documents.each do |document| %>
+      <li>
+        <h3>
+          <%= document.title %>
+        </h3>
+        <p>
+          <%= document.content %>
+        </p>
+      </li>
+    <% end -%>
+  </ul>
+  <%= link_to 'New Document', doc_new_path %>
+  <%= link_to 'Search', search_path %>
+</div>
+<hr>

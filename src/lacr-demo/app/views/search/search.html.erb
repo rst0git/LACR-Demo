@@ -1,0 +1,29 @@
+<h1>Articles Search</h1>
+
+<a href="/">Go back</a>
+
+<% if ! @documents.try(:suggestions).nil? %>
+
+  <% if @documents.try(:suggestions).length != 0 %>
+    Did you mean one of:
+  <%end%>
+
+  <% @documents.try(:suggestions).each do |s| %>
+    <a href="/search?utf8=✓&q=<%= s%>"> <%= s %> </a>
+  <% end %>
+<%end%>
+
+
+
+
+
+
+<ul>
+  <% @documents.each do |document| %>
+    <li>
+      <h3>
+        <%= link_to document.title, controller: "documents", action: "show", id: document.id%>
+      </h3>
+    </li>
+  <% end %>
+</ul>
