@@ -11,13 +11,15 @@ services:
   # Create container for elasticsearch
   es:
     image: elasticsearch:5.1.2
+    ports:
+      - "9200:9200"
 
   # Create container for radis
   redis:
     image: redis:3.0.7
 
   # Create container for the application
-  web:
+  lacrdemo:
     build: .
     # Set ELASTICSEARCH_URL environment variable used by searchkick gem
     environment:

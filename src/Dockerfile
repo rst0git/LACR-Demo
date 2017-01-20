@@ -5,9 +5,9 @@ FROM ruby:2.4.0-slim
 MAINTAINER Team Charlie <csd@abdn.ac.uk>
 
 # Set the university proxy inside the container
-RUN echo 'Acquire::http::Proxy $http_proxy;' > /etc/apt/apt.conf
-RUN export http_proxy=$http_proxy
-RUN export https_proxy=$https_proxy
+RUN echo 'Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080/";' > /etc/apt/apt.conf
+RUN export http_proxy=http://proxy.abdn.ac.uk:8080/
+RUN export https_proxy=http://proxy.abdn.ac.uk:8080/
 
 
 # Install dependencies
