@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
+gem 'rake'
 
 # Ruby Gem providing user authentication system
 gem 'devise'
@@ -66,5 +67,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+# Significantly increase performance with faster JSON generation.
+gem 'oj'
+
+gem 'actionpack'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
