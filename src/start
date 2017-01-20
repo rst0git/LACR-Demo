@@ -4,7 +4,7 @@
 export APP_PORT=80
 export APP_BIND='0.0.0.0'
 
-read -r -p "Would you like to rebuild the docker image? [y/N]"
+read -r -p "Would you like to rebuild the docker image? [y/N] "
 if [[ $response =~ ^([yY][eE][sS]|[yY]) ]]
 then
   docker-compose build
