@@ -21,7 +21,7 @@ services:
     build: .
     # Set ELASTICSEARCH_URL environment variable used by searchkick gem
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_URL: elasticsearch:9200
 
     command: bundle exec rails s -p ${APP_PORT} -b ${APP_BIND}
     volumes:
