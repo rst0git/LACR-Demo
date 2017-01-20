@@ -1,9 +1,6 @@
 #!/bin/bash
 # Description: Shell-script to start rails server
 
-export PORT=80
-export IP='0.0.0.0'
-
 read -r -p "Would you like to rebuild the docker image? [y/N] "
 if [[ $response =~ ^([yY][eE][sS]|[yY]) ]]
 then
