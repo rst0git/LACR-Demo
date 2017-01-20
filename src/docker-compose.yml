@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   # Create container for postgresql
-  postgres:
+  db:
     image: postgres:9.6.1
     # Set username and password for the database (matches lacr-demo/config/database.yml)
     environment:
@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: database
 
   # Create container for elasticsearch
-  elasticsearch:
+  es:
     image: elasticsearch:5.1.2
 
   # Create container for radis
@@ -21,15 +21,15 @@ services:
     build: .
     # Set ELASTICSEARCH_URL environment variable used by searchkick gem
     environment:
-      ELASTICSEARCH_URL: elasticsearch:9200
+      ELASTICSEARCH_URL: es:9200
 
     command: bundle exec rails s -p ${APP_PORT} -b ${APP_BIND}
+
     volumes:
       - ./lacr-demo:/lacr-demo
     ports:
       - "80:80"
-    links:
-      - elasticsearch
     depends_on:
-      - postgres
+      - elasticsearch
+      - db
       - redis
