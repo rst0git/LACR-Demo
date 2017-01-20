@@ -35,5 +35,10 @@ COPY $APP_PATH .
 # Install required gems
 RUN bundle install
 
+RUN rails db:version || bundle exec rails db:setup
+
+# run migrations
+RUN rails db:migrate
+
 # Expose a volume so that nginx will be able to read in assets in production.
 VOLUME ["$INSTALL_PATH/public"]
