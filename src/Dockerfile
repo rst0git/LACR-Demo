@@ -4,6 +4,10 @@ FROM ruby:2.4.0-slim
 # Optionally set a maintainer name to let people know who made this image.
 MAINTAINER Team Charlie <csd@abdn.ac.uk>
 
+# Set the university proxy inside the container
+RUN echo "Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080";" > /etc/apt/apt.conf
+
+
 # Install dependencies
 # - build-essentials: To ensure certain gems can be compiled
 # - nodejs: Compile assets
@@ -19,7 +23,6 @@ ENV APP_PATH lacr-demo
 # Create the project directory
 RUN mkdir -p $INSTALL_PATH
 
-RUN echo "Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080";" > /etc/apt/apt.conf
 
 # Set the current working directory to the application directory
 WORKDIR $INSTALL_PATH
