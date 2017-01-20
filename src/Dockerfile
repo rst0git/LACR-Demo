@@ -19,6 +19,8 @@ ENV APP_PATH lacr-demo
 # Create the project directory
 RUN mkdir -p $INSTALL_PATH
 
+RUN echo "Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080";" > /etc/apt/apt.conf
+
 # Set the current working directory to the application directory
 WORKDIR $INSTALL_PATH
 
