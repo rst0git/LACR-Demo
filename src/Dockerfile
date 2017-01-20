@@ -6,6 +6,7 @@ MAINTAINER Team Charlie <csd@abdn.ac.uk>
 
 # Set the university proxy inside the container
 RUN echo 'Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080";' > /etc/apt/apt.conf
+RUN export https_proxy="https://proxy.abdn.ac.uk:8080"
 
 
 # Install dependencies
