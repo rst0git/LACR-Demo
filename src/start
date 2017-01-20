@@ -13,7 +13,7 @@ fi
 read -r -p "Would you like to run \"rails db:create || rails db:migrate\"? [y/N] "
 if [[ $response =~ ^([yY][eE][sS]|[yY]) ]]
 then
-  docker-compose run lacrdemo rails db:create || rails db:migrate
+  docker-compose run web rails db:create || rails db:migrate
 fi
 
 docker-compose up

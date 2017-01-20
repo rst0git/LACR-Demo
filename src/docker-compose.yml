@@ -19,7 +19,7 @@ services:
     image: redis:3.0.7
 
   # Create container for the application
-  lacrdemo:
+  web:
     build: .
     # Set ELASTICSEARCH_URL environment variable used by searchkick gem
     environment:
