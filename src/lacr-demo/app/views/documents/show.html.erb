@@ -1,11 +1,13 @@
-<p>
-  <strong>Title:</strong>
-  <%= @document.title %>
-</p>
+<div class="container">
+	<p>
+	  <strong>Title:</strong>
+	  <%= @document.title %>
+	</p>
 
-<p>
-  <strong>Text:</strong>
-  <%= @document.content %>
-</p>
+	<p>
+	  <strong>Text:</strong>
+	  <%= @document.content %>
+	</p>
 
-<%= link_to '<- Back', documents_path %>
+	<%= link_to '<- Back', documents_path %>
+</div>
