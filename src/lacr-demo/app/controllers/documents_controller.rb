@@ -11,15 +11,12 @@ class DocumentsController < ApplicationController
   end
 
   def new
-  end
-
-  def create
-    @document = Document.new document_params
-    if @document.save
-      redirect_to @document
-    else
-      render 'new'
-    end
+      @document = Document.new document_params
+      if @document.save
+        redirect_to @document
+      else
+        render 'new'
+      end
   end
 
   private
