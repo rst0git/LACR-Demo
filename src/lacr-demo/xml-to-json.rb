@@ -20,11 +20,11 @@ files = Dir[ 'app/assets/transcriptions/*.xml' ]
 
 files.each do |file|
 	file_content = File.open(file)
-	doc = Nokogiri::Slop (file_content.to_s)
+	doc = Nokogiri::Slop (file_content)
 	doc_json = Hash.from_xml(file_content).to_json
 
-	p '------JSON-------'
-	p doc_json
+#	p '------JSON-------'
+#	p doc_json
 
 	doc.xpath('//body//div').each do |record|
 			if record.values.include? "court"
@@ -36,7 +36,7 @@ files.each do |file|
 					data = tr.text.to_s
 
 					p "--------Document------------"
-					p metadata, date
+					p metadata['xml:id'], date['when']
 					p data
 
 				end

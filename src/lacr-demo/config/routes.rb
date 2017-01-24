@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   # Documents routes
   get 'doc', to: "documents#index"
   get 'doc/new', to: "documents#new" # Must be accessible only from Admin
-  get 'doc/edit', to: "documents#edit" # Must be accessible only from Admin
+  # get 'doc/edit', to: "documents#edit" # Must be accessible only from Admin
   get 'doc/example', to: "documents#example" # Only for the prototype
-  post 'doc/new', to: "documents#create"
+  post 'doc/new', to: "documents#upload"
+  # post 'doc/edit', to: "documents#save"
   get 'doc/show', to: "documents#show"
 
   # Download routes

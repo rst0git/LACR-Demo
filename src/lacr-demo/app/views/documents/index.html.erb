@@ -1,19 +1,37 @@
 <hr>
-<div class="container">
-  <h1>Documents</h1> <hr>
-  <ul>
-    <% @documents.each do |document| %>
-      <li>
-        <h3>
-          <%= document.title %>
-        </h3>
-        <p>
-          <%= document.content %>
-        </p>
-      </li>
-    <% end -%>
-  </ul>
-  <%= link_to 'New Document', doc_new_path %>
-  <%= link_to 'Search', search_path %>
-</div>
+
+<% if !flash[:notice].blank? %>
+   <div class = "alert alert-info">
+      <%= flash[:notice] %>
+   </div>
+<% end %>
+
+<h1>Documents</h1> <hr>
+
+<table class = "table table-bordered table-striped">
+   <thead>
+      <tr>
+         <th>Tile</th>
+         <th>Download Link</th>
+         <th> </th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <% @documents.each do |document| %>
+
+         <tr>
+            <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
+            <td><%= button_to "Download" %></td>
+            <td><%= button_to "Edit" %></td>
+            <td><%= button_to "Delete", document, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{document.title}?" %></td>
+         </tr>
+
+      <% end %>
+   </tbody>
+
+</table>
+
+<%= link_to 'New Document', doc_new_path, class: "btn btn-primary"%>
+
 <hr>

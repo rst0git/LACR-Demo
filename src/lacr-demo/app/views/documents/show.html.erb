@@ -1,13 +1,10 @@
-<div class="container">
-	<p>
-	  <strong>Title:</strong>
-	  <%= @document.title %>
-	</p>
-
-	<p>
-	  <strong>Text:</strong>
-	  <%= @document.content %>
-	</p>
-
-	<%= link_to '<- Back', documents_path %>
+<hr />
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<strong><%= @document.title %></strong>
+	</div>
+	<div class="panel-body">
+		<%= @document.content %>
+	</div>
 </div>
+<%= link_to 'Back', doc_path, class: "btn btn-default" %>
