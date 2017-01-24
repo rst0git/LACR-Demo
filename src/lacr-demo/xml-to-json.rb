@@ -11,13 +11,20 @@
 #             * prints variables metadata, date, data
 
 
+require 'json'
+require "rails"
 require "nokogiri"
 
 files = Dir[ 'app/assets/transcriptions/*.xml' ]
 
 
 files.each do |file|
-	doc = Nokogiri::Slop (File.open(file))
+	file_content = File.open(file)
+	doc = Nokogiri::Slop (file_content.to_s)
+	doc_json = Hash.from_xml(file_content).to_json
+
+	p '------JSON-------'
+	p doc_json
 
 	doc.xpath('//body//div').each do |record|
 			if record.values.include? "court"
@@ -26,7 +33,7 @@ files.each do |file|
 
 				record.search('div').each do |tr|
 					metadata = Hash[tr.keys.zip(tr.values)]
-					data = tr.text.to_s.gsub(/\s+/, " ")
+					data = tr.text.to_s
 
 					p "--------Document------------"
 					p metadata, date
