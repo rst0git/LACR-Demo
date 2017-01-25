@@ -1,14 +1,14 @@
 #!/bin/bash
 # Description: Shell-script to start rails server
 
-read -r -p "Would you like to rebuild the docker image? [y/N] "
-if [[ $response =~ ^([yY][eE][sS]|[yY]) ]]
+read -r -p "Would you like to rebuild the docker image? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   docker-compose build
 fi
 
-read -r -p "Would you like to run \"rails db:create || rails db:migrate\"? [y/N] "
-if [[ $response =~ ^([yY][eE][sS]|[yY]) ]]
+read -r -p "Would you like to run \"rails db:create || rails db:migrate\"? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   docker-compose run web bash -c "rails db:create && rails db:migrate"
 fi
