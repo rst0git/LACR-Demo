@@ -1,6 +1,11 @@
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag    'pagination' %>
+<% end %>
+
 <h1>Articles Search</h1>
 
-<a href="/">Go back</a>
+<%= link_to 'Back', root_url, class: "btn btn-default" %>
+<a href="/"></a>
 
 <% if ! @documents.try(:suggestions).nil? %>
 
@@ -23,4 +28,9 @@
   <% end %>
 </ul>
 
-<%= will_paginate @documents %>
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @documents %>
+  </div>
+  <%= will_paginate @documents, :container => false %>
+</div>
