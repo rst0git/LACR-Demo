@@ -17,8 +17,10 @@
   <% @documents.each do |document| %>
     <li>
       <h3>
-        <%= link_to document.title, controller: "documents", action: "show", id: document.id%>
+        <%= link_to document.title, controller: "documents", action: "show", id: document.id %>
       </h3>
     </li>
   <% end %>
 </ul>
+
+<%= will_paginate @documents %>

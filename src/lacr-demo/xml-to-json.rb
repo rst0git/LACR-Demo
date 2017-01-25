@@ -37,8 +37,8 @@ files.each do |file|
 
 					p "--------Document------------"
 					p metadata['xml:id'], date['when']
-					p data
-
+					p tr.to_xml
+					return
 				end
 			end
 		end

@@ -5,7 +5,6 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag    'stickyfooter' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 <body>
@@ -83,5 +82,8 @@
         </div>
       </div>
     </footer>
+
+<%= yield :javascript_includes %>
+
 </body>
 </html>

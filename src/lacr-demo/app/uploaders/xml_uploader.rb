@@ -13,7 +13,7 @@ class XmlUploader < CarrierWave::Uploader::Base
   def extension_white_list
      %w(xml)
   end
-  
+
   private
   def xml_to_json
       doc = Nokogiri::Slop (File.open(current_path))
@@ -26,8 +26,12 @@ class XmlUploader < CarrierWave::Uploader::Base
 
             record.search('div').each do |tr|
               metadata = Hash[tr.keys.zip(tr.values)]
-              document = Document.new "title": metadata['xml:id'], 'content': tr.text.to_s
+
+              document = Document.new 'title': metadata['xml:id'], 'content': tr.to_xml, 'language': metadata['xml:lang'], 'date': date['when']
               document.save
+
+              searchable_content = Search.new 'title': metadata['xml:id'], 'content': tr.text.to_s.gsub(/\s+/, " ").strip, 'id': document.id
+              searchable_content.save
             end
 
           end

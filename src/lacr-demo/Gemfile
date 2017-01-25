@@ -13,6 +13,9 @@ gem 'devise'
 # Ruby Gem for interaction with Elasticsearch Server
 gem 'searchkick'
 
+# Pagination for search results
+gem 'will_paginate'
+
 # Ruby Gem of the Bootstrap CSS library
 gem 'bootstrap-sass'
 gem 'sass-rails'
