@@ -26,11 +26,11 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
-      @document = Document.find(params[:id])
       @search = Search.find(params[:id])
+      @document = Document.find(params[:id])
       title = @document.title
-      @document.destroy
       @search.destroy
+      @document.destroy
       redirect_to doc_path, notice:  "The document #{title} has been removed."
    end
 
