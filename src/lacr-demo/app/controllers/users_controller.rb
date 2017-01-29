@@ -5,9 +5,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    #if !user_exist? || !User.find(session[:user_id]).admin 
-    #  redirect_to root_url
-    #end
+    if !user_exist? || User.find(session[:user_id]).rights != 100
+      redirect_to root_url
+    end
     @users = User.all
   end
 
