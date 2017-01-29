@@ -13,20 +13,6 @@
 					:email_address => "test@test.com")
 @user.save
 
-@user = User.new(:first_name  => "test2", 
-					:last_name => "test2", 
-					:nick_name => "test2_nick", 
-					:password => "test2test2", 
-					:email_address => "test2@test.com")
-@user.save
-
-@user = User.new(:first_name  => "test3", 
-					:last_name => "test3", 
-					:nick_name => "test3_nick", 
-					:password => "test3test3", 
-					:email_address => "test3@test.com")
-@user.save
-
 @admin = User.new(:first_name  => "admin", 
 					:last_name => "root", 
 					:nick_name => "admin_nick", 
