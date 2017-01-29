@@ -48,14 +48,25 @@
                     <li>
                         <%= link_to "Contact", contact_path %>
                     </li>
-
-                    <%- if current_user %>
-                    <li>
-                        <%= link_to "Upload Document", doc_new_path %>
-                    </li>
-                    <li>
-                        <%= link_to "Accounts", documents_new_path %>
-                    </li>
+                    <!-- call this function user_exist? wherever you want -->
+                    <% if user_exist? %>
+                      <li> <a href='#'>Hello <%= session[:first_name] %> </a></li>
+                      <% if User.find(session[:user_id]).rights == 100 %>
+                        <li>
+                          <%= link_to 'Manage Users'.html_safe, controller: "users", action: "index" %>
+                        </li>
+                      <% end %>
+                      <li>
+                        <%= link_to 'Log Out'.html_safe, logout_path, :method => :delete, data: {confirm: "Are you sure?"} %>
+                      </li>
+                    <% else %>
+                      <li>
+                        <%= link_to 'Log In'.html_safe, controller: "session", action: "create" %>
+                      </li>
+                      <li>
+                        <%= link_to '<i class="fa fa-pencil"></i> Register'.html_safe, controller: "users", action: "new" %>
+                      </li>
+                      <li>&nbsp;</li>
                     <% end %>
                 </ul>
             </div>

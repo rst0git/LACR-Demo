@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  
+  controller :session do
+    get  'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+
+  get 'session/new'
+  
+  get 'session/create'
+
+  get 'session/destroy'
+
+  post 'users/permissions/:id' => 'users#permissions'
+  resources :users
+
   get 'search', to: 'search#search'
 
   resources :documents
@@ -22,12 +38,4 @@ Rails.application.routes.draw do
   get 'download/img'
   get 'download/tr', to: 'donwload#trancr'
 
-  # Admin routes
-  devise_scope :user do
-    get "/admin" => "devise/sessions#new"
-  end
-
-
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

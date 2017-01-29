@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  nick_name: MyString
+  email_address: MyString
+  hashed_password: MyString
+  salt: MyString
+  last_login: 2017-01-28 15:24:28
+  last_unsuccessful_login: 2017-01-28 15:24:28
+  unsuccessful_logins: 1
+  number_of_comments: 1
+  rights: 1
+  enabled: false
+
+two:
+  first_name: MyString
+  last_name: MyString
+  nick_name: MyString
+  email_address: MyString
+  hashed_password: MyString
+  salt: MyString
+  last_login: 2017-01-28 15:24:28
+  last_unsuccessful_login: 2017-01-28 15:24:28
+  unsuccessful_logins: 1
+  number_of_comments: 1
+  rights: 1
+  enabled: false
