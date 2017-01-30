@@ -50,21 +50,21 @@
                     </li>
                     <!-- call this function user_exist? wherever you want -->
                     <% if user_exist? %>
-                      <li> <a href='#'>Hello <%= session[:first_name] %> </a></li>
+                      <li> <%= link_to "Hello "+session[:first_name], edit_user_path(session[:user_id]) %></li>
                       <% if User.find(session[:user_id]).rights == 100 %>
                         <li>
-                          <%= link_to 'Manage Users'.html_safe, controller: "users", action: "index" %>
+                          <%= link_to 'Manage Users', controller: "users", action: "index" %>
                         </li>
                       <% end %>
                       <li>
-                        <%= link_to 'Log Out'.html_safe, logout_path, :method => :delete, data: {confirm: "Are you sure?"} %>
+                        <%= link_to 'Log Out', logout_path, :method => :delete, data: {confirm: "Are you sure?"} %>
                       </li>
                     <% else %>
                       <li>
-                        <%= link_to 'Log In'.html_safe, controller: "session", action: "create" %>
+                        <%= link_to 'Log In', controller: "session", action: "create" %>
                       </li>
                       <li>
-                        <%= link_to '<i class="fa fa-pencil"></i> Register'.html_safe, controller: "users", action: "new" %>
+                        <%= link_to 'Register', controller: "users", action: "new" %>
                       </li>
                       <li>&nbsp;</li>
                     <% end %>

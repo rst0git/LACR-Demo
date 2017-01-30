@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -65,16 +64,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def permissions
-    if user_exist? && User.find(session[:user_id]).admin
-      @user = User.find(params[:id])
-      connection = ActiveRecord::Base.connection
-      @set = @user.admin ? "false" : "true"
-      #switch permissions
-      connection.execute("UPDATE users SET admin=" + @set + " WHERE id=" + @user.id.to_s + ";") #won't work the "classic" way
+  def change_user_rights(user_id, value)
+    if user_exist? && User.find(session[:user_id]).rights == 100  # it is admin with rights 100
+      @user = User.find(user_id)
+      if value == 1
+        @user.update_attribute(rights, 1) #user has email confirmed
+      elsif value == 10
+        @user.update_attribute(rights, 10) #change rights to superuser
+      elsif value == 100
+        @user.update_attribute(rights, 100) #change rights to 
+      else
+        redirect_to users_url #wrong value
+      end
       redirect_to users_url
     else
-      redirect_to root_url
+      redirect_to root_url  #it was not admin
     end
   end
 

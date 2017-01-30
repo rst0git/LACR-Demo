@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170128152428) do
     t.datetime "last_unsuccessful_login"
     t.integer  "unsuccessful_logins",     default: 0
     t.integer  "number_of_comments",      default: 0
-    t.integer  "rights",                  default: 0
+    t.integer  "rights",                  default: 1
     t.boolean  "enabled",                 default: true
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false

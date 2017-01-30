@@ -9,19 +9,15 @@ class User < ApplicationRecord
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 	validates :email_address, :presence => true, :uniqueness => {case_sensitive: false}, format: { with: VALID_EMAIL_REGEX }, length: {maximum: 255}
 	validates :password, :confirmation => true, length: {minimum: 8}
-
-	attr_reader :password
-	
 	validate :password_must_be_present
-	
+	attr_reader :password 	#virtual attribute
+
 	# using PBKDF2 (Password-Based Key Derivation Function 2)
 	# https://ruby-doc.org/stdlib-2.0.0/libdoc/openssl/rdoc/OpenSSL/PKCS5.html
 	def User.hash_password(password, salt)
 		digest = OpenSSL::Digest::SHA256.new
 		saltted_password = OpenSSL::PKCS5.pbkdf2_hmac(password + "my_awesome_pepper", salt, 100_000, 32, digest)
 		saltted_password.unpack('H*')[0]
-		#digest = OpenSSL::Digest.new('sha256')
-		#OpenSSL::HMAC.hexdigest(digest, salt, password + "my_awesome_pepper")
 	end
 	
 	

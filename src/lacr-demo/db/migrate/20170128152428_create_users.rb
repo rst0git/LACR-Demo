@@ -12,7 +12,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.datetime :last_unsuccessful_login
       t.integer :unsuccessful_logins, default: 0
       t.integer :number_of_comments, default: 0
-      t.integer :rights, default: 0
+      t.integer :rights, default: 001   # 000 email not confirmed, 001 is user, 010 - is super user, 100, is admin which can change rights to other users
       t.boolean :enabled, default: true
 
       t.timestamps
