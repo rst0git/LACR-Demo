@@ -1,32 +1,38 @@
 <hr />
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<div class="row">
-			<div class="col-md-4">
-				<strong>Tile:</strong> <%= @document.title %>
-			</div>
-		</div>
+<div class="container">
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-4">
+						<strong>Tile:</strong> <%= @document.title %>
+					</div>
+				</div>
 
-		<div class="row">
-			<div class="col-md-4">
-				<strong>Date:</strong> <%= @document.date %>
-			</div>
-		</div>
+				<div class="row">
+					<div class="col-md-4">
+						<strong>Date:</strong> <%= @document.date %>
+					</div>
+				</div>
 
-		<div class="row">
-			<div class="col-md-4">
-				<strong>Language:</strong> <%= @document.language %>
-			</div>
-		</div>
-	</div>
-	<div class="panel-body">
-		<div id="json_content" style="display:none;">
-			<%= @document.content %>
-		</div>
+				<div class="row">
+					<div class="col-md-4">
+						<strong>Language:</strong> <%= @document.language %>
+					</div> <!-- col-md-4 -->
+				</div> <!-- row -->
+			</div> <!-- row -->
+			<div class="panel-body">
+				<div id="json_content" style="display:none;">
+					<%= @document.content %>
+				</div> <!-- json_content -->
+				<div id="processed_transcription"></div>
+			</div> <!-- panel-body -->
+		</div> <!-- panel panel-primary -->
+	</div> <!-- col-md-6 -->
+	<div class="col-md-6">
 
-		<div id="processed_transcription"></div>
-	</div>
-</div>
+	</div> <!-- col-md-6 -->
+</div> <!-- container -->
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "process_json_content.js" %>
 <% end %>
