@@ -41,6 +41,7 @@ class TranscriptionXml < ApplicationRecord
             searchable = Search.new
             searchable.title = metadata['xml:id']
             searchable.content = tr.text.to_s.gsub(/\s+/, " ").strip
+            # Use the same ID for the records in "Search" and "TranscriptionJsonParagraph" 
             searchable.id = transcription_json_paragraph.id
             searchable.transcription_json_paragraph = transcription_json_paragraph
             searchable.save

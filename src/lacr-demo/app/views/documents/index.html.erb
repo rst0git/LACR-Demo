@@ -27,7 +27,7 @@
       <tr>
          <th>Tile</th>
          <th>Download Link</th>
-         <th> </th>
+         <th>Destroy</th>
       </tr>
    </thead>
 
@@ -36,7 +36,8 @@
          <tr>
             <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
             <td><%= button_to "Download", {}, :disabled => true %></td>
-            <td><%= button_to "Delete", {}, :disabled => true %></td>
+            <td><%= button_to "Delete", { action: "destroy", id: document.id },
+                    :method => :delete, data:{ :confirm => 'Are you sure?'}%></td>
          </tr>
 
       <% end %>

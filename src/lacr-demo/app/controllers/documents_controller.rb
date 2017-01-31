@@ -30,9 +30,9 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
+      @document = TranscriptionJsonParagraph.find(params[:id])
       @search = Search.find(params[:id])
-      @document = TranscriptionXml.find(params[:id])
-      title = @document.title
+      title = @document.title # Save the title before remove the records
       @search.destroy
       @document.destroy
       redirect_to doc_path, notice:  "The document #{title} has been removed."

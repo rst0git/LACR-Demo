@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   controller :session do
     get  'login' => :new
     post 'login' => :create
@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   get 'session/new'
-  
+
   get 'session/create'
 
   get 'session/destroy'
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post 'doc/new', to: "documents#upload"
   # post 'doc/edit', to: "documents#save"
   get 'doc/show', to: "documents#show"
+  delete 'doc/destroy', to: "documents#destroy"
 
   # Download routes
   get 'download/zipped'
