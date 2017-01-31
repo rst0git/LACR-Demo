@@ -1,41 +1,16 @@
 class XmlUploader < CarrierWave::Uploader::Base
+  # permissions = 0700
   storage :file
-  process :xml_to_json
-
-  def content_type_whitelist
-    ['text/xml']
-  end
 
   def store_dir
-    "documents/transcriptions"
+    "uploads/xml/"
   end
 
-  def extension_white_list
-     %w(xml)
+  def extension_whitelist
+    %w(xml)
   end
 
-  private
-  def xml_to_json
-      doc = Nokogiri::Slop (File.open(current_path))
-      # doc_json = Hash.from_xml(file_content).to_json
-
-      doc.xpath('//body//div').each do |record|
-          if record.values.include? "court"
-            d = record.search('date')[0]
-            date = Hash[d.keys.zip(d.values)]
-
-            record.search('div').each do |tr|
-              metadata = Hash[tr.keys.zip(tr.values)]
-
-              document = Document.new 'title': metadata['xml:id'], 'content': tr.to_xml, 'language': metadata['xml:lang'], 'date': date['when']
-              document.save
-
-              searchable_content = Search.new 'title': metadata['xml:id'], 'content': tr.text.to_s.gsub(/\s+/, " ").strip, 'id': document.id
-              searchable_content.save
-            end
-
-          end
-
-        end
-      end
+  def content_type_whitelist
+      ['application/xml', 'text/xml']
+  end
 end

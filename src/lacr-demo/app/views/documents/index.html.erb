@@ -33,12 +33,10 @@
 
    <tbody>
       <% @documents.each do |document| %>
-
          <tr>
             <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
-            <td><%= button_to "Download" %></td>
-            <td><%= button_to "Edit" %></td>
-            <td><%= button_to "Delete", document, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{document.title}?" %></td>
+            <td><%= button_to "Download", {}, :disabled => true %></td>
+            <td><%= button_to "Delete", {}, :disabled => true %></td>
          </tr>
 
       <% end %>

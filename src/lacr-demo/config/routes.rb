@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'search', to: 'search#search'
 
-  resources :documents
+  # resources :documents
 
   # Home page routes
   root 'home#index'

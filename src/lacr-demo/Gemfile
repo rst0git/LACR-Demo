@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
 # This gem provides a simple and extremely flexible way to upload files
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+
+# Image resizing
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'

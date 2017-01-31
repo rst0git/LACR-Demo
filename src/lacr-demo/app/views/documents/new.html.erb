@@ -7,11 +7,13 @@
 <% end %>
 
 <div class = "well col-md-4">
-   <%= form_for @upload, url: doc_new_path, html: { multipart: true } do |f| %>
-      <%= f.label :xml %>
-      <%= f.file_field :xml %> <br />
+   <%= form_for @document, url: doc_new_path, html: { multipart: true } do |f| %>
+      <%= f.fields_for :transcription_xml do |t| %>
+        <%= t.label :xml %>
+        <%= t.file_field :xml,  accept: 'text/xml, application/xml' %> <br />
+      <% end %>
       <%= f.label :image %>
-      <%= f.file_field :image %> <br />
+      <%= f.file_field :image, accept: 'image/tiff, image/tiff-fx' %> <br />
       <%= f.submit "Upload", class: "btn btn-primary btn-block" %>
    <% end %>
 </div>

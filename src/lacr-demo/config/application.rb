@@ -16,6 +16,8 @@ Bundler.require(*Rails.groups)
 
 module LacrDemo
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # We want to set up a custom logger which logs to STDOUT.
     # Docker expects your application to log to STDOUT/STDERR and to be ran
     # in the foreground.
@@ -25,7 +27,7 @@ module LacrDemo
 
     # Since we're using Redis for Sidekiq, we might as well use Redis to back
     # our cache store. This keeps our application stateless as well.
-    config.cache_store = :redis_store, ENV['CACHE_URL'], 
+    config.cache_store = :redis_store, ENV['CACHE_URL'],
 			{ namespace: 'lacrdemo::cache' }
 
     # If you've never dealt with background workers before, this is the Rails
