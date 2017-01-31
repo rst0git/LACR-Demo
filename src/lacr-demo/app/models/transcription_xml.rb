@@ -33,7 +33,7 @@ class TranscriptionXml < ApplicationRecord
 
             transcription_json_paragraph = TranscriptionJsonParagraph.new
             transcription_json_paragraph.title = metadata['xml:id']
-            transcription_json_paragraph.content = Hash.from_xml(tr.to_xml)
+            transcription_json_paragraph.content = Hash.from_xml(tr.to_xml).to_json
             transcription_json_paragraph.language = metadata['xml:lang']
             transcription_json_paragraph.date = date['when']
             transcription_json_paragraph.save

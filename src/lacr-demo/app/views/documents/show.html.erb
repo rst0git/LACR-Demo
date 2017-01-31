@@ -20,15 +20,14 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<div id="xml" style="">
+		<div id="json_content" style="display:none;">
 			<%= @document.content %>
 		</div>
-		<div id="display_xml">
 
-		</div>
+		<div id="processed_transcription"></div>
 	</div>
 </div>
 <% content_for :javascript_includes do %>
-  <%= javascript_include_tag "display_xml.js" %>
+  <%= javascript_include_tag "process_json_content.js" %>
 <% end %>
 <%= link_to 'Back', doc_path, class: "btn btn-default" %>
