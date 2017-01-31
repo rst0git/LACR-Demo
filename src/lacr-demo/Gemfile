@@ -11,7 +11,7 @@ gem 'rails'
 gem 'rake'
 
 # Ruby Gem providing user authentication system
-gem 'devise'
+#gem 'devise'
 
 # Ruby Gem for interaction with Elasticsearch Server
 gem 'searchkick'
