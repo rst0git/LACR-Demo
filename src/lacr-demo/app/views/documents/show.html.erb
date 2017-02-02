@@ -34,12 +34,21 @@
 
 	<!-- Right Side: Image -->
 	<div class="col-md-6">
-		<%= image_tag(@document_image) %>
+		<span class='zoom' id="doc-image">
+			<%= image_tag(@document_image_normal, class:"img-rounded", maxheight: '800') %>
+		</span>
 	</div> <!-- col-md-6 -->
 	<!-- End of the right side -->
 
 </div> <!-- container -->
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "process_json_content.js" %>
+  <%= javascript_include_tag "jquery.zoom.min.js" %>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#doc-image').zoom({
+			url: '<%= @document_image_large %>'});
+	});
+	</script>
 <% end %>
 <%= link_to 'Back', doc_path, class: "btn btn-default" %>

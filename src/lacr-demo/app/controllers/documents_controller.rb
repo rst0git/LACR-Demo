@@ -9,7 +9,8 @@ class DocumentsController < ApplicationController
       # Retrieve the json record
       @document = TranscriptionJsonParagraph.find params[:id]
       # Get the image url
-      @document_image = @document.transcription_xml.page_image.image.web.url
+      @document_image_normal = @document.transcription_xml.page_image.image.normal.url
+      @document_image_large = @document.transcription_xml.page_image.image.large.url
     else
       redirect_to doc_path, notice:  "The document has not been found."
     end

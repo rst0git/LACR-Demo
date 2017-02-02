@@ -3,6 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( process_json_content.js )
+Rails.application.config.assets.precompile += %w( jquery.zoom.min.js )
 Rails.application.config.assets.precompile += %w( pagination.css )
 
 # Add additional assets to the asset load path

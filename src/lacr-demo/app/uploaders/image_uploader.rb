@@ -4,7 +4,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :file
 
   # Generate Web version
-  version :web do
+  version :large do
+    process :efficient_conversion => [2048,2048]
+  end
+
+  version :normal do
     process :efficient_conversion => [800,800]
   end
 
