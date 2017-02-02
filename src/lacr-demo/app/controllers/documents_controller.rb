@@ -6,7 +6,10 @@ class DocumentsController < ApplicationController
 
   def show
     if params.has_key?(:id)
+      # Retrieve the json record
       @document = TranscriptionJsonParagraph.find params[:id]
+      # Get the image url
+      @document_image = @document.transcription_xml.page_image.image.web.url
     else
       redirect_to doc_path, notice:  "The document has not been found."
     end
@@ -18,13 +21,18 @@ class DocumentsController < ApplicationController
   end
 
   def upload
-    # @document = PageImage.new(image_params).create_transcription_xml(xml_params)
+    # Create new PageImage instace
     @document = PageImage.new(document_params)
+    # Store the foregin key
+    @document.transcription_xml.page_image = @document
 
     if @document.save
+      # Parse the XML file
       @document.transcription_xml.xml_to_json
+      # Show all documets
       redirect_to doc_path, notice: "The files have been uploaded succesfully."
     else
+      # Otherwise go back to new documets
       render 'new'
     end
   end

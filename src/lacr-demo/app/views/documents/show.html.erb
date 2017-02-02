@@ -1,5 +1,6 @@
 <hr />
 <div class="container">
+	<!-- Left Side: Text contet -->
 	<div class="col-md-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -29,9 +30,14 @@
 			</div> <!-- panel-body -->
 		</div> <!-- panel panel-primary -->
 	</div> <!-- col-md-6 -->
-	<div class="col-md-6">
+	<!-- End of the left side -->
 
+	<!-- Right Side: Image -->
+	<div class="col-md-6">
+		<%= image_tag(@document_image) %>
 	</div> <!-- col-md-6 -->
+	<!-- End of the right side -->
+
 </div> <!-- container -->
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "process_json_content.js" %>

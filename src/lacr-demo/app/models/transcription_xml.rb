@@ -36,12 +36,14 @@ class TranscriptionXml < ApplicationRecord
             transcription_json_paragraph.content = Hash.from_xml(tr.to_xml).to_json
             transcription_json_paragraph.language = metadata['xml:lang']
             transcription_json_paragraph.date = date['when']
+            # Store the foregin key
+            transcription_json_paragraph.transcription_xml = self
             transcription_json_paragraph.save
 
             searchable = Search.new
             searchable.title = metadata['xml:id']
             searchable.content = tr.text.to_s.gsub(/\s+/, " ").strip
-            # Use the same ID for the records in "Search" and "TranscriptionJsonParagraph" 
+            # Use the same ID for the records in "Search" and "TranscriptionJsonParagraph"
             searchable.id = transcription_json_paragraph.id
             searchable.transcription_json_paragraph = transcription_json_paragraph
             searchable.save
