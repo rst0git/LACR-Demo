@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :patrons
   get 'search', to: 'search#search'
 
   # resources :documents

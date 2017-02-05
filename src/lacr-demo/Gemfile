@@ -6,12 +6,17 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 # Image resizing
 gem 'mini_magick'
 
+# Internationalization
+gem 'i18n'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 gem 'rake'
 
 # Ruby Gem providing user authentication system
-#gem 'devise'
+gem 'devise'
+
+# invitation model integrated
+gem 'devise_invitable'
 
 # Ruby Gem for interaction with Elasticsearch Server
 gem 'searchkick'
@@ -64,6 +69,10 @@ gem 'therubyracer'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+
+  # Preview email in the default browser instead of sending it
+  gem 'letter_opener'
+
 end
 
 group :development do
@@ -82,3 +91,10 @@ gem 'actionpack'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# active admin integration
+gem 'activeadmin', github: 'activeadmin' #refer https://github.com/activeadmin/activeadmin/issues/3926
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+
+# for exception notifier
+gem 'exception_notification'
