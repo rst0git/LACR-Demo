@@ -48,25 +48,6 @@ ActiveRecord::Schema.define(version: 20170128175604) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "first_name",                             null: false
-    t.string   "last_name",                              null: false
-    t.string   "nick_name",                              null: false
-    t.string   "email_address",                          null: false
-    t.string   "hashed_password"
-    t.string   "salt"
-    t.datetime "last_login"
-    t.datetime "last_unsuccessful_login"
-    t.integer  "unsuccessful_logins",     default: 0
-    t.integer  "number_of_comments",      default: 0
-    t.integer  "rights",                  default: 1
-    t.boolean  "enabled",                 default: true
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.index ["email_address"], name: "index_users_on_email_address", using: :btree
-    t.index ["nick_name"], name: "index_users_on_nick_name", using: :btree
-  end
-
   add_foreign_key "page_images", "transcription_json_paragraphs", on_delete: :cascade
   add_foreign_key "page_images", "transcription_xmls", on_delete: :cascade
   add_foreign_key "transcription_json_paragraphs", "searches", on_delete: :cascade

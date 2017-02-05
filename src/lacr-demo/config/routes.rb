@@ -1,20 +1,5 @@
 Rails.application.routes.draw do
 
-  controller :session do
-    get  'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
-
-  get 'session/new'
-
-  get 'session/create'
-
-  get 'session/destroy'
-
-  post 'users/permissions/:id' => 'users#permissions'
-  resources :users
-
   get 'search', to: 'search#search'
 
   # resources :documents

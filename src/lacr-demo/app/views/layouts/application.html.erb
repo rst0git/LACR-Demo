@@ -51,17 +51,18 @@
                         <%= link_to "Contact", contact_path %>
                     </li>
                     <!-- call this function user_exist? wherever you want -->
-                    <% if user_exist? %>
+                    <!--
+                    <% #if user_exist? %>
                       <li> <%= link_to "Hello "+session[:first_name], edit_user_path(session[:user_id]) %></li>
-                      <% if User.find(session[:user_id]).rights == 100 %>
+                      <% #if User.find(session[:user_id]).rights == 100 %>
                         <li>
                           <%= link_to 'Manage Users', controller: "users", action: "index" %>
                         </li>
-                      <% end %>
+                      <% #end %>
                       <li>
                         <%= link_to 'Log Out', logout_path, :method => :delete, data: {confirm: "Are you sure?"} %>
                       </li>
-                    <% else %>
+                    <% #else %>
                       <li>
                         <%= link_to 'Log In', controller: "session", action: "create" %>
                       </li>
@@ -69,7 +70,8 @@
                         <%= link_to 'Register', controller: "users", action: "new" %>
                       </li>
                       <li>&nbsp;</li>
-                    <% end %>
+                    <% #end %>
+                    -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
