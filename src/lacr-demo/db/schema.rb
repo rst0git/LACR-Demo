@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170205212818) do
     t.string   "user_name"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "type"
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"

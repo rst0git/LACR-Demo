@@ -1,4 +1,5 @@
 class DocumentsController < ApplicationController
+  #before_action :authenticate_user!, except: [:index, :show]
   def index
     # @pages = PageImage.paginate(:page => params[:page], :per_page => 10)
     @documents = TranscriptionJsonParagraph.paginate(:page => params[:page], :per_page => 10)

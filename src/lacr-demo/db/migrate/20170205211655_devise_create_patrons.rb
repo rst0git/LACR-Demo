@@ -33,6 +33,9 @@ class DeviseCreatePatrons < ActiveRecord::Migration[5.0]
       t.string :user_name
 
       t.timestamps null: false
+
+      # For STI implementation.
+      t.string :type
     end
 
     add_index :patrons, :email,                unique: true

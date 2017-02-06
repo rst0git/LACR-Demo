@@ -1,14 +1,23 @@
 Rails.application.routes.draw do
 
-  devise_for :patrons
-  get 'search', to: 'search#search'
+  devise_for :users
+  devise_for :admins, ActiveAdmin::Devise.config
 
-  # resources :documents
-
+  # below code to fix the active admin issue when table not exists in database as activeadmin tries to load every model.
+  # for reference https://github.com/activeadmin/activeadmin/issues/783
+  begin
+    ActiveAdmin.routes(self)
+  rescue Exception => e
+    puts "ActiveAdmin: #{e.class}: #{e}"
+  end
   # Home page routes
   root 'home#index'
   get '/about', to: 'home#about'
   get '/contact', to: 'home#contact'
+  
+  get 'search', to: 'search#search'
+
+  # resources :documents
 
   # Documents routes
   get 'doc', to: "documents#index"
