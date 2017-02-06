@@ -28,8 +28,6 @@ gem 'searchkick'
 gem 'will_paginate'
 
 # Ruby Gem of the Bootstrap CSS library
-gem "therubyracer"
-gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'bootstrap-sass'
 gem 'sass-rails'
