@@ -51,7 +51,27 @@
                       <%= link_to "Contact", contact_path %>
                     </li>
                     <!-- display only if user is logged in or show sign in link-->
-                    
+                     <!-- if user_signed_in? -->
+                      <!-- <li> -->
+                        <!-- Welcome  current_user.email  -->
+                      <!-- </li>
+                      <li> -->
+                         <!-- link_to 'edit profile', edit_user_registration_path(current_user)  -->
+                      <!-- </li>
+                      <li> -->
+                         <!-- link_to 'logout', eval("destroy_#{current_user.type.downcase}_session_path"), method: :delete  -->
+                      <!-- </li> -->
+                    <!-- else  -->
+                      <li>
+                         <!-- link_to 'Log in', new_user_session_path -->
+                         <%= link_to 'Log in', '/' %>
+                      </li>
+                      <li>
+                        <%= link_to 'Register', '/' %>
+                        <!-- link_to 'Register', new_user_registration_path  -->
+                      </li>
+
+                    <!-- end  -->
             </div>
             <!-- /.navbar-collapse -->
         </div>
