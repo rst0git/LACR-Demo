@@ -1,29 +1,25 @@
 Rails.application.routes.draw do
 
-  controller :session do
-    get  'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
+  devise_for :users
+  devise_for :admins, ActiveAdmin::Devise.config
+
+  # below code to fix the active admin issue when table not exists in database as activeadmin tries to load every model.
+  # for reference https://github.com/activeadmin/activeadmin/issues/783
+  begin
+    ActiveAdmin.routes(self)
+  rescue Exception => e
+    puts "ActiveAdmin: #{e.class}: #{e}"
   end
 
-  get 'session/new'
-
-  get 'session/create'
-
-  get 'session/destroy'
-
-  post 'users/permissions/:id' => 'users#permissions'
-  resources :users
-
+  # Search routes
   get 'search', to: 'search#search'
   get 'search/autocomplete', to: 'search#autocomplete'
-
-  # resources :documents
 
   # Home page routes
   root 'home#index'
   get '/about', to: 'home#about'
   get '/contact', to: 'home#contact'
+
 
   # Documents routes
   get 'doc', to: "documents#index"

@@ -48,27 +48,21 @@
                       <%= link_to "About", about_path %>
                     </li>
                     <li>
-                        <%= link_to "Contact", contact_path %>
+                      <%= link_to "Contact", contact_path %>
                     </li>
-                    <!-- call this function user_exist? wherever you want -->
-                    <% if user_exist? %>
-                      <li> <%= link_to "Hello "+session[:first_name], edit_user_path(session[:user_id]) %></li>
-                      <% if User.find(session[:user_id]).rights == 100 %>
-                        <li>
-                          <%= link_to 'Manage Users', controller: "users", action: "index" %>
-                        </li>
-                      <% end %>
+                    <!-- display only if user is logged in or show sign in link-->
+                    <% if user_signed_in? %>
                       <li>
-                        <%= link_to 'Log Out', logout_path, :method => :delete, data: {confirm: "Are you sure?"} %>
+                        Welcome <%= current_user.email %>
+                      </li>
+                      <li>
+                        <%= link_to 'edit profile', edit_user_registration_path(current_user) %>
+                      </li>
+                      <li>
+                        <%= link_to 'logout', eval("destroy_#{current_user.type.downcase}_session_path"), method: :delete %>
                       </li>
                     <% else %>
-                      <li>
-                        <%= link_to 'Log In', controller: "session", action: "create" %>
-                      </li>
-                      <li>
-                        <%= link_to 'Register', controller: "users", action: "new" %>
-                      </li>
-                      <li>&nbsp;</li>
+                      <%= link_to 'Log in', new_user_registration_path %>
                     <% end %>
                 </ul>
             </div>
@@ -76,7 +70,11 @@
         </div>
         <!-- /.container -->
     </nav>
-
+    <!-- flash messages -->
+    <div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
     <!-- Full Width Image Header -->
     <%= yield :header %>
     <!-- Page Content -->
