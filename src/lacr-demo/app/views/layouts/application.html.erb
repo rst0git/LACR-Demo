@@ -62,7 +62,12 @@
                         <%= link_to 'logout', eval("destroy_#{current_user.type.downcase}_session_path"), method: :delete %>
                       </li>
                     <% else %>
-                      <%= link_to 'Log in', new_user_registration_path %>
+                      <li>
+                        <%= link_to 'Log in', new_user_session_path %>
+                      </li>
+                      <li>
+                        <%= link_to 'Register', new_user_registration_path %>
+                      </li>                    
                     <% end %>
                 </ul>
             </div>
