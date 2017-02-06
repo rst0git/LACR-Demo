@@ -4,7 +4,7 @@ class SearchController < ApplicationController
       if Search.count.zero? # Fix search on empty table error msg
         redirect_to doc_path
       else
-        # Search.reindex
+        Search.reindex
         @documents = Search.search( params[:q].present? ? params[:q] : '*',
           fields: [:title, :content],
           highlight: {fields: {content: {fragment_size: 100}}},

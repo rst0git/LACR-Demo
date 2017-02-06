@@ -21,10 +21,6 @@
    *= require_self
    */
 
-a:link {
-  text-decoration: none;
-}
-
 .footer p{
   margin: 0;
   padding: 0;

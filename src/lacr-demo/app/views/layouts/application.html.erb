@@ -62,26 +62,14 @@
                         <%= link_to 'logout', eval("destroy_#{current_user.type.downcase}_session_path"), method: :delete %>
                       </li>
                     <% else %>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                       <li>
-                        <%= link_to 'Log in', new_user_registration_path %>
+                        <%= link_to 'Log in', new_user_session_path %>
                       </li>
                       <li>
                         <%= link_to 'Register', new_user_registration_path %>
                       </li>
-=======
-                      <%= link_to 'Log in', new_user_registration_path %>
->>>>>>> parent of c94dce9... added registration path to application layout
-=======
-                      <%= link_to 'Log in', new_user_registration_path %>
->>>>>>> parent of c94dce9... added registration path to application layout
-=======
-                      <%= link_to 'Log in', new_user_registration_path %>
->>>>>>> parent of c94dce9... added registration path to application layout
+
                     <% end %>
-                </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
