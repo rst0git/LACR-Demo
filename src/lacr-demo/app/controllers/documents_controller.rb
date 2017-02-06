@@ -1,6 +1,5 @@
 class DocumentsController < ApplicationController
   def index
-    # @pages = PageImage.paginate(:page => params[:page], :per_page => 10)
     @documents = TranscriptionJsonParagraph.paginate(:page => params[:page], :per_page => 10)
   end
 
@@ -11,6 +10,8 @@ class DocumentsController < ApplicationController
       # Get the image url
       @document_image_normal = @document.transcription_xml.page_image.image.normal.url
       @document_image_large = @document.transcription_xml.page_image.image.large.url
+      #Get list of documents from this image
+      @documents_list = TranscriptionJsonParagraph.where(transcription_xml: @document.transcription_xml).order("title ASC").pluck(:id, :title)
     else
       redirect_to doc_path, notice:  "The document has not been found."
     end

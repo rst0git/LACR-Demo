@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'search', to: 'search#search'
+  get 'search/autocomplete', to: 'search#autocomplete'
 
   # resources :documents
 

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # This gem provides a simple and extremely flexible way to upload files
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 
 # Image resizing
 gem 'mini_magick'
@@ -13,6 +13,9 @@ gem 'rake'
 # Ruby Gem providing user authentication system
 #gem 'devise'
 
+# Autocomplete
+gem 'twitter-typeahead-rails'
+
 # Ruby Gem for interaction with Elasticsearch Server
 gem 'searchkick'
 
@@ -20,6 +23,9 @@ gem 'searchkick'
 gem 'will_paginate'
 
 # Ruby Gem of the Bootstrap CSS library
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 gem 'bootstrap-sass'
 gem 'sass-rails'
 

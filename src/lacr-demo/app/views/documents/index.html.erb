@@ -1,51 +1,56 @@
+
 <% content_for :stylesheet_includes do %>
   <%= stylesheet_link_tag    'pagination' %>
 <% end %>
 
-<hr>
+<div class="container" id="main">
+  <hr>
 
-<% if !flash[:notice].blank? %>
-   <div class = "alert alert-info">
-      <%= flash[:notice] %>
-   </div>
-<% end %>
+  <% if !flash[:notice].blank? %>
+     <div class = "alert alert-info">
+        <%= flash[:notice] %>
+     </div>
+  <% end %>
 
-<div class="row vertical-align">
-  <div class="col-md-6">
-    <h1>Documents</h1>
-  </div>
-  <div class="col-md-6">
-    <div class="text-right">
-      <%= link_to 'New Document', doc_new_path, class: "btn btn-primary"%>
+  <div class="row vertical-align">
+    <div class="col-md-6">
+      <h1>Documents</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="text-right">
+        <%= link_to 'New Document', doc_new_path, class: "btn btn-primary"%>
+      </div>
     </div>
   </div>
-</div>
-<hr>
+  <hr>
 
-<table class = "table table-bordered table-striped">
-   <thead>
-      <tr>
-         <th>Tile</th>
-         <th>Download Link</th>
-         <th>Destroy</th>
-      </tr>
-   </thead>
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Tile</th>
+           <th>Download Link</th>
+           <th>Destroy</th>
+        </tr>
+     </thead>
 
-   <tbody>
-      <% @documents.each do |document| %>
-         <tr>
-            <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
-            <td><%= button_to "Download", {}, :disabled => true %></td>
-            <td><%= button_to "Delete", { action: "destroy", id: document.id },
-                    :method => :delete, data:{ :confirm => 'Are you sure?'}%></td>
-         </tr>
+     <tbody>
+        <% @documents.each do |document| %>
+           <tr>
+              <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
+              <td><%= button_to "Download", {}, :disabled => true %></td>
+              <td><%= button_to "Delete", { action: "destroy", id: document.id },
+                      :method => :delete, data:{ :confirm => 'Are you sure?'}%></td>
+           </tr>
 
-      <% end %>
-   </tbody>
+        <% end %>
+     </tbody>
 
-</table>
-<div class="digg_pagination">
-  <%= will_paginate @documents, :container => false %>
-</div>
+  </table>
+  <div class="text-center">
+    <div class="digg_pagination">
+      <%= will_paginate @documents, :container => false %>
+    </div>
+  </div>
 
-<hr>
+  <hr>
+</div> <!-- /.container -->

@@ -2,11 +2,6 @@
   <%= stylesheet_link_tag    'pagination' %>
 <% end %>
 
-<h1>Articles Search</h1>
-
-<%= link_to 'Back', root_url, class: "btn btn-default" %>
-<a href="/"></a>
-
 <% if ! @documents.try(:suggestions).nil? %>
 
   <% if @documents.try(:suggestions).length != 0 %>
@@ -24,13 +19,19 @@
       <h3>
         <%= link_to document.title, controller: "documents", action: "show", id: document.id %>
       </h3>
+      <% if document.try(:search_highlights) %>
+          <p><%= document.search_highlights[:content].html_safe %>...</p>
+      <% else %>
+          <p><%= raw truncate(document.content, :length => 150) %></p>
+      <% end %>
     </li>
   <% end %>
 </ul>
-
-<div class="digg_pagination">
-  <div class="page_info">
-    <%= page_entries_info @documents %>
+<div class="text-center">
+  <div class="digg_pagination">
+    <div class="page_info">
+      <%= page_entries_info @documents %>
+    </div>
+    <%= will_paginate @documents, :container => false %>
   </div>
-  <%= will_paginate @documents, :container => false %>
 </div>

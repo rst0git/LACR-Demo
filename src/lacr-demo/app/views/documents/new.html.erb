@@ -1,19 +1,21 @@
-<h1>Upload new document</h1>
+<div class="text-center">
+  <h1>Upload new document</h1>
 
-<% if !flash[:notice].blank? %>
-   <div class = "alert alert-info">
-      <%= flash[:notice] %>
-   </div>
-<% end %>
+  <% if !flash[:notice].blank? %>
+     <div class = "alert alert-info">
+        <%= flash[:notice] %>
+     </div>
+  <% end %>
 
-<div class = "well col-md-4">
-   <%= form_for @document, url: doc_new_path, html: { multipart: true } do |f| %>
-      <%= f.fields_for :transcription_xml do |t| %>
-        <%= t.label :xml %>
-        <%= t.file_field :xml,  accept: 'text/xml, application/xml' %> <br />
-      <% end %>
-      <%= f.label :image %>
-      <%= f.file_field :image, accept: 'image/tiff, image/tiff-fx' %> <br />
-      <%= f.submit "Upload", class: "btn btn-primary btn-block" %>
-   <% end %>
-</div>
+  <div class="well center-box-sm">
+     <%= form_for @document, url: doc_new_path, html: { multipart: true } do |f| %>
+        <%= f.fields_for :transcription_xml do |t| %>
+          <%= t.label :xml %>
+          <%= t.file_field :xml,  accept: 'text/xml, application/xml' %> <br />
+        <% end %>
+        <%= f.label :image %>
+        <%= f.file_field :image, accept: 'image/tiff, image/tiff-fx' %> <br />
+        <%= f.submit "Upload", class: "btn btn-primary btn-block" %>
+     <% end %>
+  </div>
+</div> <!-- /.container -->

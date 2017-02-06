@@ -1,46 +1,65 @@
 <hr />
-<div class="container">
-	<!-- Left Side: Text contet -->
-	<div class="col-md-6">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-md-4">
-						<strong>Tile:</strong> <%= @document.title %>
-					</div>
-				</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1">
+				<div class="sidebar-nav">
+					<li class="nav-header">Paragraphs</li>
+					<ul class="nav nav-list">
+						<% @documents_list.each do |doc_id, doc_title| %>
+						<% if doc_id == @document.id %> <li class="active"> <%else%> <li> <%end%>
+							<%= link_to doc_title, controller: "documents", action: "show", id: doc_id %>
+						</li>
+						<% end %>
+					</ul> <!-- <ul class="nav nav-list"> -->
+					</div> <!-- <div class="well sidebar-nav"> -->
+					</div> <!-- <div class="span3"> -->
+			<div class="col-md-10" id="transcription-image">
+				<div class="container">
+					<!-- Left Side: Text contet -->
+					<div class="col-md-6">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-4">
+										<strong>Tile:</strong> <%= @document.title %>
+									</div>
+								</div>
 
-				<div class="row">
-					<div class="col-md-4">
-						<strong>Date:</strong> <%= @document.date %>
-					</div>
-				</div>
+								<div class="row">
+									<div class="col-md-4">
+										<strong>Date:</strong> <%= @document.date %>
+									</div>
+								</div>
 
-				<div class="row">
-					<div class="col-md-4">
-						<strong>Language:</strong> <%= @document.language %>
-					</div> <!-- col-md-4 -->
-				</div> <!-- row -->
-			</div> <!-- row -->
-			<div class="panel-body">
-				<div id="json_content" style="display:none;">
-					<%= @document.content %>
-				</div> <!-- json_content -->
-				<div id="processed_transcription"></div>
-			</div> <!-- panel-body -->
-		</div> <!-- panel panel-primary -->
-	</div> <!-- col-md-6 -->
-	<!-- End of the left side -->
+								<div class="row">
+									<div class="col-md-4">
+										<strong>Language:</strong> <%= @document.language %>
+									</div> <!-- col-md-4 -->
+								</div> <!-- row -->
+							</div> <!-- row -->
+							<div class="panel-body">
+								<div id="json_content" style="display:none;">
+									<%= @document.content %>
+								</div> <!-- json_content -->
+								<div id="processed_transcription"></div>
+							</div> <!-- panel-body -->
+						</div> <!-- panel panel-primary -->
+					</div> <!-- col-md-6 -->
+					<!-- End of the left side -->
 
-	<!-- Right Side: Image -->
-	<div class="col-md-6">
-		<span class='zoom' id="doc-image">
-			<%= image_tag(@document_image_normal, class:"img-rounded", maxheight: '800') %>
-		</span>
-	</div> <!-- col-md-6 -->
-	<!-- End of the right side -->
+					<!-- Right Side: Image -->
+					<div class="col-md-6">
+						<span class='zoom' id="doc-image">
+							<%= image_tag(@document_image_normal, class:"img-rounded img-responsive") %>
+						</span>
+					</div> <!-- col-md-6 -->
+					<!-- End of the right side -->
+				</div> <!-- container -->
+			</div> <!-- <div class="col-md-10"> -->
+		</div> <!-- <div class="row"> -->
+	</div> <!-- <div class="container"> -->
+</div> <!-- /.main-container -->
 
-</div> <!-- container -->
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "process_json_content.js" %>
   <%= javascript_include_tag "jquery.zoom.min.js" %>
@@ -51,4 +70,3 @@
 	});
 	</script>
 <% end %>
-<%= link_to 'Back', doc_path, class: "btn btn-default" %>

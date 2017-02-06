@@ -4,7 +4,9 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( process_json_content.js )
 Rails.application.config.assets.precompile += %w( jquery.zoom.min.js )
+Rails.application.config.assets.precompile += %w( application.scss )
 Rails.application.config.assets.precompile += %w( pagination.css )
+Rails.application.config.assets.precompile += %w( typeahead.css )
 
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
