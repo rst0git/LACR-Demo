@@ -57,7 +57,7 @@ class DocumentsController < ApplicationController
       image_files['image'].each do |file|
         t = PageImage.new
         t.image = file
-        t.parse_filename_to_volume_page
+        t.parse_filename_to_volume_page file.original_filename
         if t.save!
           @succesfully_uploaded[:image].push(file.original_filename)
         end
