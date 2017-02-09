@@ -6,7 +6,7 @@ ENV http_proxy="http://proxy.abdn.ac.uk:8080"
 
 RUN echo 'Acquire::http::Proxy "http://proxy.abdn.ac.uk:8080/";' > /etc/apt/apt.conf
 
-RUN apt-get update -qq && apt-get -y install build-essential libpq-dev nodejs curl
+RUN apt-get update -qq && apt-get -y install build-essential libpq-dev nodejs curl imagemagick
 
 RUN mkdir -p /lacr-demo
 WORKDIR /lacr-demo
