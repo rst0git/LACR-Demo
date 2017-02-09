@@ -1,72 +1,84 @@
 <hr />
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-1">
-				<div class="sidebar-nav">
-					<li class="nav-header">Paragraphs</li>
-					<ul class="nav nav-list">
-						<% @documents_list.each do |doc_id, doc_title| %>
-						<% if doc_id == @document.id %> <li class="active"> <%else%> <li> <%end%>
-							<%= link_to doc_title, controller: "documents", action: "show", id: doc_id %>
-						</li>
-						<% end %>
-					</ul> <!-- <ul class="nav nav-list"> -->
-					</div> <!-- <div class="well sidebar-nav"> -->
-					</div> <!-- <div class="span3"> -->
+      <% if @documents_list %>
+  			<div class="col-md-1">
+  				<div class="sidebar-nav">
+  					<ul class="nav nav-list">
+              <li class="nav-header">Volume <%= @volume %></li>
+  						<% @documents_list.each do |document| %>
+    						<% if document.page == @page %><li class="active"><% else %><li><%end%>
+    							<%= link_to "Page: #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: @volume}%>
+    						</li>
+  						<% end %>
+  					</ul> <!-- <ul class="nav nav-list"> -->
+  					</div> <!-- <div class="sidebar-nav"> -->
+  				</div> <!-- <div class="col-md-1"> -->
+        <% end %>
 			<div class="col-md-10" id="transcription-image">
 				<div class="container">
 					<!-- Left Side: Text contet -->
 					<div class="col-md-6">
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-md-4">
-										<strong>Tile:</strong> <%= @document.title %>
-									</div>
-								</div>
 
-								<div class="row">
-									<div class="col-md-4">
-										<strong>Date:</strong> <%= @document.date %>
+            <% @documents.each do |document| %>
+  						<div class="panel panel-primary">
+  							<div class="panel-heading">
+  								<div class="row">
+  									<div class="col-md-4">
+  										<strong>ID:</strong> <%= document.entry %>
+  									</div>
+  									<div class="col-md-4">
+  										<strong>Date:</strong> <%= document.date %>
+  									</div>
+  									<div class="col-md-4">
+  										<strong>Language:</strong> <%= document.lang %>
+  									</div> <!-- col-md-4 -->
+  								</div> <!-- row -->
+  							</div> <!-- row -->
+  							<div class="panel-body">
+									<pre class="prettyprint transcription texl-left" style="display: none;white-space: pre-wrap;">
+										<code class="language-xml" style="margin-left: 2em;">
+											<%= document.tr_paragraph.content_xml.strip.gsub(/\s+/, ' ')%>
+										</code> <!-- xml_content -->
+									</pre>
+  								<div class="transcription">
+										<%= document.tr_paragraph.content_xml.html_safe %>
 									</div>
-								</div>
+									<div class="panel-footer">
+										<button class="btn btn-sm" onclick="toggle_xml(this);">XML</button>
+									</div>
+  							</div> <!-- panel-body -->
+  						</div> <!-- panel panel-primary -->
+            <% end %>
 
-								<div class="row">
-									<div class="col-md-4">
-										<strong>Language:</strong> <%= @document.language %>
-									</div> <!-- col-md-4 -->
-								</div> <!-- row -->
-							</div> <!-- row -->
-							<div class="panel-body">
-								<div id="json_content" style="display:none;">
-									<%= @document.content %>
-								</div> <!-- json_content -->
-								<div id="processed_transcription"></div>
-							</div> <!-- panel-body -->
-						</div> <!-- panel panel-primary -->
 					</div> <!-- col-md-6 -->
 					<!-- End of the left side -->
 
 					<!-- Right Side: Image -->
 					<div class="col-md-6">
-						<span class='zoom' id="doc-image">
-							<%= image_tag(@document_image_normal, class:"img-rounded img-responsive") %>
-						</span>
+            <% if @document_image_normal %>
+  						<span class='zoom' id="doc-image">
+  							<%= image_tag(@document_image_normal, class:"img-rounded img-responsive") %>
+  						</span>
+            <% else %>
+            <span>The scanned image of this document has not been uploaded, yet!</span>
+            <% end %>
 					</div> <!-- col-md-6 -->
 					<!-- End of the right side -->
 				</div> <!-- container -->
-			</div> <!-- <div class="col-md-10"> -->
+			</div> <!-- <div class="col-md-10" id="transcription-image"> -->
 		</div> <!-- <div class="row"> -->
-	</div> <!-- <div class="container"> -->
-</div> <!-- /.main-container -->
+	</div> <!-- <div class="container-fluid"> -->
 
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag "process_json_content.js" %>
+  <%= javascript_include_tag "prettify.js" %>
+	<%= javascript_include_tag "xml2html.js" %>
   <%= javascript_include_tag "jquery.zoom.min.js" %>
+
+	<!-- Include jQuery Syntax Highlighter -->
 	<script type="text/javascript">
 	$(document).ready(function(){
+		$.SyntaxHighlighter.init();
 		$('#doc-image').zoom({
 			url: '<%= @document_image_large %>'});
 	});
 	</script>
-<% end %>

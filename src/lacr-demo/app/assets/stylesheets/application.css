@@ -1,7 +1,88 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
- *= require_self
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
  *= require_tree .
-*/
+ *= require_self
+ */
+
+ /*Sticky the foother to bottom of the page*/
+ footer p{
+   margin: 0;
+   padding: 0;
+ }
+
+ .footer {
+     width:100%;
+     min-height:20px;
+     background-color: #333;
+     color:#ffffff;
+     font-size:12px;
+ }
+
+/*The style for the menu*/
+ .navbar-inverse{
+   background: #333;
+ }
+
+ .nav-header {
+   display: block;
+   padding: 3px 15px;
+   font-size: 11px;
+   font-weight: bold;
+   line-height: 20px;
+   color: #999999;
+   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+   text-transform: uppercase;
+ }
+
+ .nav-list > li > a {
+   padding: 3px 15px;
+ }
+
+ .nav-list > .active > a,
+ .nav-list > .active > a:hover,
+ .nav-list > .active > a:focus {
+   color: #ffffff;
+   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+   background-color: #0088cc;
+ }
+
+/*The list of links on the left side of the page */
+ .sidebar-nav .nav {
+   list-style: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   z-index: 1000;
+   float: left;
+   min-width: 120px;
+   max-width: 120px;
+   max-height: 500px;
+   overflow-y: auto;
+   padding:0;
+   margin: 0;
+   font-size: 14px;
+   text-align: left;
+   background-color: #ffffff;
+   border: 1px solid rgba(0, 0, 0, 0.15);
+   border-radius: 4px;
+   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+ }
+
+/*Small box for Upload files*/
+ .center-box-sm{
+   display: inline-block;
+   width: 400px;
+   text-align: left;
+ }

@@ -16,9 +16,10 @@
 <ul>
   <% @documents.each do |document| %>
     <li>
-      <h3>
-        <%= link_to document.title, controller: "documents", action: "show", id: document.id %>
-      </h3>
+      <h4>
+        <%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %>
+      </h4>
+      <h5><%= document.entry %></h5>
       <% if document.try(:search_highlights) %>
           <p><%= document.search_highlights[:content].html_safe %>...</p>
       <% else %>

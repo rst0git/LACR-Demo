@@ -1,20 +1,28 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  # permissions = 0700
   storage :file
 
   # Generate Web version
   version :large do
     process :efficient_conversion => [2048,2048]
+    def filename
+      super.chomp(File.extname(super)) + '.jpeg' if original_filename.present?
+    end
   end
 
   version :normal do
     process :efficient_conversion => [800,800]
+    def filename
+      super.chomp(File.extname(super)) + '.jpeg' if original_filename.present?
+    end
   end
 
   # Generate thumbnail version
   version :thumb do
     process :efficient_conversion => [200,200]
+    def filename
+      super.chomp(File.extname(super)) + '.jpeg' if original_filename.present?
+    end
   end
 
   def store_dir
@@ -23,7 +31,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def efficient_conversion(width, height)
     manipulate! do |img|
-      img.format("png") do |c|
+      img.format("JPEG") do |c|
         c.fuzz        "3%"
         c.trim
         c.resize      "#{width}x#{height}>"

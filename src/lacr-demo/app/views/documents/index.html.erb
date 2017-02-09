@@ -27,7 +27,7 @@
   <table class = "table table-bordered table-striped">
      <thead>
         <tr>
-           <th>Tile</th>
+           <th>Volume and Page</th>
            <th>Download Link</th>
            <th>Destroy</th>
         </tr>
@@ -36,7 +36,7 @@
      <tbody>
         <% @documents.each do |document| %>
            <tr>
-              <td><%= link_to document.title, controller: "documents", action: "show", id: document.id%></td>
+              <td><%= link_to "Volume: #{document.volume} Page: #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></td>
               <td><%= button_to "Download", {}, :disabled => true %></td>
               <td><%= button_to "Delete", { action: "destroy", id: document.id },
                       :method => :delete, data:{ :confirm => 'Are you sure?'}%></td>

@@ -84,15 +84,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-   #default url options
-  config.action_mailer.default_url_options = { host: 'localhost', port: 80 }
-
-  #exception notifier settings
-  Rails.application.config.middleware.use ExceptionNotification::Rack,
-                                          :email => {
-                                              :deliver_with => :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
-                                              :email_prefix => "[PREFIX] ",
-                                              :sender_address => %{"notifier" <notifier@example.com>},
-                                              :exception_recipients => %w{exceptions@example.com}
-                                          }
+  # Searchkick good practices
+  config.lograge.custom_options = lambda do |event|
+    options = {}
+    options[:search] = event.payload[:searchkick_runtime] if event.payload[:searchkick_runtime].to_f > 0
+    options
+  end
 end
