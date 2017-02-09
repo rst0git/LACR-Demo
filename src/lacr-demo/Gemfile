@@ -39,7 +39,7 @@ gem 'turbolinks', '~> 5'
 # Ruby Gem of the Bootstrap
 gem "twitter-bootstrap-rails"
 # File upload
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 # Image resizing
 gem 'mini_magick'
 # Pagination library
