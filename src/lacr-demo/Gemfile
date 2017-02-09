@@ -30,7 +30,7 @@ gem 'turbolinks', '~> 5'
 gem 'less-rails' # Javascript runtime
 gem 'twitter-bootstrap-rails'
 # File upload
-gem 'carrierwave'
+# gem 'carrierwave' # install from file 
 # Image resizing
 gem 'mini_magick'
 # Pagination library
