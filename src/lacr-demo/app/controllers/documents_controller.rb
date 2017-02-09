@@ -48,7 +48,7 @@ class DocumentsController < ApplicationController
           @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{file.original_filename}")
         end
       end
-      Search.reindex(resume: true)
+      Search.reindex()
     end
 
     if params.has_key?(:page_image)
