@@ -4,7 +4,7 @@ Charlie team repository, _Law in the Aberdeen Council Registers 1398-1511_
 The repository structure is roughly modelled on the structure of GNU coreutils, in the hope that it's familiar, with a few changes:
 
 ## Getting Started
-Install Docker
+Install [Docker](https://docs.docker.com/engine/installation/)
 - [Debian](https://docs.docker.com/v1.12/engine/installation/linux/debian/)
 - [Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04#step-1-—-installing-docker)
 - [Linux Mint](http://linuxbsdos.com/2016/12/13/how-to-install-docker-and-run-docker-containers-on-linux-mint-1818-1/)
