@@ -36,10 +36,8 @@
   								</div> <!-- row -->
   							</div> <!-- row -->
   							<div class="panel-body">
-									<pre class="prettyprint transcription texl-left" style="display: none;white-space: pre-wrap;">
-										<code class="language-xml" style="margin-left: 2em;">
-											<%= document.tr_paragraph.content_xml.strip.gsub(/\s+/, ' ')%>
-										</code> <!-- xml_content -->
+									<pre class="prettyprint transcription" style="display: none;">
+										<code class="language-xml"><%= document.tr_paragraph.content_xml.gsub(/[ ]+]/, ' ')%></code> <!-- xml_content -->
 									</pre>
   								<div class="transcription">
 										<%= document.tr_paragraph.content_xml.html_safe %>
@@ -70,14 +68,11 @@
 		</div> <!-- <div class="row"> -->
 	</div> <!-- <div class="container-fluid"> -->
 
-  <%= javascript_include_tag "prettify.js" %>
 	<%= javascript_include_tag "xml2html.js" %>
   <%= javascript_include_tag "jquery.zoom.min.js" %>
-
 	<!-- Include jQuery Syntax Highlighter -->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$.SyntaxHighlighter.init();
 		$('#doc-image').zoom({
 			url: '<%= @document_image_large %>'});
 	});
