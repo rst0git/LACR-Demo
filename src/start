@@ -4,13 +4,21 @@
 read -r -p "Would you like to rebuild the docker image? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  docker-compose build
+	read -r -p "Would you like to NOT build the rails container through University proxy server? [y/N] " response
+	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+	then
+		docker-compose build
+	else
+	  	docker-compose build -f Dockerfile_with_proxy
+	fi
 fi
 
-read -r -p "Would you like to run \"rails db:create || rails db:migrate\"? [y/N] " response
+read -r -p "Would you like to run \"rails db:drop db:create db:migrate\"? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  docker-compose run web bash -c "rails db:create && rails db:migrate"
+  docker-compose run web bash -c "rails db:drop && rails db:create && rails db:migrate"
 fi
 
+echo ''
+echo 'Starting containers ....'
 docker-compose up

@@ -12,9 +12,6 @@ services:
     ports:
      - "9200:9200"
 
-  redis:
-    image: redis:3.0.7
-
   web:
     build: .
     command: bundle exec rails s -p 80 -b '0.0.0.0'
@@ -22,8 +19,7 @@ services:
     volumes:
       - ./lacr-demo:/lacr-demo
     ports:
-      - "80:80"
+      - "80:3000"
     depends_on:
       - es
       - db
-      - redis
