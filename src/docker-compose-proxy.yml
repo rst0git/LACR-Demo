@@ -14,8 +14,8 @@ services:
 
   web:
     build:
-		context: .
-		dockerfile: Dockerfile_with_proxy
+	  context: .
+	  dockerfile: Dockerfile_with_proxy
 
     command: bundle exec rails s -p 80 -b '0.0.0.0'
     
