@@ -9,7 +9,7 @@ then
 	then
 		docker-compose build
 	else
-	  	docker-compose build -f Dockerfile_with_proxy
+	  	docker-compose build -f docker-compose-proxy.yml
 	fi
 fi
 
