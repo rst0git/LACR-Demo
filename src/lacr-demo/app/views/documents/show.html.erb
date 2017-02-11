@@ -56,7 +56,7 @@
 					<div class="col-md-6">
             <% if @document_image_normal %>
   						<span class='zoom' id="doc-image">
-  							<%= image_tag(@document_image_normal, class:"img-rounded img-responsive") %>
+  							<%= image_tag(@document_image_normal, class:"img-rounded img-responsive"), data:	{large_image: @document_image_large} %>
   						</span>
             <% else %>
             <span>The scanned image of this document has not been uploaded, yet!</span>
@@ -67,13 +67,3 @@
 			</div> <!-- <div class="col-md-10" id="transcription-image"> -->
 		</div> <!-- <div class="row"> -->
 	</div> <!-- <div class="container-fluid"> -->
-
-	<%= javascript_include_tag "xml2html.js" %>
-  <%= javascript_include_tag "jquery.zoom.min.js" %>
-	<!-- Include jQuery Syntax Highlighter -->
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#doc-image').zoom({
-			url: '<%= @document_image_large %>'});
-	});
-	</script>

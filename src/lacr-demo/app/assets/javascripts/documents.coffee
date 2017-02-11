@@ -5,3 +5,7 @@
 //= require prettify.js
 //= require xml2html.js
 //= require jquery.zoom.min.js
+
+$(document).ready ->
+  $('#doc-image').zoom url: $('#doc-image img').data('large_image') # Javascript for image zoom on hover
+  return
