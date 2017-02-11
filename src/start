@@ -1,15 +1,22 @@
 #!/bin/bash
 # Description: Shell-script to start rails server
 
+# To romove created containers execute "docker-compose down"
+
 read -r -p "Would you like to rebuild the docker image? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-	read -r -p "Would you like to NOT build the rails container through University proxy server? [y/N] " response
-	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+	if [[ -n "$HTTP_PROXY" ]]
 	then
-		docker-compose build
+		read -r -p "Would you like}ike to NOT build the rails container behind the University proxy server? [y/N] " response
+		if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+		then
+			docker-compose build
+		else
+	  		docker-compose -f docker-compose-proxy.yml build --build-arg http_proxy=$HTTP_PROXY
+		fi
 	else
-	  	docker-compose -f docker-compose-proxy.yml build
+		docker-compose build
 	fi
 fi
 
@@ -18,7 +25,6 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   docker-compose run web bash -c "rails db:drop && rails db:create && rails db:migrate"
 fi
-
 echo ''
 echo 'Starting containers ....'
 docker-compose up

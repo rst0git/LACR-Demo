@@ -14,6 +14,7 @@ class CreateSearches < ActiveRecord::Migration[5.0]
       t.text :content
 
       t.date :date
+      t.string :date_incorrect # Used to explicity specify Date that was in incorrect format 
 
       t.timestamps
     end

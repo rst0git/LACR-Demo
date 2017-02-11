@@ -21,12 +21,16 @@ class TranscriptionXml < ApplicationRecord
       # and extract the 'when' argument
       date_str = entry.xpath("ancestor::xmlns:div[1]//xmlns:date/@when", 'xmlns' => HISTEI_NS).to_s
       if date_str.split('-').length == 3
+        entry_date_incorrect = nil
         entry_date = date_str.to_date
       elsif date_str.split('-').length == 2
+        entry_date_incorrect = date_str
         entry_date = "#{date_str}-1".to_date # If the day is missing set ot 1-st
       elsif date_str.split('-').length == 1
+        entry_date_incorrect = date_str
         entry_date = "#{date_str}-1-1".to_date # If the day and month are missing set ot 1-st Jan.
       else
+        entry_date_incorrect = 'N/A'
         date = nil # The date is missing
       end
 
@@ -35,7 +39,6 @@ class TranscriptionXml < ApplicationRecord
       entry_lang = LANG_MAP[entry.xpath("@xml:lang").to_s]
       entry_type = entry.xpath("@type").to_s
       entry_xml = entry.to_xml
-      # entry_json = Hash.from_xml(pr.content_xml).to_json
 
       # Create TrParagraph record
       pr = TrParagraph.new
@@ -49,6 +52,7 @@ class TranscriptionXml < ApplicationRecord
       s.entry_type = entry_type
       s.lang = entry_lang
       s.date = entry_date
+      s.date_incorrect = entry_date_incorrect
       s.parse_entry_to_vol_page_paragraph
       # Replace line-break tag with \n and normalize whitespace
       s.content = (Nokogiri::XML(entry_xml.gsub('<lb break="yes"/>', "\n"))).xpath('normalize-space()')

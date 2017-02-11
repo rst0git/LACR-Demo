@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170208055707) do
     t.integer  "paragraph"
     t.text     "content"
     t.date     "date"
+    t.string   "date_incorrect"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
