@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
 
   def index
-    @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).paginate(:page => params[:page], :per_page => 10)
+    @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page).paginate(:page => params[:page], :per_page => 10)
   end
 
   def new
