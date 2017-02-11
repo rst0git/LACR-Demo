@@ -13,6 +13,8 @@ class SearchController < ApplicationController
         misspellings: {edit_distance: 3, below: 5},
         per_page: 6)
       end
+  end
 
+  def advanced_search
   end
 end

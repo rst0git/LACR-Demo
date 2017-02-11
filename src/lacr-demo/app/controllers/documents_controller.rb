@@ -66,6 +66,8 @@ class DocumentsController < ApplicationController
         t.parse_filename_to_volume_page file.original_filename
         if t.save!
           @succesfully_uploaded[:image].push(file.original_filename)
+        else
+          @unsuccesfully_uploaded[:image].push(file.original_filename)
         end
       end
     end

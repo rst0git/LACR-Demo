@@ -1,38 +1,31 @@
-<% content_for :stylesheet_includes do %>
-  <%= stylesheet_link_tag    'pagination' %>
-<% end %>
-
-<% if ! @documents.try(:suggestions).nil? %>
-
-  <% if @documents.try(:suggestions).length != 0 %>
-    Did you mean one of:
+<div class="container">
+  <% if @documents.try(:suggestions).length > 0 %>
+  <label> Did you mean one of:
+    <% @documents.try(:suggestions).each do |s| %>
+    <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
+    <% end %>
+  </label>
   <%end%>
-
-  <% @documents.try(:suggestions).each do |s| %>
-    <a href="/search?utf8=✓&q=<%= s%>"> <%= s %> </a>
-  <% end %>
-<%end%>
-
-<ul>
-  <% @documents.each do |document| %>
+  <ul>
+    <% @documents.each do |document| %>
     <li>
-      <h4>
-        <%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %>
-      </h4>
+      <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
       <h5><%= document.entry %></h5>
       <% if document.try(:search_highlights) %>
-          <p><%= document.search_highlights[:content].html_safe %>...</p>
+      <p><%= document.search_highlights[:content].html_safe %>...</p>
       <% else %>
-          <p><%= raw truncate(document.content, :length => 150) %></p>
+      <p><%= raw truncate(document.content, :length => 150) %></p>
       <% end %>
     </li>
-  <% end %>
-</ul>
-<div class="text-center">
-  <div class="digg_pagination">
-    <div class="page_info">
-      <%= page_entries_info @documents %>
+    <% end %>
+  </ul>
+  <div class="text-center">
+    <div class="digg_pagination">
+      <div class="page_info">
+        <%= page_entries_info @documents %>
+      </div>
+      <%= will_paginate @documents, :container => false %>
     </div>
-    <%= will_paginate @documents, :container => false %>
   </div>
+  <hr />
 </div>
