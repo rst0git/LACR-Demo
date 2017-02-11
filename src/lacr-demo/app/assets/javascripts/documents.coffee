@@ -7,5 +7,5 @@
 //= require jquery.zoom.min.js
 
 $(document).ready ->
-  $('#doc-image').zoom url: $('#doc-image img').data('large_image') # Javascript for image zoom on hover
+  $('#doc-image').zoom url: $('#doc-image img').data('largeImage') # Javascript for image zoom on hover
   return
