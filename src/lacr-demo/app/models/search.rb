@@ -1,4 +1,9 @@
 class Search < ApplicationRecord
+  # Input validators
+  validates :page, numericality: { only_integer: true, greater_than: 0  }
+  validates :volume, numericality: { only_integer: true, greater_than: 0  }
+  validates :paragraph, numericality: { only_integer: true, greater_than: 0  }
+
   has_one :tr_paragraph
   searchkick  searchable: [:content], # Searchable Fields: Speed up indexing and reduce index size by only making some fields searchable
               filterable: [:entry, :date, :lang, :page, :volume, :paragraph, :entry_type], # Filterable Fields: Speed up indexing and reduce index size by only making some fields filterable.

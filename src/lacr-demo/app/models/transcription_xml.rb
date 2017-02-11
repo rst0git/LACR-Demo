@@ -1,6 +1,5 @@
 class TranscriptionXml < ApplicationRecord
   HISTEI_NS = 'http://www.tei-c.org/ns/1.0'
-  LANG_MAP = {'la' => 'Latin', 'sc' => 'Scots'}
 
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
@@ -36,7 +35,7 @@ class TranscriptionXml < ApplicationRecord
 
       # Convert the 'entry' and 'date' Nokogiri objects to Ruby Hashes
       entry_id = entry.xpath("@xml:id").to_s
-      entry_lang = LANG_MAP[entry.xpath("@xml:lang").to_s]
+      entry_lang = entry.xpath("@xml:lang").to_s
       entry_type = entry.xpath("@type").to_s
       entry_xml = entry.to_xml
 

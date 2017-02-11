@@ -8,20 +8,26 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    if params.has_key?(:p) and params.has_key?(:v)
+    if params.has_key?(:p) and params.has_key?(:v) \
+      and params[:v].to_i > 0 and  params[:v].to_i < 1000000 \
+      and params[:p].to_i > 0 and  params[:p].to_i < 1000000
+      # Store the volume and page from the input
       @volume, @page = params[:v].to_i, params[:p].to_i
       # Select Documents
       @documents = Search.where('volume' => @volume).rewhere('page' => @page)
-      # List of documents from the same volume
-      @documents_list = Search.where('volume' => @volume).select(:page).distinct.order(page: :asc)
-      # Select image
-      page_image = PageImage.find_by_volume_and_page(@volume, @page)
-      if page_image # Has been uploaded
-        # Simple Fix of the file extension after image convert
-        @document_image_normal = page_image.image.normal.url.split('.')[0...-1].join + '.jpeg'
-        @document_image_large = page_image.image.large.url.split('.')[0...-1].join + '.jpeg'
+      if @documents.length > 0
+        # List of documents from the same volume
+        @documents_list = Search.where('volume' => @volume).select(:page).distinct.order(page: :asc)
+        # Select image
+        page_image = PageImage.find_by_volume_and_page(@volume, @page)
+        if page_image # Has been uploaded
+          # Simple Fix of the file extension after image convert
+          @document_image_normal = page_image.image.normal.url.split('.')[0...-1].join + '.jpeg'
+          @document_image_large = page_image.image.large.url.split('.')[0...-1].join + '.jpeg'
+        end
+      else
+        redirect_to doc_path, notice:  "The document has not been found."
       end
-
     else
       redirect_to doc_path, notice:  "The document has not been found."
     end
