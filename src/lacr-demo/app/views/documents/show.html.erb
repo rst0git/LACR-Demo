@@ -36,9 +36,7 @@
   								</div> <!-- row -->
   							</div> <!-- row -->
   							<div class="panel-body">
-									<pre class="prettyprint transcription" style="display: none;">
-										<code class="language-xml"><%= document.tr_paragraph.content_xml.gsub(/[ ]+]/, ' ')%></code> <!-- xml_content -->
-									</pre>
+									<pre class="prettyprint transcription" style="display: none;"><code class="language-xml"><%= document.tr_paragraph.content_xml.gsub(/^\s+/, ' ')%></code></pre>
   								<div class="transcription">
 										<%= document.tr_paragraph.content_xml.html_safe %>
 									</div>

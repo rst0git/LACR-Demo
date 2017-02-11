@@ -4,4 +4,3 @@ Rails.application.config.assets.precompile += %w( pagination.css ) # Style for p
 Rails.application.config.assets.precompile += %w( jquery.zoom.min.js ) # Zoom for images
 Rails.application.config.assets.precompile += %w( xml2html.js ) # Visualise the tags from XML
 Rails.application.config.assets.precompile += %w( prettify.js ) # Style for the xml code
-Rails.application.config.assets.precompile += %w( doxy.css ) # Style for prittify
