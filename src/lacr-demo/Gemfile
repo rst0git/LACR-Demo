@@ -39,7 +39,6 @@ gem 'searchkick'
 gem 'oj' # Significantly increase performance with faster JSON generation.
 gem 'typhoeus' # Significantly increase performance with persistent HTTP connections
 
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'

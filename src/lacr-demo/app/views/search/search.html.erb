@@ -1,10 +1,10 @@
 <div class="container">
   <% if @documents.try(:suggestions).length > 0 %>
-  <label> Did you mean one of:
-    <% @documents.try(:suggestions).each do |s| %>
-    <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
-    <% end %>
-  </label>
+    <label> Did you mean one of:
+      <% @documents.try(:suggestions).each do |s| %>
+      <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
+      <% end %>
+    </label>
   <%end%>
 <hr>
   <% if @documents.length > 0 %>
@@ -13,11 +13,7 @@
       <li>
         <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
         <h5><%= document.entry %></h5>
-        <% if document.try(:search_highlights) %>
-        <p><%= document.search_highlights[:content].html_safe %>...</p>
-        <% else %>
-        <p><%= raw truncate(document.content, :length => 150) %></p>
-        <% end %>
+        <p><%= document.highlighted_content.html_safe %></p>
       </li>
       <% end %>
     </ul>

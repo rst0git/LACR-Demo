@@ -14,8 +14,10 @@ Rails.application.routes.draw do
 
   # Ajax
   get 'ajax/doc/list', to: "documents#list"
+  get 'ajax/search/autocomplete', to: 'search#autocomplete'
 
   # Search routes
   get 'search', to: 'search#search'
   get 'advanced_search', to: 'search#advanced_search'
+  post 'advanced_search', to: 'search#filter'
 end

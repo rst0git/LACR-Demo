@@ -17,17 +17,6 @@
           </div>
         </div>
       </div>
-<!-- <br>
-      <div class="row">
-        <div class="form-group">
-          <div class="col-md-2">
-            <%= label_tag 'content_exact', 'this exact word or phrase:'%>
-          </div>
-          <div class="col-md-6">
-            <%= search_field_tag('content_exact','', class: "form-control") %>
-          </div>
-        </div>
-      </div>
 <br>
       <div class="row">
         <div class="form-group">
@@ -49,7 +38,7 @@
             <%= search_field_tag('content_none','', class: "form-control") %>
           </div>
         </div>
-      </div> -->
+      </div>
 <br>
       <div class="row">
         <div class="form-group">
@@ -70,13 +59,13 @@
           <div class="col-md-2">
             <div class="input-group">
               <span class="input-group-addon" id="date_from">from</span>
-              <%= search_field_tag('content_none','', placeholder: "yyyy-mm-dd", describedby: "date_from", class: "form-control") %>
+              <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd or yyyy-mm or yyyy", describedby: "date_from", class: "form-control") %>
             </div>
           </div>
             <div class="col-md-2">
               <div class="input-group">
                 <span class="input-group-addon" id="date_to">to</span>
-                <%= search_field_tag('content_none','', placeholder: "yyyy-mm-dd", describedby: "date_to", class: "form-control") %>
+                <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd or yyyy-mm or yyyy ", describedby: "date_to", class: "form-control") %>
             </div>
           </div>
         </div>
@@ -88,7 +77,8 @@
             <label for="lang">Language:</label>
           </div>
           <div class="col-md-6">
-            <select class="form-control" id="lang">
+            <select class="form-control" id="lang" name="lang">
+              <option>Any</option>
               <option>Latin</option>
               <option>Scots</option>
             </select>
@@ -100,8 +90,8 @@
         <div class="form-group">
           <div class="col-md-2"><%= label_tag 'Group by:'%></div>
           <div class="col-md-6">
-            <label class="radio-inline"><input type="radio" name="optradio" checked />Page</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Paragraph</label>
+            <label class="radio-inline"><input type="radio" name="page" checked />Page</label>
+            <label class="radio-inline"><input type="radio" name="paragraph">Paragraph</label>
           </div>
         </div>
       </div>
@@ -109,12 +99,12 @@
       <div class="row">
         <div class="form-group">
           <div class="col-md-2">
-            <label for="lang">Type:</label>
+            <label for="entry_type">Type:</label>
           </div>
           <div class="col-md-6">
-            <select class="form-control" id="lang">
-              <option>Heading</option>
-              <option>Entry</option>
+            <select class="form-control" id="entry_type" name="entry_type">
+              <option value="heading">Heading</option>
+              <option value="entry">Entry</option>
             </select>
           </div>
         </div>

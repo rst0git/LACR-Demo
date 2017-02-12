@@ -15,15 +15,16 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
 // Autocomplete for the Simple Search
-  // var autocomplete = new Bloodhound({
-  //   datumTokenizer: Bloodhound.tokenizers.whitespace,
-  //   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //   remote: {
-  //     url: '/search/autocomplete?query=%QUERY',
-  //     wildcard: '%QUERY'
-  //   }
-  // });
-  // $('#search').typeahead(null, {
-  //   source: autocomplete
-  // });
+var autocomplete = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/ajax/search/autocomplete?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+$(document).ready(function() {
+  $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
+});
