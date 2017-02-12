@@ -1,25 +1,20 @@
 <% content_for :before_container do %>
+	<div class="container">
+		<h4>Volume: <%= @volume%> Page: <%= @page%></h4>
+	</div>
 	<hr />
-	<% if @documents_list %>
 		<div class="col-md-1">
 			<div class="sidebar-nav">
 				<ul class="nav nav-list" id="doc_nav">
-	        <li class="nav-header">Volume <%= @volume %></li>
-					<% @documents_list.each do |document| %>
-						<% if document.page == @page %><li class="active"><% else %><li><%end%>
-							<%= link_to "Page: #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: @volume}%>
-						</li>
-					<% end %>
 				</ul> <!-- <ul class="nav nav-list"> -->
 			</div> <!-- <div class="sidebar-nav"> -->
 		</div> <!-- <div class="col-md-1"> -->
-	<% end %>
 <% end %>
 
 <div class="col-md-10" id="transcription-image">
 	<div class="container">
 		<!-- Left Side: Text contet -->
-		<div class="col-md-6">
+		<div class="<% if @document_image_normal %>col-md-6<%else%>col-md-12<%end%>">
 
       <% @documents.each do |document| %>
 				<div class="panel panel-primary">
@@ -52,15 +47,22 @@
 		<!-- End of the left side -->
 
 		<!-- Right Side: Image -->
-		<div class="col-md-6">
-      <% if @document_image_normal %>
+    <% if @document_image_normal %>
+			<div class="col-md-6">
 				<span class='zoom' id="doc-image">
 					<%= image_tag(@document_image_normal, class:"img-rounded img-responsive", data:	{large_image: @document_image_large}) %>
 				</span>
-      <% else %>
-      <span>The scanned image of this document has not been uploaded, yet!</span>
-      <% end %>
-		</div> <!-- col-md-6 -->
+			</div> <!-- col-md-6 -->
+    <% end %>
 		<!-- End of the right side -->
 	</div> <!-- container -->
 </div> <!-- <div class="col-md-10" id="transcription-image"> -->
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	jqxhr.complete(function(){
+		$('#vol-<%= @volume%>-page-<%= @page%>').addClass("active");
+	})
+});
+</script>

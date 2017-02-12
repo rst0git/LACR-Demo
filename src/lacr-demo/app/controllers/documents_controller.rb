@@ -6,7 +6,6 @@ class DocumentsController < ApplicationController
 
   def list
     @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page)
-
     respond_to do |format|
       format.html { redirect_to doc_path }
       format.json { render json: @documents }
@@ -26,8 +25,6 @@ class DocumentsController < ApplicationController
       # Select Documents
       @documents = Search.where('volume' => @volume).rewhere('page' => @page)
       if @documents.length > 0
-        # List of documents from the same volume
-        @documents_list = Search.where('volume' => @volume).select(:page).distinct.order(page: :asc)
         # Select image
         page_image = PageImage.find_by_volume_and_page(@volume, @page)
         if page_image # Has been uploaded

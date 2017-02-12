@@ -3,6 +3,8 @@
 //= require jquery.zoom.min.js
 //= require ISO_639_2.min.js
 
+var jqxhr;
+
 $(document).ready(function() {
   // Image zoom on hover
   $('#doc-image').zoom({
@@ -15,26 +17,15 @@ $(document).ready(function() {
   });
 
   //Load the list of volumes and pages using ajax
-  var jqxhr = $.getJSON( "/ajax/doc/list", function() {
-      console.log( "success" );
-    })
+  jqxhr = $.getJSON( "/ajax/doc/list")
       .done(function(data) {
         $.each( data, function( i, e ) {
-          // volume = $('<div>').class("nav-header").html();
-          console.log( i, e );
+            if($('#vol-'+e.volume).length == 0){
+              $('<button id="vol-'+e.volume+'" class="btn btn-primary btn-block" data-toggle="collapse" data-target=".vol-'+e.volume+'">Volume '+e.volume+'</li>').appendTo('#doc_nav');
+            }
+            $('<div id="vol-'+e.volume+'-page-'+e.page+'" class="vol-'+e.volume+' collapse"><a href="/doc/show?p='+e.page+'&v='+e.volume+'">Page '+e.page+'</a></div>').appendTo('#doc_nav');//.appendTo('#vol-'+e.volume);
         });
       })
-      .fail(function() {
-        console.log( "error" );
-      })
-      .always(function() {
-        console.log( "complete" );
-      });
-
-    // Perform other work here ...
 
     // Set another completion function for the request above
-    jqxhr.complete(function() {
-      console.log( "second complete" );
-    });
 });
