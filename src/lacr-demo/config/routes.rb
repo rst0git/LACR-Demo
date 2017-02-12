@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'doc/show', to: "documents#show"
   delete 'doc/destroy', to: "documents#destroy"
 
+  # Ajax
+  get 'ajax/doc/list', to: "documents#list"
+
   # Search routes
   get 'search', to: 'search#search'
   get 'advanced_search', to: 'search#advanced_search'

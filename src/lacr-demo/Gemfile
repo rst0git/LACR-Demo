@@ -33,7 +33,7 @@ gem 'carrierwave'
 # Image resizing
 gem 'mini_magick'
 # Pagination library
-gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'
 # API for Elasticsearch
 gem 'searchkick'
 gem 'oj' # Significantly increase performance with faster JSON generation.

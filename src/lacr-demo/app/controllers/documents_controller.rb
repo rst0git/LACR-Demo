@@ -4,6 +4,16 @@ class DocumentsController < ApplicationController
     @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page).paginate(:page => params[:page], :per_page => 10)
   end
 
+  def list
+    @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page)
+
+    respond_to do |format|
+      format.html { redirect_to doc_path }
+      format.json { render json: @documents }
+      format.js   { render :layout => false }
+    end
+  end
+
   def new
   end
 
