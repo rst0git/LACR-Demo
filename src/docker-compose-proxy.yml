@@ -16,6 +16,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_with_proxy
+      args:
+        - http_proxy
+        - https_proxy
+    build_args:
+      - HTTP_PROXY=$HTTP_PROXY
 
     command: bundle exec rails s -p 80 -b '0.0.0.0'
     

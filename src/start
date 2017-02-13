@@ -13,7 +13,7 @@ then
 		then
 			docker-compose build
 		else
-	  		docker-compose -f docker-compose-proxy.yml build --build-arg http_proxy=$HTTP_PROXY
+	  		docker-compose -f docker-compose-proxy.yml build
 		fi
 	else
 		docker-compose build
