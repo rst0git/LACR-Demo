@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>LacrDemo</title>
@@ -31,6 +32,8 @@
                 </button>
               </div>
             </div>
+            <input type="hidden" name="r" value="<%= @results_per_page%>">
+            <input type="hidden" name="m" value="<%= @misspellings%>">
           </form>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -44,10 +47,13 @@
           </div>
           <!-- /.navbar-collapse -->
       </div>
+      <%= yield :nav_menu %>
       <!-- /.container -->
   </nav>
+  <hr>
+  <div class="container">
     <!-- flash messages -->
-    <div>
+    <div class="row">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
@@ -55,7 +61,8 @@
     <div class="container">
       <%= yield %>
     </div>
-    <hr>
+  </div>
+  <hr>
   <!-- Footer -->
     <footer class="footer navbar-fixed-bottom">
       <div class="container">

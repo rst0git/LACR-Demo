@@ -4,14 +4,35 @@ class SearchController < ApplicationController
       redirect_to doc_path
     end
       @query = params[:q].present? ? params[:q] : '*'
+
+      if params[:r].present?
+        if params[:r].to_i >= 5 and params[:r].to_i <= 50
+          @results_per_page = params[:r].to_i
+        else
+          @results_per_page = 5
+        end
+      else
+        @results_per_page = 5
+      end
+
+      if params[:m].present?
+        if params[:m].to_i >= 0 and params[:m].to_i <= 5
+          @misspellings = params[:m].to_i
+        else
+          @misspellings = 2
+        end
+      else
+        @misspellings = 2
+      end
+
       @documents = Search.search @query,
           fields: ['content'],
           suggest: true,
           match: :word_start,
-          page: params[:page], per_page: 6,
+          page: params[:page], per_page: @results_per_page,
           highlight: {tag: "<mark>"},
           load: false,
-          misspellings: {prefix_length: 2}
+          misspellings: {edit_distance: @misspellings}
   end
 
   def autocomplete
@@ -21,7 +42,7 @@ class SearchController < ApplicationController
        highlight: {tag: "" ,fields: {content: {fragment_size: 0}}},
        limit: 10,
        load: false,
-       misspellings: {prefix_length: 2}
+       misspellings: {prefix_length: 2, edit_distance: 2}
      }).map(&:highlighted_content).uniq
    end
 
