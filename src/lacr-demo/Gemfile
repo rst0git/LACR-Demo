@@ -22,6 +22,7 @@ gem 'coffee-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 5'
 
 # Additional gems
@@ -38,6 +39,9 @@ gem 'will_paginate-bootstrap'
 gem 'searchkick'
 gem 'oj' # Significantly increase performance with faster JSON generation.
 gem 'typhoeus' # Significantly increase performance with persistent HTTP connections
+#User Authentication
+gem 'devise'
+gem 'devise-bootstrap-views'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

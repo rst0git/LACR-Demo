@@ -1,7 +1,7 @@
 <% content_for :nav_menu do %>
 <div class="row">
-  <div class="col-xs-6 col-md-offset-4" id="search_tools">
-    <div class="dropdown col-md-2">
+  <div class="col-md-6 col-md-offset-4" id="search_tools">
+    <div class="dropdown col-md-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Results Per Page</a>
       <ul class="dropdown-menu">
         <li <%if @results_per_page == 5 %>class="active"<%end%>><%=link_to "5", search_path+'?q='+@query+'&r=5&m='+@misspellings.to_s %></li>

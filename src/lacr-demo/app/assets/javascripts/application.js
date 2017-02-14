@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require_tree .
+//= require typeahead.bundle.js
 
 
 // Autocomplete for the Simple Search

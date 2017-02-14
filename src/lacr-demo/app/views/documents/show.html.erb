@@ -5,7 +5,7 @@
 	<hr />
 		<div class="col-md-1">
 			<div class="sidebar-nav">
-				<ul class="nav nav-list" id="doc_nav">
+				<ul class="nav nav-list" id="doc_nav" style="display:none;">
 				</ul> <!-- <ul class="nav nav-list"> -->
 			</div> <!-- <div class="sidebar-nav"> -->
 		</div> <!-- <div class="col-md-1"> -->
@@ -14,7 +14,7 @@
 <div class="col-md-10" id="transcription-image">
 	<div class="container">
 		<!-- Left Side: Text contet -->
-		<div class="<% if @document_image_normal %>col-md-6<%else%>col-md-12<%end%>">
+		<div class="<% if @document_image_normal %>col-md-6<%else%>col-md-10<%end%>">
 
       <% @documents.each do |document| %>
 				<div class="panel panel-primary">
@@ -58,11 +58,14 @@
 	</div> <!-- container -->
 </div> <!-- <div class="col-md-10" id="transcription-image"> -->
 
-
-<script type="text/javascript">
-$(document).ready(function() {
-	jqxhr.complete(function(){
-		$('#vol-<%= @volume%>-page-<%= @page%>').addClass("active");
-	})
-});
-</script>
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "documents.js" %>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		jqxhr.complete(function(){
+			$('#doc_nav').slideDown()
+			$('#vol-<%= @volume%>-page-<%= @page%>').addClass("active");
+		})
+	});
+	</script>
+<% end %>

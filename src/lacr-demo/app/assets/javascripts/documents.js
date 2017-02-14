@@ -1,6 +1,6 @@
+//= require jquery.zoom.min.js
 //= require prettify.js
 //= require xml2html.js
-//= require jquery.zoom.min.js
 //= require ISO_639_2.min.js
 
 var jqxhr;

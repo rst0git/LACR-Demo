@@ -14,6 +14,9 @@ class DocumentsController < ApplicationController
   end
 
   def new
+    if not user_signed_in? or not current_user.admin?
+      redirect_to new_user_session_path
+    end
   end
 
   def show
@@ -41,54 +44,69 @@ class DocumentsController < ApplicationController
   end
 
   def upload
-    @succesfully_uploaded = {xml:[], image:[]}
-    @unsuccesfully_uploaded = {xml:[], image:[]}
+    if user_signed_in? and current_user.admin?
+        @succesfully_uploaded = {xml:[], image:[]}
+        @unsuccesfully_uploaded = {xml:[], image:[]}
+        if params.has_key?(:transcription_xml)
+          xml_files = xml_upload_params
+          # Save all uploaded xml files, call method ...
+          xml_files['xml'].each do |file|
 
-    if params.has_key?(:transcription_xml)
-      xml_files = xml_upload_params
-      # Save all uploaded xml files, call method ...
-      xml_files['xml'].each do |file|
-
-        # Check namespace
-        if (Nokogiri::XML(File.open(file.path))).collect_namespaces.values.include? TranscriptionXml::HISTEI_NS
-          t = TranscriptionXml.new
-          t.xml = file
-          if t.save!
-            t.histei_split_to_paragraphs
-            @succesfully_uploaded[:xml].push(file.original_filename)
+            # Check namespace
+            if (Nokogiri::XML(File.open(file.path))).collect_namespaces.values.include? TranscriptionXml::HISTEI_NS
+              t = TranscriptionXml.new
+              t.xml = file
+              if t.save!
+                t.histei_split_to_paragraphs
+                @succesfully_uploaded[:xml].push(file.original_filename)
+              end
+            else
+              @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{file.original_filename}")
+            end
           end
-        else
-          @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{file.original_filename}")
-        end
+          Search.reindex()
       end
-      Search.reindex()
-    end
 
-    if params.has_key?(:page_image)
-      image_files = image_upload_params
-      # Save all uploaded image files, call method ...
-      image_files['image'].each do |file|
-        t = PageImage.new
-        t.image = file
-        t.parse_filename_to_volume_page file.original_filename
-        if t.save!
-          @succesfully_uploaded[:image].push(file.original_filename)
-        else
-          @unsuccesfully_uploaded[:image].push(file.original_filename)
+      if params.has_key?(:page_image)
+        image_files = image_upload_params
+        # Save all uploaded image files, call method ...
+        image_files['image'].each do |file|
+          t = PageImage.new
+          t.image = file
+          t.parse_filename_to_volume_page file.original_filename
+          if t.save!
+            @succesfully_uploaded[:image].push(file.original_filename)
+          else
+            @unsuccesfully_uploaded[:image].push(file.original_filename)
+          end
         end
       end
+    else
+      redirect_to new_user_session_path
     end
   end
 
   def destroy
+    if user_signed_in? and current_user.admin?
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   private  # all methods that follow will be made private: not accessible for outside objects
     def xml_upload_params
-      params.require(:transcription_xml).permit xml: []
+      if user_signed_in? and current_user.admin?
+        params.require(:transcription_xml).permit xml: []
+      else
+        redirect_to new_user_session_path
+      end
     end
 
     def image_upload_params
-      params.require(:page_image).permit image: []
+      if user_signed_in? and current_user.admin?
+        params.require(:page_image).permit image: []
+      else
+        redirect_to new_user_session_path
+      end
     end
 end

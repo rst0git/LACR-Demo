@@ -176,3 +176,7 @@ mark{
    width: 400px;
    text-align: left;
  }
+
+.main-container{
+  margin-top: 40px;
+}
