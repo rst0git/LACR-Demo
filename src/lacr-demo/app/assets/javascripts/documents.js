@@ -10,10 +10,18 @@ var load_document = function (p, v){
   $('#doc-title').html("Volume: "+v+" Page: "+p);
   $("#transcription-image").load("/doc/page?p="+p+"&v="+v, function(responseTxt, statusTxt, xhr){
         if(statusTxt == "success"){
+          // Transform language codes
+          $(".language").each(function() {
+            $(this).html(ISO_639_2[$(this).html()]['native'][0]);
+          });
+
           // Image zoom on hover
           $('#doc-image').zoom({
             url: $('#doc-image img').data('largeImage')
           });
+
+          // Initialise prettyPrint
+          PR.prettyPrint();
         }
         if(statusTxt == "error")
             console.log("Error: " + xhr.status + ": " + xhr.statusText);
@@ -24,13 +32,6 @@ var load_document = function (p, v){
 }
 
 $(document).ready(function() {
-
-  // Transform language codes
-  $(".language").each(function() {
-    $(this).html(ISO_639_2[$(this).html()]['native'][0]);
-  });
-
-
 
   //Load the list of volumes and pages using ajax
   jqxhr = $.getJSON( "/ajax/doc/list")
