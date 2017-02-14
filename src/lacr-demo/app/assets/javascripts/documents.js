@@ -8,14 +8,19 @@ var jqxhr;
 // Load partial content
 var load_document = function (p, v){
   $('#doc-title').html("Volume: "+v+" Page: "+p);
-  $("#transcription-image").load("/doc/page?p="+p+"&v="+v);
+  $("#transcription-image").load("/doc/page?p="+p+"&v="+v, function(responseTxt, statusTxt, xhr){
+        if(statusTxt == "success"){
+          // Image zoom on hover
+          $('#doc-image').zoom({
+            url: $('#doc-image img').data('largeImage')
+          });
+        }
+        if(statusTxt == "error")
+            console.log("Error: " + xhr.status + ": " + xhr.statusText);
+    });
   $('div.active').removeClass("active");
   $('#vol-'+v+'-page-'+p).addClass("active");
 
-  // Image zoom on hover
-  $('#doc-image').zoom({
-    url: $('#doc-image img').data('largeImage')
-  });
 }
 
 $(document).ready(function() {
