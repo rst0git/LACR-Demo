@@ -11,13 +11,14 @@ var load_document = function (p, v){
   $("#transcription-image").load("/doc/page?p="+p+"&v="+v);
   $('div.active').removeClass("active");
   $('#vol-'+v+'-page-'+p).addClass("active");
-}
 
-$(document).ready(function() {
   // Image zoom on hover
   $('#doc-image').zoom({
     url: $('#doc-image img').data('largeImage')
   });
+}
+
+$(document).ready(function() {
 
   // Transform language codes
   $(".language").each(function() {
