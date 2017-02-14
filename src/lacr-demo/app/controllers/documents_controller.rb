@@ -25,6 +25,17 @@ class DocumentsController < ApplicationController
       and params[:p].to_i > 0 and  params[:p].to_i < 1000000
       # Store the volume and page from the input
       @volume, @page = params[:v].to_i, params[:p].to_i
+    else
+      redirect_to doc_path, notice:  "The document has not been found."
+    end
+  end
+
+  def page
+    if params.has_key?(:p) and params.has_key?(:v) \
+      and params[:v].to_i > 0 and  params[:v].to_i < 1000000 \
+      and params[:p].to_i > 0 and  params[:p].to_i < 1000000
+      # Store the volume and page from the input
+      @volume, @page = params[:v].to_i, params[:p].to_i
       # Select Documents
       @documents = Search.where('volume' => @volume).rewhere('page' => @page)
       if @documents.length > 0
@@ -35,11 +46,15 @@ class DocumentsController < ApplicationController
           @document_image_normal = page_image.image.normal.url.split('.')[0...-1].join + '.jpeg'
           @document_image_large = page_image.image.large.url.split('.')[0...-1].join + '.jpeg'
         end
+        respond_to do |format|
+         format.html { render :partial => "documents/page" }
+       end
+
       else
-        redirect_to doc_path, notice:  "The document has not been found."
+        render status: 500
       end
     else
-      redirect_to doc_path, notice:  "The document has not been found."
+      render status: 500
     end
   end
 

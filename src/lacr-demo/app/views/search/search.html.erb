@@ -1,29 +1,5 @@
 <% content_for :nav_menu do %>
-<div class="row">
-  <div class="col-md-6 col-md-offset-4" id="search_tools">
-    <div class="dropdown col-md-3">
-      <a class="dropdown-toggle" data-toggle="dropdown">Results Per Page</a>
-      <ul class="dropdown-menu">
-        <li <%if @results_per_page == 5 %>class="active"<%end%>><%=link_to "5", search_path+'?q='+@query+'&r=5&m='+@misspellings.to_s %></li>
-        <li <%if @results_per_page == 10 %>class="active"<%end%>><%=link_to "10", search_path+'?q='+@query+'&r=10&m='+@misspellings.to_s %></li>
-        <li <%if @results_per_page == 20 %>class="active"<%end%>><%=link_to "20", search_path+'?q='+@query+'&r=20&m='+@misspellings.to_s %></li>
-        <li <%if @results_per_page == 30%>class="active"<%end%>><%=link_to "30", search_path+'?q='+@query+'&r=30&m='+@misspellings.to_s %></li>
-        <li <%if @results_per_page == 50 %>class="active"<%end%>><%=link_to "50", search_path+'?q='+@query+'&r=50&m='+@misspellings.to_s %></li>
-      </ul>
-    </div>
-    <div class="dropdown col-md-2">
-      <a class="dropdown-toggle" data-toggle="dropdown">Misspellings</a>
-      <ul class="dropdown-menu">
-        <li <%if @misspellings == 0%>class="active"<%end%>><%=link_to "0", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=0' %></li>
-        <li <%if @misspellings == 1%>class="active"<%end%>><%=link_to "1", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=1' %></li>
-        <li <%if @misspellings == 2%>class="active"<%end%>><%=link_to "2", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=2' %></li>
-        <li <%if @misspellings == 3%>class="active"<%end%>><%=link_to "3", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=3' %></li>
-        <li <%if @misspellings == 4%>class="active"<%end%>><%=link_to "4", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=4' %></li>
-        <li <%if @misspellings == 5%>class="active"<%end%>><%=link_to "5", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=5' %></li>
-      </ul>
-    </div>
-  </div>
-</div>
+  <% render '/search/search_tools' %>
 <%end%>
 
 <div class="container">
@@ -41,7 +17,11 @@
       <li>
         <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
         <h5><%= document.entry %></h5>
+        <% if document.highlighted_content %>
         <p><%= document.highlighted_content.html_safe %></p>
+        <%else%>
+        <p><%= document.content %></p>
+        <%end%>
       </li>
       <% end %>
     </ul>
