@@ -1,39 +1,30 @@
 Rails.application.routes.draw do
-  #
-  # devise_for :users
-  # devise_for :admins, ActiveAdmin::Devise.config
-  # #
-  # # # below code to fix the active admin issue when table not exists in database as activeadmin tries to load every model.
-  # # # for reference https://github.com/activeadmin/activeadmin/issues/783
-  # begin
-  #   ActiveAdmin.routes(self)
-  # rescue Exception => e
-  #   puts "ActiveAdmin: #{e.class}: #{e}"
-  # end
 
-  # Search routes
-  get 'search', to: 'search#search'
-  get 'search/autocomplete', to: 'search#autocomplete'
+  devise_scope :user do
+    get "/sign_in" => "devise/sessions#new" # custom path to login/sign_in
+    get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
+  end
 
+  devise_for :users
   # Home page routes
-  root 'home#index'
+  root to: 'home#index'
   get '/about', to: 'home#about'
   get '/contact', to: 'home#contact'
 
-
-  # Documents routes
+  # Documents page routes
   get 'doc', to: "documents#index"
-  get 'doc/new', to: "documents#new" # Must be accessible only from Admin
-  # get 'doc/edit', to: "documents#edit" # Must be accessible only from Admin
-  get 'doc/example', to: "documents#example" # Only for the prototype
+  get 'doc/new', to: "documents#new"
   post 'doc/new', to: "documents#upload"
-  # post 'doc/edit', to: "documents#save"
   get 'doc/show', to: "documents#show"
+  get 'doc/page', to: "documents#page"
   delete 'doc/destroy', to: "documents#destroy"
 
-  # Download routes
-  get 'download/zipped'
-  get 'download/img'
-  get 'download/tr', to: 'donwload#trancr'
+  # Ajax
+  get 'ajax/doc/list', to: "documents#list"
+  get 'ajax/search/autocomplete', to: 'search#autocomplete'
 
+  # Search routes
+  get 'search', to: 'search#search'
+  get 'advanced_search', to: 'search#advanced_search'
+  post 'advanced_search', to: 'search#filter'
 end

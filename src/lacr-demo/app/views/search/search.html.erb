@@ -1,37 +1,43 @@
-<% content_for :stylesheet_includes do %>
-  <%= stylesheet_link_tag    'pagination' %>
-<% end %>
-
-<% if ! @documents.try(:suggestions).nil? %>
-
-  <% if @documents.try(:suggestions).length != 0 %>
-    Did you mean one of:
-  <%end%>
-
-  <% @documents.try(:suggestions).each do |s| %>
-    <a href="/search?utf8=✓&q=<%= s%>"> <%= s %> </a>
-  <% end %>
+<% content_for :nav_menu do %>
+  <% render '/search/search_tools' %>
 <%end%>
 
-<ul>
-  <% @documents.each do |document| %>
-    <li>
-      <h3>
-        <%= link_to document.title, controller: "documents", action: "show", id: document.id %>
-      </h3>
-      <% if document.try(:search_highlights) %>
-          <p><%= document.search_highlights[:content].html_safe %>...</p>
-      <% else %>
-          <p><%= raw truncate(document.content, :length => 150) %></p>
+<div class="container">
+  <% if @documents.try(:suggestions).length > 0 %>
+    <label> Did you mean one of:
+      <% @documents.try(:suggestions).each do |s| %>
+      <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
       <% end %>
-    </li>
-  <% end %>
-</ul>
-<div class="text-center">
-  <div class="digg_pagination">
-    <div class="page_info">
-      <%= page_entries_info @documents %>
+    </label>
+  <%end%>
+<hr>
+  <% if @documents.length > 0 %>
+    <ul>
+      <% @documents.each do |document| %>
+      <li>
+        <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
+        <h5><%= document.entry %></h5>
+        <% if document.highlighted_content %>
+        <p><%= document.highlighted_content.html_safe %></p>
+        <%else%>
+        <p><%= document.content %></p>
+        <%end%>
+      </li>
+      <% end %>
+    </ul>
+    <div class="row">
+      <div class="text-center">
+        <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
+      </div>
     </div>
-    <%= will_paginate @documents, :container => false %>
-  </div>
+    <hr>
+  <% else %>
+    <div class="col-md-8">
+      <p>Your search - <%= raw truncate(@query, :length => 30) %> - did not match any documents.</p>
+      <p>Suggestions:</p>
+      <ul>
+        <li>Try different keywords.</li>
+      </ul>
+    </div>
+  <% end %>
 </div>

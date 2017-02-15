@@ -10,26 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205212818) do
+ActiveRecord::Schema.define(version: 20170213221951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "page_images", force: :cascade do |t|
-    t.integer  "transcription_xml_id"
-    t.integer  "transcription_json_paragraph_id"
-    t.json     "image"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.jsonb    "image"
+    t.integer  "volume"
+    t.integer  "page"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "patrons", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+  create_table "searches", force: :cascade do |t|
+    t.integer  "tr_paragraph_id"
+    t.string   "entry"
+    t.string   "entry_type"
+    t.string   "lang"
+    t.integer  "volume"
+    t.integer  "page"
+    t.integer  "paragraph"
+    t.text     "content"
+    t.date     "date"
+    t.string   "date_incorrect"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "tr_paragraphs", force: :cascade do |t|
+    t.text     "content_xml"
+    t.integer  "search_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "transcription_xmls", force: :cascade do |t|
+    t.jsonb    "xml"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -38,54 +66,16 @@ ActiveRecord::Schema.define(version: 20170205212818) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "user_name"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "type"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.string   "invited_by_type"
-    t.integer  "invited_by_id"
-    t.integer  "invitations_count",      default: 0
-    t.index ["confirmation_token"], name: "index_patrons_on_confirmation_token", unique: true, using: :btree
-    t.index ["email"], name: "index_patrons_on_email", unique: true, using: :btree
-    t.index ["invitation_token"], name: "index_patrons_on_invitation_token", unique: true, using: :btree
-    t.index ["invitations_count"], name: "index_patrons_on_invitations_count", using: :btree
-    t.index ["invited_by_id"], name: "index_patrons_on_invited_by_id", using: :btree
-    t.index ["reset_password_token"], name: "index_patrons_on_reset_password_token", unique: true, using: :btree
+    t.integer  "failed_attempts",        default: 0,     null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "admin",                  default: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "transcription_json_paragraphs", force: :cascade do |t|
-    t.jsonb    "content"
-    t.string   "title"
-    t.string   "language"
-    t.string   "date"
-    t.integer  "transcription_xml_id"
-    t.integer  "search_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  create_table "transcription_xmls", force: :cascade do |t|
-    t.json     "xml"
-    t.integer  "page_image_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_foreign_key "page_images", "transcription_json_paragraphs", on_delete: :cascade
-  add_foreign_key "page_images", "transcription_xmls", on_delete: :cascade
-  add_foreign_key "transcription_json_paragraphs", "searches", on_delete: :cascade
-  add_foreign_key "transcription_json_paragraphs", "transcription_xmls", on_delete: :cascade
-  add_foreign_key "transcription_xmls", "page_images", on_delete: :cascade
+  add_foreign_key "searches", "tr_paragraphs", on_delete: :cascade
+  add_foreign_key "tr_paragraphs", "searches", on_delete: :cascade
 end

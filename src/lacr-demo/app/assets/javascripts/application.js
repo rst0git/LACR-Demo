@@ -11,9 +11,20 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
-//= require twitter/typeahead.min
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
-//= require_tree .
+//= require typeahead.bundle.js
+
+
+// Autocomplete for the Simple Search
+var autocomplete = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/ajax/search/autocomplete?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+$(document).ready(function() {
+  $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
+});

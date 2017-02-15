@@ -12,7 +12,7 @@ Things you may want to cover:
 
 	# User Authentication
 	Ruby Gem "Devise" -> https://github.com/plataformatec/devise
-	
+
 	# XML Parsing
 	Ruby Gem "Nokogiri" -> https://github.com/sparklemotion/nokogiri
 

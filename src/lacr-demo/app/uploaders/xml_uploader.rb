@@ -1,5 +1,4 @@
 class XmlUploader < CarrierWave::Uploader::Base
-  # permissions = 0700
   storage :file
 
   def store_dir
