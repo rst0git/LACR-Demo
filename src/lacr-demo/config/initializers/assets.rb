@@ -6,4 +6,5 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( typeahead.bundle.js )
 # Rails.application.config.assets.precompile += %w( xml2html.js )
 Rails.application.config.assets.precompile += %w( documents.js )
+Rails.application.config.assets.precompile += %w( documents_browse.js )
 Rails.application.config.assets.precompile += %w( histei/*.css )
