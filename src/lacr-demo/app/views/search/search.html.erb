@@ -12,19 +12,19 @@
   <%end%>
 <hr>
   <% if @documents.length > 0 %>
-    <ul>
+    <div class="list-group">
       <% @documents.each do |document| %>
-      <li>
-        <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
-        <h5><%= document.entry %></h5>
+      <a class="list-group-item" href="<%= doc_show_path%>?p=<%=document.page%>&v=<%=document.volume%>">
+       <h4>Volume: <%= document.volume %>, Page <%= document.page %> <sup>Date: <%= document.date %></sup></h4>
         <% if document.highlighted_content %>
         <p><%= document.highlighted_content.html_safe %></p>
         <%else%>
         <p><%= document.content %></p>
         <%end%>
-      </li>
+        <small>ID: <%= document.entry %></small>
+      </a>
       <% end %>
-    </ul>
+    </div>
 <hr>
     <div class="row">
       <div class="text-center">
