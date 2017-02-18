@@ -2,7 +2,7 @@
   <% render '/search/search_tools' %>
 <%end%>
 
-<div class="container">
+<div class="container" style="padding-top: 20px;">
   <% if @documents.try(:suggestions).length > 0 %>
     <label> Did you mean one of:
       <% @documents.try(:suggestions).each do |s| %>
@@ -25,12 +25,12 @@
       </li>
       <% end %>
     </ul>
+<hr>
     <div class="row">
       <div class="text-center">
         <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
-    <hr>
   <% else %>
     <div class="col-md-8">
       <p>Your search - <%= raw truncate(@query, :length => 30) %> - did not match any documents.</p>
