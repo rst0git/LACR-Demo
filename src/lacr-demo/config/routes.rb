@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'doc/new', to: "documents#upload"
   get 'doc/show', to: "documents#show"
   get 'doc/page', to: "documents#page"
+  get 'doc/page-s', to: "documents#page_simplified"
   delete 'doc/destroy', to: "documents#destroy"
 
   # Ajax

@@ -10,8 +10,8 @@
         <li <%if @results_per_page == 50 %>class="active"<%end%>><%=link_to "50", search_path+'?q='+@query+'&r=50&m='+@misspellings.to_s %></li>
       </ul>
     </div>
-    <div class="dropdown col-md-2">
-      <a class="dropdown-toggle" data-toggle="dropdown">Misspellings</a>
+    <div class="dropdown col-md-3">
+      <a class="dropdown-toggle" data-toggle="dropdown">Spelling Variants</a>
       <ul class="dropdown-menu">
         <li <%if @misspellings == 0%>class="active"<%end%>><%=link_to "0", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=0' %></li>
         <li <%if @misspellings == 1%>class="active"<%end%>><%=link_to "1", search_path+'?q='+@query+'&r='+@results_per_page.to_s+'&m=1' %></li>

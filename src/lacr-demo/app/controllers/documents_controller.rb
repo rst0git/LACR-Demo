@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
 
   def index
-    @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page).paginate(:page => params[:page], :per_page => 10)
+    # @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page).paginate(:page => params[:page], :per_page => 10)
   end
 
   def list
@@ -27,6 +27,27 @@ class DocumentsController < ApplicationController
       @volume, @page = params[:v].to_i, params[:p].to_i
     else
       redirect_to doc_path, notice:  "The document has not been found."
+    end
+  end
+
+  def page_simplified
+    if params.has_key?(:p) and params.has_key?(:v) \
+      and params[:v].to_i > 0 and  params[:v].to_i < 1000000 \
+      and params[:p].to_i > 0 and  params[:p].to_i < 1000000
+      # Store the volume and page from the input
+      @volume, @page = params[:v].to_i, params[:p].to_i
+      # Select Documents
+      @documents = Search.where('volume' => @volume).rewhere('page' => @page)
+      if @documents.length > 0
+        # Select image
+        respond_to do |format|
+         format.html { render :partial => "documents/page_simplified" }
+       end
+      else
+        render status: 500
+      end
+    else
+      render status: 500
     end
   end
 

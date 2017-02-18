@@ -10,10 +10,18 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require bootstrap_and_overrides.css.less
+ *= require documents.scss
+ *= require home.scss
+ *= require typeaheadjs.scss
+ *= require search.scss
  *= require_self
  */
 
+body{
+    padding-top: 70px;
+    padding-bottom: 30px;
+}
  /*Sticky the foother to bottom of the page*/
  footer p{
    margin: 0;
@@ -180,4 +188,10 @@ mark{
 .main-container{
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.vcenter {
+  display: table-cell;
+	vertical-align: middle;
+	float: none;
 }

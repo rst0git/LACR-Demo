@@ -36,6 +36,9 @@ ActiveRecord::Schema.define(version: 20170213221951) do
     t.string   "date_incorrect"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["page"], name: "index_searches_on_page", using: :btree
+    t.index ["paragraph"], name: "index_searches_on_paragraph", using: :btree
+    t.index ["volume"], name: "index_searches_on_volume", using: :btree
   end
 
   create_table "tr_paragraphs", force: :cascade do |t|

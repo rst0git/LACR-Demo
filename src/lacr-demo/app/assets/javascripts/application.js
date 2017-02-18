@@ -27,4 +27,4 @@ var autocomplete = new Bloodhound({
   });
 $(document).ready(function() {
   $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
-});
+  });

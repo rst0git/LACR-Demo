@@ -14,10 +14,13 @@ class CreateSearches < ActiveRecord::Migration[5.0]
       t.text :content
 
       t.date :date
-      t.string :date_incorrect # Used to explicity specify Date that was in incorrect format 
+      t.string :date_incorrect # Used to explicity specify Date that was in incorrect format
 
       t.timestamps
     end
+    add_index :searches, :volume
+    add_index :searches, :page
+    add_index :searches, :paragraph
     add_foreign_key :searches, :tr_paragraphs, on_delete: :cascade
     add_foreign_key :tr_paragraphs, :searches, on_delete: :cascade
   end

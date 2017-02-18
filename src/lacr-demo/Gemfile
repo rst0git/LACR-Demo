@@ -29,6 +29,7 @@ gem 'turbolinks', '~> 5'
 # Ruby Gem of the Bootstrap
 gem 'less-rails' # Javascript runtime
 gem 'twitter-bootstrap-rails'
+gem "font-awesome-rails"
 # File upload
 gem 'carrierwave'
 # Image resizing
