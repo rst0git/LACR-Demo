@@ -2,7 +2,18 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   storage :file
 
-  # Generate Web version
+  # Fix By default, CarrierWave copies an uploaded file twice,
+  # first copying the file into the cache, then copying the file into the store.#
+  # For large files, this can be prohibitively time consuming.
+  def move_to_cache
+     true
+   end
+
+   def move_to_store
+     true
+   end
+
+  # Generate Web version in jpeg format
   version :large do
     process :efficient_conversion => [2048,2048]
     def filename

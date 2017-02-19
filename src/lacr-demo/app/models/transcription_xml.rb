@@ -1,6 +1,5 @@
 class TranscriptionXml < ApplicationRecord
   HISTEI_NS = 'http://www.tei-c.org/ns/1.0'
-
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
 
@@ -47,6 +46,7 @@ class TranscriptionXml < ApplicationRecord
       # Create Search record
       s = Search.new
       s.tr_paragraph = pr
+      s.transcription_xml = self
       s.entry = entry_id
       s.entry_type = entry_type
       s.lang = entry_lang

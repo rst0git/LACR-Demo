@@ -4,21 +4,16 @@
     <title>LacrDemo</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= yield :stylesheet_includes %>
     <%= javascript_include_tag 'application'%>
   </head>
 
   <body>
   <!-- Navigation -->
   <%= render 'layouts/menu/main' %>
-  <hr>
-  <div class="container main-container col-md-12">
-    <%= render 'layouts/menu/flash_messages' %>
-    <%= yield :before_container %>
-    <div class="container">
-      <%= yield %>
-    </div>
-  </div>
-  <hr>
+  <%= render 'layouts/menu/flash_messages' %>
+  <%= yield :before_container %>
+  <%= yield %>
   <!-- Footer -->
   <%= render 'layouts/menu/footer' %>
   <%= yield :javascript_includes %>

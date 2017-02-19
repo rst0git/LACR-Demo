@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require typeahead.bundle.js
+//= require jquery.noty.packaged.min.js
 
 
 // Autocomplete for the Simple Search
@@ -27,4 +28,4 @@ var autocomplete = new Bloodhound({
   });
 $(document).ready(function() {
   $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
-});
+  });

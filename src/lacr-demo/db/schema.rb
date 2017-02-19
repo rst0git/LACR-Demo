@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170213221951) do
 
   create_table "searches", force: :cascade do |t|
     t.integer  "tr_paragraph_id"
+    t.integer  "transcription_xml_id"
     t.string   "entry"
     t.string   "entry_type"
     t.string   "lang"
@@ -34,8 +35,11 @@ ActiveRecord::Schema.define(version: 20170213221951) do
     t.text     "content"
     t.date     "date"
     t.string   "date_incorrect"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["page"], name: "index_searches_on_page", using: :btree
+    t.index ["paragraph"], name: "index_searches_on_paragraph", using: :btree
+    t.index ["volume"], name: "index_searches_on_volume", using: :btree
   end
 
   create_table "tr_paragraphs", force: :cascade do |t|
@@ -62,13 +66,6 @@ ActiveRecord::Schema.define(version: 20170213221951) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,     null: false
-    t.string   "unlock_token"
-    t.datetime "locked_at"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "admin",                  default: false
@@ -77,5 +74,6 @@ ActiveRecord::Schema.define(version: 20170213221951) do
   end
 
   add_foreign_key "searches", "tr_paragraphs", on_delete: :cascade
+  add_foreign_key "searches", "transcription_xmls"
   add_foreign_key "tr_paragraphs", "searches", on_delete: :cascade
 end

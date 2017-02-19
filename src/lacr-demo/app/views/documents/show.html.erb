@@ -1,18 +1,23 @@
-<% content_for :before_container do %>
-	<div class="container">
-		<h4 id="doc-title"></h4>
-	</div>
-	<hr />
-		<div class="col-md-1">
-			<div class="sidebar-nav">
-				<ul class="nav nav-list" id="doc_nav" style="display:none;">
-				</ul> <!-- <ul class="nav nav-list"> -->
-			</div> <!-- <div class="sidebar-nav"> -->
-		</div> <!-- <div class="col-md-1"> -->
+<% content_for :stylesheet_includes do %>
+	<%= stylesheet_link_tag    'histei/annotation.css' %>
 <% end %>
+<div class="text-center">
+	<h4 id="doc-title"></h4>
+</div>
+<hr />
+<div class="col-md-1">
+	<div class="sidebar-nav">
+		<ul class="nav nav-list" id="doc_nav" style="display:none;">
+		</ul> <!-- <ul class="nav nav-list"> -->
+		</div> <!-- <div class="sidebar-nav"> -->
+		</div> <!-- <div class="col-md-1"> -->
+<div class="container">
+	<div class="col-md-10">
+		<div class="container" id="transcription-image">
+		</div> <!-- container -->
+	</div> <!-- <div class="col-md-10" id="transcription-image"> -->
+</div>
 
-<div class="col-md-10" id="transcription-image">
-</div> <!-- <div class="col-md-10" id="transcription-image"> -->
 
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "documents.js" %>

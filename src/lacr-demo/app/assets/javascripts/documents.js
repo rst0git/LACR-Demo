@@ -43,6 +43,4 @@ $(document).ready(function() {
             $('<div id="vol-'+e.volume+'-page-'+e.page+'" class="vol-'+e.volume+' collapse"><a onclick="load_document(p='+e.page+', v='+e.volume+');">Page '+e.page+'</a></div>').appendTo('#doc_nav');//.appendTo('#vol-'+e.volume);
         });
       })
-
-    // Set another completion function for the request above
 });
