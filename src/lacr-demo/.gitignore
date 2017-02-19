@@ -9,6 +9,7 @@
 
 # Ignore uploaded files
 /public/uploads/*
+/public/download/*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

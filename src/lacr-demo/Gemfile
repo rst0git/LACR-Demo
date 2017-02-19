@@ -32,6 +32,8 @@ gem 'twitter-bootstrap-rails'
 gem "font-awesome-rails"
 # File upload
 gem 'carrierwave'
+# Zip files for download
+gem 'rubyzip'
 # Image resizing
 gem 'mini_magick'
 # Pagination library

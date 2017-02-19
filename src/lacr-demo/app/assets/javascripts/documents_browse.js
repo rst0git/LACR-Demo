@@ -1,5 +1,4 @@
 //= require ISO_639_2.min.js
-var selected = {};
 
 function load_document (p, v){
   $('#doc-title').html("Volume: "+v+" Page: "+p);
@@ -16,7 +15,12 @@ function load_document (p, v){
   $('#vol-'+v+'-page-'+p).addClass("active");
 }
 
+function Download(url) {
+    $('#file_download').attr('src', url);
+};
+
 $(document).ready(function() {
+  var $selected = {};
 
   //Load the list of volumes and pages using ajax
   jqxhr = $.getJSON( "/ajax/doc/list").done(function(data) {
@@ -84,13 +88,13 @@ $(document).ready(function() {
                   // Indicate with badge on the volume
                   $vol_badge.html($chk_boxes.length);
                   // Add checked page to list
-                  $chk_boxes.each(function(c){
-                    selected[$(c).attr('name')] = {'volume':$(c).attr('page-vol'), 'page':$(c).attr('page-page')};
+                  $chk_boxes.each(function(){
+                    $selected[$(this).attr('name')] = {'volume': $chkbox_vol, 'page':$(this).attr('data-page')};
                   });
                 } else {
                   // Remove chacked page from list
-                  $chk_boxes.each(function(c){
-                    delete selected[$(c).attr('name')];
+                  $chk_boxes.each(function(){
+                    delete $selected[$(this).attr('name')];
                   });
                   // Do not show 0 badge
                   $vol_badge.html('');
@@ -109,17 +113,17 @@ $(document).ready(function() {
                   // Indicate with badge on the volume
                   $vol_badge.html(total_chked+1);
                   // Add checked page to list
-                  selected[$chkbox_name] = {'volume': $chkbox_vol, 'page':$chkbox_page};
+                  $selected[$chkbox_name] = {'volume': $chkbox_vol, 'page':$chkbox_page};
                 } else {
                   // Remove chacked page from list
-                  delete selected[$chkbox_name];
+                  delete $selected[$chkbox_name];
                   // Do not show 0 badge
                   if (total_chked <= 1) $vol_badge.html(''); else $vol_badge.html(total_chked-1);
                 }
               }
 
-              // Disable buttons when nothing has been selected
-              $('.doc-tools').attr("disabled", Object.keys(selected).length == 0);
+              // Disable buttons when nothing has been $selected
+              $('.doc-tools').attr("disabled", Object.keys($selected).length == 0);
             });
           }
       })
@@ -128,12 +132,12 @@ $(document).ready(function() {
           var n;
           $.ajax({
             type: 'POST',
-            data: {selected: selected},
+            data: {'selected': $selected},
             url: 'ajax/download',
             cache:false,
             beforeSend: function(){
               $.noty.closeAll();
-              n = noty({text: '<h4 class="text-center"><i class="fa fa-cog fa-spin fa-fw"></i> Zipping...</h4>',
+              n = noty({text: '<h4 class="text-center"><i class="fa fa-cog fa-spin fa-fw"></i> Creating an archive...</h4>',
                                    layout: 'center',
                                    type: 'information'});
             }
@@ -142,6 +146,8 @@ $(document).ready(function() {
               n.setTimeout(5000);
               if (response.type == 'success') {
                 n.setText('<h4 class="text-center"><i class="fa fa-check" aria-hidden="true"></i> '+response.msg+'</h4>');
+                console.log(response.url);
+                Download(response.url);
               }
               else {
                 n.setText('<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+response.msg+'</h4>');
