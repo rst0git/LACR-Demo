@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   delete 'doc/destroy', to: "documents#destroy"
 
   # Ajax
+  post 'ajax/download', to: "download#index"
   get 'ajax/doc/list', to: "documents#list"
   get 'ajax/search/autocomplete', to: 'search#autocomplete'
 

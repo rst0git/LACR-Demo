@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require typeahead.bundle.js
+//= require jquery.noty.packaged.min.js
 
 
 // Autocomplete for the Simple Search
