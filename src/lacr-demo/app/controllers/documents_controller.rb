@@ -124,9 +124,36 @@ class DocumentsController < ApplicationController
 
   def destroy
     if user_signed_in? and current_user.admin?
+      selected = params['selected']
+      # If there are selected pages
+      if selected
+        selected.each do |s|
+          entry = selected[s]
+          if entry.key?("volume") and entry.key?("page")
+            vol, page = entry['volume'], entry['page']
+            tr_xml = Search.where('volume' => vol).rewhere('page' => page)
+            if tr_xml
+              tr_xml.each do |tr|
+                tr.tr_paragraph.destroy
+                tr.destroy
+              end # tr_xml.each
+            end # if xml
+          end # if entry.key?
+        end # selected.each
+        respond_to do |format|
+          format.json { render json: {'type': 'success', 'msg': "Selected documents have been removed."} }
+          format.js   { render :layout => false }
+        end
+      else
+        respond_to do |format|
+          format.json { render json: {'type': 'warning', 'msg': "Error: No selected documents!"} }
+          format.js   { render :layout => false }
+        end
+      end # if selected
     else
       redirect_to new_user_session_path
-    end
+    end # if user_signed_in?
+
   end
 
   private  # all methods that follow will be made private: not accessible for outside objects

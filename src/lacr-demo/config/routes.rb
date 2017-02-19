@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   # Ajax
   post 'ajax/download', to: "download#index"
+  post 'ajax/doc/destroy', to: "documents#destroy"
   get 'ajax/doc/list', to: "documents#list"
   get 'ajax/search/autocomplete', to: 'search#autocomplete'
 
