@@ -43,10 +43,13 @@ $(document).ready(function() {
       $('#volume').html('');
       $('#page').html('');
       $selected = {};
+      // Disable buttons when nothing has been $selected
+      $('.doc-tools').attr("disabled", true);
 
       if (data.length === 0){
         $('#doc-title').html('No documents have been found.');
-        $('#doc-new').fadeIn();
+        $('.doc-tools').hide();
+        $('#doc-browse').hide();
       }
       else {
           $.each( data, function( i, e ) {

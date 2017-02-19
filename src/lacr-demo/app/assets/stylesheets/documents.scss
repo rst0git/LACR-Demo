@@ -24,6 +24,9 @@
 	}
 	.zoom img::selection { background-color: transparent; }
 
+a.doc-tools {
+  display: inline-block;
+}
 .doc-tools {
   display: none;
 }
