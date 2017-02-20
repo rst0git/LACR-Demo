@@ -26,6 +26,22 @@ var autocomplete = new Bloodhound({
       wildcard: '%QUERY'
     }
   });
+
 $(document).ready(function() {
   $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
+
+  $('#adv-search').submit(function () {
+    // Ignore empty values
+    $(this).find('[name]').each(function(){
+      if($(this).val() == ''){
+        $(this).filter(function (input) {
+          return !input.value;
+        })
+        .prop('name', '');
+      }
+    })
+
+    // Ignore submit button
+    $(this).find('[name="commit"]').filter(function (input) { return !input.value;}).prop('name', '');
   });
+});

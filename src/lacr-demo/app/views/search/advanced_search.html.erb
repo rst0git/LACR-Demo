@@ -2,40 +2,15 @@
   <h2>Advanced Search</h2>
   <hr/>
   <div class="row">
-    <div class="span2">
-      <p>Find documents with...</p>
-    </div>
-    <%= form_tag advanced_search_path, method: :post do |f|%>
+    <%= form_tag advanced_search_path, id: "adv-search", method: :get do |f|%>
 
       <div class="row">
         <div class="form-group">
           <div class="col-md-2">
-            <%= label_tag 'content_all', 'all these words:'%>
+            <%= label_tag 'content_all', 'Content'%>
           </div>
           <div class="col-md-6">
-            <%= search_field_tag('content_all','', class: "form-control") %>
-          </div>
-        </div>
-      </div>
-<br>
-      <div class="row">
-        <div class="form-group">
-          <div class="col-md-2">
-            <%= label_tag 'content_any', 'any of these words:'%>
-          </div>
-          <div class="col-md-6">
-            <%= search_field_tag('content_any','', class: "form-control") %>
-          </div>
-        </div>
-      </div>
-<br>
-      <div class="row">
-        <div class="form-group">
-          <div class="col-md-2">
-            <%= label_tag 'content_none', 'none of these words:'%>
-          </div>
-          <div class="col-md-6">
-            <%= search_field_tag('content_none','', class: "form-control") %>
+            <%= search_field_tag('content','', class: "form-control") %>
           </div>
         </div>
       </div>
@@ -59,13 +34,13 @@
           <div class="col-md-2">
             <div class="input-group">
               <span class="input-group-addon" id="date_from">from</span>
-              <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd or yyyy-mm or yyyy", describedby: "date_from", class: "form-control") %>
+              <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd", describedby: "date_from", class: "form-control") %>
             </div>
           </div>
             <div class="col-md-2">
               <div class="input-group">
                 <span class="input-group-addon" id="date_to">to</span>
-                <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd or yyyy-mm or yyyy ", describedby: "date_to", class: "form-control") %>
+                <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd ", describedby: "date_to", class: "form-control") %>
             </div>
           </div>
         </div>
@@ -78,33 +53,10 @@
           </div>
           <div class="col-md-6">
             <select class="form-control" id="lang" name="lang">
-              <option>Any</option>
-              <option>Latin</option>
-              <option>Scots</option>
-            </select>
-          </div>
-        </div>
-      </div>
-<br>
-      <div class="row">
-        <div class="form-group">
-          <div class="col-md-2"><%= label_tag 'Group by:'%></div>
-          <div class="col-md-6">
-            <label class="radio-inline"><input type="radio" name="page" checked />Page</label>
-            <label class="radio-inline"><input type="radio" name="paragraph">Paragraph</label>
-          </div>
-        </div>
-      </div>
-<br>
-      <div class="row">
-        <div class="form-group">
-          <div class="col-md-2">
-            <label for="entry_type">Type:</label>
-          </div>
-          <div class="col-md-6">
-            <select class="form-control" id="entry_type" name="entry_type">
-              <option value="heading">Heading</option>
-              <option value="entry">Entry</option>
+              <option value="">Any</option>
+              <option value="lat">Latin</option>
+              <option value="sco">Scots</option>
+              <option value="nld">Dutch</option>
             </select>
           </div>
         </div>
@@ -114,14 +66,14 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon" id="volume">Volume</span>
-          <%= search_field_tag('volume','', class: "form-control", placeholder: "4-6, 8") %>
+          <%= search_field_tag('volume','', class: "form-control", placeholder: "4 5 7") %>
         </div>
       </div>
 
       <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon" id="page">Page</span>
-            <%= search_field_tag('page','', class: "form-control", placeholder: "1-5, 9, 10") %>
+            <%= search_field_tag('page','', class: "form-control", placeholder: "5 18 9") %>
           </div>
       </div>
 
