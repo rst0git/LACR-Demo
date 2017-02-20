@@ -52,7 +52,6 @@ class SearchController < ApplicationController
     end
 
     if params[:content].present? # Searching
-
       @query = params[:content].present? ? params[:content] : '*'
 
       if params[:r].present?

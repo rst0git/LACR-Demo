@@ -32,6 +32,8 @@ $(document).ready(function() {
 
   $('#adv-search').submit(function () {
     // Ignore empty values
+    if($('#content').val() == ''){$('#content').attr('value', '*')}
+
     $(this).find('[name]').each(function(){
       if($(this).val() == ''){
         $(this).filter(function (input) {
