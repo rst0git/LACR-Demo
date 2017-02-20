@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20170213221951) do
     t.integer  "tr_paragraph_id"
     t.integer  "transcription_xml_id"
     t.string   "entry"
-    t.string   "entry_type"
     t.string   "lang"
     t.integer  "volume"
     t.integer  "page"

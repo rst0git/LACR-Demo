@@ -46,60 +46,73 @@ class SearchController < ApplicationController
      }).map(&:highlighted_content).uniq
    end
 
-
   def advanced_search
-  end
-
-  def filter
     if Search.count.zero? # Fix search on empty table error msg
       redirect_to doc_path
     end
-    # @content_all = params[:content_all].present? ? params[:content_all].split(' ') : ''
-    # @content_any = params[:content_any].present? ? params[:content_any].split(' ') : ''
-    # @content_none = params[:content_none].present? ? params[:content_none].split(' ') : ''
-    # @documents = Search.search @query,
-    #     suggest: true,
-    #     match: :word_start,
-    #     page: params[:page], per_page: 6,
-    #     highlight: {tag: "<mark>"},
-    #     load: false,
-    #     misspellings: {prefix_length: 2},
-    #     where: {
-    #       content: @content_any,
-    #       content: {all: @content_all},
-    #       content: {not: @content_none}
-    #     }
-        @query = params[:content_all].present? ? params[:content_all] : '*'
 
-        if params[:r].present?
-          if params[:r].to_i >= 5 and params[:r].to_i <= 50
-            @results_per_page = params[:r].to_i
-          else
-            @results_per_page = 5
-          end
+    if params[:q].present? # Searching
+      @query = params[:q].present? ? params[:q] : '*'
+
+      if params[:r].present?
+        if params[:r].to_i >= 5 and params[:r].to_i <= 50
+          @results_per_page = params[:r].to_i
         else
           @results_per_page = 5
         end
+      else
+        @results_per_page = 5
+      end
 
-        if params[:m].present?
-          if params[:m].to_i >= 0 and params[:m].to_i <= 5
-            @misspellings = params[:m].to_i
-          else
-            @misspellings = 2
-          end
+      if params[:m].present?
+        if params[:m].to_i >= 0 and params[:m].to_i <= 5
+          @misspellings = params[:m].to_i
         else
           @misspellings = 2
         end
+      else
+        @misspellings = 2
+      end
 
-        @documents = Search.search @query,
-            fields: ['content'],
-            suggest: true,
-            match: :word_start,
-            page: params[:page], per_page: @results_per_page,
-            highlight: {tag: "<mark>"},
-            load: false,
-            misspellings: {edit_distance: @misspellings}
+      where_query = {}
 
-    render :search
-  end
+      if params[:entry]
+        where_query['entry'] = params[:entry]
+      end
+
+      if params[:date_from]
+        where_query['date'] = {'gte': params[:date_from]}
+      end
+
+      if params[:date_to]
+        where_query['date'] = {'lte': params[:date_to]}
+      end
+
+      if params[:lang]
+        where_query['lang'] = params[:lang]
+      end
+
+      if params[:v]
+        where_query['volume'] = params[:v].split(/,| /).map { |s| s.to_i }
+      end
+      if params[:pg]
+        where_query['page'] = params[:pg].split(/,| /).map { |s| s.to_i }
+      end
+      if params[:pr]
+        where_query['paragraph'] = params[:pr].split(/,| /).map { |s| s.to_i }
+      end
+      puts where_query
+      @documents = Search.search @query,
+      where: where_query,
+      fields: [:content],
+      highlight: {tag: "<mark>"},
+      suggest: true,
+      load: false,
+      page: params[:page], per_page: @results_per_page,
+      misspellings: {edit_distance: @misspellings}
+
+      render :search
+    end # if params[:q].present?
+  end # def advanced_search
+
 end

@@ -5,7 +5,6 @@ class CreateSearches < ActiveRecord::Migration[5.0]
       t.integer :transcription_xml_id
 
       t.string :entry
-      t.string :entry_type
       t.string :lang
 
       t.integer :volume

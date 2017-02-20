@@ -35,7 +35,6 @@ class TranscriptionXml < ApplicationRecord
       # Convert the 'entry' and 'date' Nokogiri objects to Ruby Hashes
       entry_id = entry.xpath("@xml:id").to_s
       entry_lang = entry.xpath("@xml:lang").to_s
-      entry_type = entry.xpath("@type").to_s
       entry_xml = entry.to_xml
 
       # Create TrParagraph record
@@ -48,7 +47,6 @@ class TranscriptionXml < ApplicationRecord
       s.tr_paragraph = pr
       s.transcription_xml = self
       s.entry = entry_id
-      s.entry_type = entry_type
       s.lang = entry_lang
       s.date = entry_date
       s.date_incorrect = entry_date_incorrect
