@@ -1,0 +1,31 @@
+version: '2.1'
+
+services:
+  db:
+    image: postgres:9.6.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: database
+
+  es:
+    image: elasticsearch:5.1.2
+    ports:
+     - "9200:9200"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile_with_proxy
+      args:
+        - http_proxy
+        - https_proxy
+
+    command: bundle exec rails s -p 80 -b '0.0.0.0'
+    
+    volumes:
+      - ./lacr-demo:/lacr-demo
+    ports:
+      - "80:3000"
+    depends_on:
+      - es
+      - db

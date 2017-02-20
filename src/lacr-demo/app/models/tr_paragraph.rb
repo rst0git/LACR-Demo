@@ -1,0 +1,2 @@
+class TrParagraph < ApplicationRecord
+end

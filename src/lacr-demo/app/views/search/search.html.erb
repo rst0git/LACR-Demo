@@ -1,0 +1,43 @@
+<% content_for :nav_menu do %>
+  <% render '/search/search_tools' %>
+<%end%>
+
+<div class="container">
+  <% if @documents.try(:suggestions).length > 0 %>
+    <label> Did you mean one of:
+      <% @documents.try(:suggestions).each do |s| %>
+      <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
+      <% end %>
+    </label>
+  <%end%>
+<hr>
+  <% if @documents.length > 0 %>
+    <ul>
+      <% @documents.each do |document| %>
+      <li>
+        <h4><%= link_to "Volume: #{document.volume}, Page #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></h4>
+        <h5><%= document.entry %></h5>
+        <% if document.highlighted_content %>
+        <p><%= document.highlighted_content.html_safe %></p>
+        <%else%>
+        <p><%= document.content %></p>
+        <%end%>
+      </li>
+      <% end %>
+    </ul>
+    <div class="row">
+      <div class="text-center">
+        <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+    <hr>
+  <% else %>
+    <div class="col-md-8">
+      <p>Your search - <%= raw truncate(@query, :length => 30) %> - did not match any documents.</p>
+      <p>Suggestions:</p>
+      <ul>
+        <li>Try different keywords.</li>
+      </ul>
+    </div>
+  <% end %>
+</div>

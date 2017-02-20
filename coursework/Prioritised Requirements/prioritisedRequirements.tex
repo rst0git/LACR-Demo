@@ -1,0 +1,140 @@
+%Compiler: XeTeX 3.14159265-2.6-0.99992 from teX Live 2015/Debian
+
+%Compilation flags: xelatex -synctex=1 -shell-escape -interaction=nonstopmode "prioritisedRequirements".tex
+
+%I've put a copy of Linux Libertine in ./LinLibertineTTF_5.3.0_2-12_07_02
+
+\documentclass[10pt,a4paper]{report}
+\usepackage{fontspec}
+\usepackage[bookmarks]{hyperref}
+\usepackage{footnotebackref}
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
+\setmainfont[Ligatures={TeX, Common, Required}]{Linux Libertine}
+\newcommand{\rationale}[1]{
+    \footnote{
+        \textbf{Rationale}: #1
+    }
+}
+\begin{document}
+    \begin{center}
+        {\LARGE \textsc{Requirements}}\\
+        Last modified: \today
+    \end{center}
+    \section*{Preamble}
+        In the following document, the SI standards will be used for measurements:
+        \begin{itemize}
+            \item \emph{1 second} will be abbreviated as \emph{sec} or \emph{s};
+            
+            \item \emph{1 byte} (abbreviated \emph{B}) refers to \emph{one octet}, or \emph{eight bits};
+            
+            \item \emph{1 megabit per second} (abbreviated \emph{1 Mbps}) refers to \emph{$10^6$ bits/sec};
+            
+            \item \emph{1 kilobit per second} (abbreviated \emph{1 Kbps}) refers to \emph{$10^3$ bits/sec};
+            
+            \item \emph{1 Terabyte} (abbreviated \emph{1 TB}) refers to \emph{$10^{12}$ bytes}
+        \end{itemize}
+        The following definitions will also be used:
+        \begin{itemize}
+            \item \emph{data decay} refers to the mutation of some stored data when it is not intended by the user.
+        
+        \end{itemize}
+    \section*{Functional requirements (most important first)}
+        \begin{enumerate}
+            \item The application should parse all XML tags required by the TEI standards, as well as those required by the \textbf{[x]}, \textbf{[y]} and \textbf{[z]} namespaces
+            \rationale{Nothing can happen without this}
+
+            \item User should be able to search through a transcribed document
+            \rationale{this is the main purpose of the software, and it would be basically useless without it. The sub-requirements are requirements as a part of this}
+                \begin{enumerate}
+                    \item User should be able to search for plain-text strings
+                    \rationale{Most people won't know the ID of what they want, or a specific name}
+                    
+                    \item User should be able to search through documents by ID (volume, date, page)
+                    \rationale{This was specifically stated to be an important requirement}
+                    
+                    \item User should be able to search through documents by proper names
+                    \rationale{Not specifically stated by the LACR team}
+                    
+                    \item User should be able to search through documents by  annotations
+                \end{enumerate} 
+   
+            \item User should see the search results and the ten words of context surrounding the result
+            \rationale{It's obviously as important to be able to see the search results as to be able to make a query, unless you're using your server as a space-heater}
+            
+            \item User should see the document ID in the search results
+            
+            \item User should see the date of the document in the search results
+            
+            \item User should be able to view a list of documents in chronological order 
+            \rationale{After searching, this is the other main point of our package}
+            
+            \item The application should store the documents with a SHA-256 checksum
+            \item The application should periodically check the stored documents against their checksum so that data can be protected against \emph{data decay}.
+            \rationale{Because these are public records, it is important they are always accessible and correct}
+            
+            \item User should be able to download the XML file of desired document
+            \rationale{Although considered important by the LACR team, it only makes sense when there is some way to search for a document}
+            
+            \item User should be able to download the original scan of desired document
+            \rationale{See above}
+            
+            \item The application should be able to interface with the CLARIN project
+            
+            \item User should be able to turn \emph{all} annotations “off” and “on”
+            \rationale{This was considered a nice extra to have by the LACR team AFAIK}
+            
+            \item User will be provided with \textbf{[DOCUMENTATION]}
+            \rationale{While we should be documenting things as we go, and it is important, there's no point having documentation for vapourware}
+        \end{enumerate}
+    \section*{Non-functional requirements (most important first)}
+        \begin{enumerate}
+            \item The web-application will be licensed under \textbf{[LICENSE]}
+            \rationale{If they don't agree with the license, then there's no sale}
+            
+            \item The web-application must be suitable for searching queries, browsing the XML documents, translations, interpretation and scanned pages for these user groups:
+            \rationale{Being accessible to everyone was considered very important by the LACR team, and thus the usability requirements are the most important non-functional requirements}
+            \begin{itemize}
+                \item secondary school children aged 11 years old or older;
+                \item University and college students;
+                \item researchers;
+                \item The wider public with average computer skills, and who are aged 11 years or older
+            \end{itemize}
+            
+            \item The web-application must be accessible from Chrome version 50.+, Firefox version 45.+, Safari version 9.+ , Edge version 38.14393 and higher.
+            \rationale{This is also important to accessiblity}
+            
+            \item It will be possible to extend the application such that translation and interpretation views can be added
+            
+            \item The web application will be optimized for these screen resolutions:
+            \rationale{Whilst it is important to accessability, it will mainly just impose annoyances on the user as opposed to making it unavailable to them}
+            \begin{itemize}
+                \item Extra small devices, Phones: less than 768px
+                \item Small devices Tablet: min-width:768px
+                \item Medium devices Desktops: min-width:992px
+                \item Large devices Desktops: min-width:1200px
+            \end{itemize}
+            
+            \item User should receive search results within 5 sec. if their device's connection to the Internet has a download speed of 1 Mbps, and their upload speed is 256 Kbps
+            \rationale{See above}
+            
+            \item New data (XML files, translations, interpretations and scanned pages) should be imported via SFTP to dedicated folders for them. (via web interface, drag and drop function, filter out directories, only files which are supported) (functional requirement?)
+            \rationale{This is about usability for the LACR team, and is probably the part of the system they will have most interaction with}
+            
+            \item The system should be reliable and available at least 363 days in the year.
+            \rationale{This also impacts usability to a large extent}
+            
+            \item It is acceptable to restart the system in the event of failure at most 1 time a week.
+            \rationale{See above}
+            
+            \item The web-application should support up to 1000 concurrent users. This requirement is bound with minimal hardware requirement specification.
+            
+            \item The system can be restarted at most once a week for maintenance purposes and applying software updates.
+            
+            \item The system should be able to store single file with size up to 1 TB.
+            
+            \item The system should be running on Ubuntu 16.04 LTS
+            
+            \item The system should be installed and tested within one week by our team.
+            \rationale{As this is a one-time thing, it's pretty unimportant}
+        \end{enumerate}
+\end{document}

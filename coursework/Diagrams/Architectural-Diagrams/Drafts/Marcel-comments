@@ -1,0 +1,30 @@
+Jack's diagram :
+	- good starting point for other arch. diagrams
+	- search handler should interact with elastic search. The service of searching through documents is provided by Elastic search.
+	- missing security functions for login and register new admins.
+	- missing CLARIN API function
+	- I think that XML files should be stored together with images and other docs in SQL database.
+	- Elastic search require JSON files
+	- missing function for translation XML to JSON
+	- Your upload handler reads and writes. I do not understand why. It should only write files not read. It would make sense if it also edit the files.
+
+Rado's diagram:
+	- search handler reads from compose handler bat based on what? I think that Elastic search should read from search handler, process the query, provide result to compose handler and from here it should be displayed.
+	- Download handler reads form compose handler. I do not know why? Download handler should only retrieve the desired documents from DB.
+	- Upload / Edit handler reads and writes to Compose handler. Does it men that Compose handler translate XML to JSON? If yes then it has too many functions. Doesn't it?
+	- missing security functions for login and register new admins.
+	- missing CLARIN API function
+
+Cameron's diagram:
+	- Search reads from user then process the query and load from Elastic search? I think that search function is within Elasic search and our search should only process the query to relevant format for Elasticsearch. Then Elastic search spits out something for View. Maybe?
+	- Download Document reads from user and then elastic search reads from Download Document? This does not make sense for me. And what then?
+	- Upload Document reads writes... Why? Is it also edit? I think we need function which translates from XML to JSON for Elastic search. We will also need to store all docs, images and credentials in (probably SQL DB)
+	-View Document reads from user. Why? Then DB reads View Document. Do not understand this.
+
+My diagram (Marcel):
+	- User interacts with Search handler where the query is processed to suitable format for Elasticsearch. Then Elasticsearch reads this and search for documents. Compose handler reads the results from ES. Process the output data to suitable format for View. View serves the results to user.
+	- Admin interacts with Login and should be able to also add new admins. Therefore interacts also with Register. When he interacts with login or register there need to be also Hash+salt function which will create hash with salt and this is stored into DB. It aso needs to retriev the salt and hash for comparison while login...
+	- Upload / Edit / Download I think that this this should me one module which takes care about all this. Therefore reads and writes to DB (SQL DB)
+	- We will need CLARIN API
+	- when the new XML files are uploaded they need to be translated to JSON for the Elasticsearch.
+	- This is my view and I could be wrong. Please criticize it as much as you can.

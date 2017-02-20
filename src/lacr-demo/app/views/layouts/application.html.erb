@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LacrDemo</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application'%>
+  </head>
+
+  <body>
+  <!-- Navigation -->
+  <%= render 'layouts/menu/main' %>
+  <hr>
+  <div class="container main-container col-md-12">
+    <%= render 'layouts/menu/flash_messages' %>
+    <%= yield :before_container %>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </div>
+  <hr>
+  <!-- Footer -->
+  <%= render 'layouts/menu/footer' %>
+  <%= yield :javascript_includes %>
+  </body>
+</html>

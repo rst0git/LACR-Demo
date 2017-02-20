@@ -1,0 +1,66 @@
+2016-10-31:
+    * Removed regex requirement
+    
+    * Re-wrote checksum requirement and split into a checksum requirement and a checking requirement
+    
+    * Added definition of data decay
+    
+    * Added doc. ID in search result requirement
+    
+    * Added doc. date in search result requirement
+    
+    - Jan Siemaszko
+    
+2016-10-17:
+    * Re-worded the functional requirement on annotations to be more precise
+    
+    * Removed footnote about unit choice
+    
+    * Added requirement to provide documentation, although what documentation should be provided is still unclear.
+    
+    * Added requirement to be extensible enough to provide different views
+    
+    * Added requirement for CLARIN integration
+    
+    * Added requirement for HisTEI compatability
+    
+    * Added requirement for license
+    
+    * Document now uses the hyperref package, so things such as footnotes and table-of-contents are hyperlinked
+    
+    * Document now uses the footnotebackref package, so footnotes have back-references
+    
+    * Document now includes "\rationale" command, just to ease typesetting rationales
+    
+    - Jan Siemaszko
+    
+2016-10-15:
+    * Initial document created from:
+        1. CS3028-CHARLIE/coursework/Presentations/Third_presentation/Functional
+           Requirments Revised.odt
+        2. CS3028-CHARLIE/coursework/Presentations/Third_presentation/Non-functional
+           Requirements.odt
+    
+    * Some requirements specified as sub-requirements of others (specifically, the various
+      requirements to do with search input are now sub-requirements of the search
+      requirement)
+    
+    * Initial re-ordering of requirements
+    
+    * Added the requirement to be able to search for plain text, replacing the requirement
+      to search for a specific word, as I think users want to be able to search for whole
+      strings, and this includes searching for single words
+    
+    * Added footnotes with my rationale for ranking - these will obviously be removed when
+      we've agreed about everything
+    
+    * re-phrased the user groups from the non-functional requirements
+    
+    * re-phrased the non-functional requirement about upload speed (mainly, I think we
+      just want "if" as opposed to "if and only if", since, to get a download in 5 seconds,
+      it is sufficient to have a 1Mbps connection, but not necessary; we just don't
+      guaruntee it.
+    
+    * Added a preamble to specify that we will be using SI units of measurement
+    
+    - Jan Siemaszko

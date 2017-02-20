@@ -1,0 +1,6 @@
+The total cost should be £40,000.
+We expect to sell the final product for £9,900 per copy. Annually will be sold about 25-50 copies.This would generate gross income in a region of £247,500 and £495,000.
+Lowest ROI = (247,500 - 40,000) / 40,000 = 5.1875
+
+Highest ROI = (495,000 - 40,000) / 40,000 = 11.375
+

@@ -1,0 +1,23 @@
+salary - 30 000
+
+10 weeks x 10 hours x 5 x 2 = 1000 hours x 16 = £16000
+
+(rent - £420 x 5 = £2100 x 5 = £10500)
+
+HW  = £420
+
+Annual operational costs - £0
+
+Annual benefits = £120 / hour
+
+Intangible costs and benefits - 10%
+
+SUM = £18 000 (£27 500)
+
+40 000
+110 000
+
+ROI1 = (40 000 - 18000)/18000 = 1.2
+ROI2 = (40 000 - 27500)/27500 = 0.45
+ROI3 = (110 000 - 18000)/18000 = 5
+ROI4 = (110 000 - 27500)/27500 = 3

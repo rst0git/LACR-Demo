@@ -1,0 +1,54 @@
+
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag    'pagination' %>
+<% end %>
+
+<div class="container" id="main">
+  <div class="row vertical-align">
+    <div class="col-md-6">
+      <h1>Documents</h1>
+    </div>
+    <% if user_signed_in? and current_user.admin? %>
+      <div class="col-md-6">
+        <div class="text-right">
+          <%= link_to 'New Document', doc_new_path, class: "btn btn-primary"%>
+        </div>
+      </div>
+    <%end%>
+  </div>
+  <hr>
+
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Volume and Page</th>
+           <th>Download Link</th>
+           <% if user_signed_in? and current_user.admin? %>
+            <th>Destroy</th>
+           <%end%>
+        </tr>
+     </thead>
+
+     <tbody>
+        <% @documents.each do |document| %>
+           <tr>
+              <td><%= link_to "Volume: #{document.volume} Page: #{document.page}", url_options = {controller: "documents", action: "show", p: document.page, v: document.volume} %></td>
+              <td><%= button_to "Download", {}, :disabled => true %></td>
+              <%  if user_signed_in? and current_user.admin? %>
+                <td><%= button_to "Delete", { action: "destroy", id: document.id },
+                        :method => :delete, data:{ :confirm => 'Are you sure?'}%></td>
+              <%end%>
+           </tr>
+
+        <% end %>
+     </tbody>
+
+  </table>
+  <div class="row">
+    <div class="text-center">
+        <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+
+  <hr>
+</div> <!-- /.container -->

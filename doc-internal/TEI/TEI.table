@@ -1,0 +1,59 @@
+This table is intended as a quick refernce to TEI tags. I'm trying to distil the TEI guidlines into something more manageable.
+
+TODO:
+    * Understand the semantics of the <name> tag
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Working stack (that is, where in the XML hierarchy I need to complete transcription of):
+    * <TEI>
+    * <teiHeader>
+    * <fileDesc>
+    
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Key to fields:
+  Tag - the name of the tag
+  Mandatory - is the tag required to be present in the document?
+  Comon-element - is the tag a part of TEI itself, or some particular namespace?
+  semantics - the meaning of the tag
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+TEI TAGS
+
+-------------------------||--------------||------------------||-------------------------------------------------------------
+Tag                      || Mandatory    || Common-element   || Semantics                                                   
+-------------------------||------------  ||------------------||-------------------------------------------------------------
+<TEI>                       Yes             Yes                 The toplevel tag. Contains <teiHeader> and <text>
+
+    <teiHeader>             Yes             Yes                 Contains metadata
+
+        <fileDesc>          Yes             Yes                 Contains a bibliographic description of the text via the
+                                                                tags below
+
+            <titleStmt>     Yes             Yes                 Groups information about the title of a work and those
+                                                                responsible via the tags below
+      
+                <title>     Yes             Yes                 The title of the work
+        
+                <author>    No              Yes                 The author
+        
+                <editor>    No              Yes                 Secondary responsiblity for an item (editor, translator, etc)
+                
+                <sponsor>   No              Yes                 The name of a sponsor organisation/institution
+                
+                <funder>    No              Yes                 The individual or group responsible for funding
+                
+                <principle> No              Yes                 The principle researcher for a text
+                
+                <respStmt>  No              Yes                 The statement of responsibility for a work
+                
+                <resp>      No              Yes                 The phrase describing the nature of a person's intellectual responsibility
+                
+                <name>      No              Yes                 Contains a proper noun or noun-phrase
+                
+    <text>                  Yes             Yes                 Contains the text proper. Mandatory.
