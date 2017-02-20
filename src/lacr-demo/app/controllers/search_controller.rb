@@ -51,8 +51,8 @@ class SearchController < ApplicationController
       redirect_to doc_path
     end
 
-    if params[:content].present? # Searching
-      @query = params[:content].present? ? params[:content] : '*'
+    if params[:q].present? # Searching
+      @query = params[:q].present? ? params[:q] : '*'
 
       if params[:r].present?
         if params[:r].to_i >= 5 and params[:r].to_i <= 50
@@ -92,14 +92,14 @@ class SearchController < ApplicationController
         where_query['lang'] = params[:lang]
       end
 
-      if params[:volume]
-        where_query['volume'] = params[:volume].split(/,| /).map { |s| s.to_i }
+      if params[:v]
+        where_query['volume'] = params[:v].split(/,| /).map { |s| s.to_i }
       end
-      if params[:page]
-        where_query['page'] = params[:page].split(/,| /).map { |s| s.to_i }
+      if params[:pg]
+        where_query['page'] = params[:pg].split(/,| /).map { |s| s.to_i }
       end
-      if params[:paragraph]
-        where_query['paragraph'] = params[:paragraph].split(/,| /).map { |s| s.to_i }
+      if params[:pr]
+        where_query['paragraph'] = params[:pr].split(/,| /).map { |s| s.to_i }
       end
       puts where_query
       @documents = Search.search @query,
