@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  database: lacrDB
+  database: lacrDB_development
   username: postgres
   password: database
   host: db
@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: lacrDB
+  database: lacrDB_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: lacrDB
+  database: lacrDB_production
