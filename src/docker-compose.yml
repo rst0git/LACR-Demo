@@ -1,6 +1,9 @@
 version: '2'
 
 services:
+  basex:
+    image: basex/basexhttp
+
   db:
     image: postgres:9.6.1
     environment:
@@ -23,3 +26,4 @@ services:
     depends_on:
       - es
       - db
+      - basex
