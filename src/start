@@ -20,7 +20,7 @@ then
 	fi
 fi
 
-read -r -p "Would you like to run \"rails db:drop db:create db:migrate db:seed\"? [y/N] " response
+read -r -p "Create database ? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
   docker-compose run web bash -c "rails db:drop && rails db:create && rails db:migrate && rails db:seed"

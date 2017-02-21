@@ -101,7 +101,7 @@ class SearchController < ApplicationController
       if params[:pr]
         where_query['paragraph'] = params[:pr].split(/,| /).map { |s| s.to_i }
       end
-      puts where_query
+      
       @documents = Search.search @query,
       where: where_query,
       fields: [:content],
