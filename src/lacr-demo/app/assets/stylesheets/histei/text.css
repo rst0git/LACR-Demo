@@ -4,7 +4,6 @@
 -----   http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
 -------------------------------------------------------------------------------------------------*/
 
-@namespace xml url('http://www.w3.org/XML/1998/namespace');
 
 /* Global styles for hover/focus during inline editing */
 supplied:focus:after,
@@ -156,7 +155,7 @@ fw:before {
     padding: 0px;
     vertical-align: middle;
     content:
-        url('assets/histei/forme_work-16.png')
+        url('forme_work-16.png')
         oxy_label(
             text, "${i18n(type.label)}: "
             styles, "@import 'labels_sub.css';"
@@ -308,7 +307,7 @@ del {
     text-decoration: line-through;
 }
 
-gap {
+gap:after {
     color:orange;
     content: "[...]";
     font-style: italic;
@@ -348,6 +347,7 @@ foreign {
 }
 
 foreign:focus:after {
+  content: attr(xml:lang);
     -oxy-append-content:
         oxy_label(
             text, "${i18n(lang.label)}: "
@@ -380,7 +380,7 @@ text title {
 text title:before {
     padding-right: 2px;
     vertical-align: middle;
-    content: url('assets/histei/title-16.png');
+    content: url('title-16.png');
 }
 
 /* Note */
@@ -454,7 +454,7 @@ pb:before {
     padding: 0px;
     vertical-align: middle;
     counter-increment:pages;
-    content: url('assets/histei/page_break-16.png')
+    content: url('page_break-16.png')
         " Page " counter(pages)
         oxy_label(
             text, "${i18n(n.label)}: "
@@ -508,7 +508,7 @@ handShift {
     padding:0px;
     vertical-align: middle;
     link: attr(new, string, "");
-    content: url('assets/histei/hand_shift-16.png');
+    content: url('hand_shift-16.png');
 }
 
 handShift:hover:after {
@@ -549,7 +549,7 @@ handShift[new]:hover:after {
     padding-left: 5px;
     vertical-align: middle;
     link: attr(new, string, "");
-    -oxy-append-content: url('assets/histei/hand_open-16.png');
+    -oxy-append-content: url('hand_open-16.png');
 }
 
 [hand]:focus:after,
@@ -557,7 +557,7 @@ gap[hand]:hover:after {
     padding-left: 5px;
     vertical-align: middle;
     link: attr(hand, string, "");
-    -oxy-append-content: url('assets/histei/hand_open-16.png');
+    -oxy-append-content: url('hand_open-16.png');
 }
 
 /* Linking elements - anchors and pointers that refer to them (mainly for glosses) */
@@ -628,7 +628,7 @@ gloss[target]:after {
     padding-left: 5px;
     vertical-align: middle;
     link: attr(target, string, "");
-    content: url('assets/histei/link_open-16.png');
+    content: url('link_open-16.png');
 }
 
 

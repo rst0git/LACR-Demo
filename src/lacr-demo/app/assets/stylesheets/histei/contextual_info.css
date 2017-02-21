@@ -4,9 +4,6 @@
 -----   http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
 -------------------------------------------------------------------------------------------------*/
 
-/* Global fields & labels */
-@namespace xml url('http://www.w3.org/XML/1998/namespace');
-
 fileDesc,
 titleStmt,
 title,

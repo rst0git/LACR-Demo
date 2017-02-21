@@ -34,48 +34,48 @@ postBox:before {
 }
 
 date:before {
-    -oxy-prepend-content: url('assets/histei/date-16.png');
+    -oxy-prepend-content: url('date-16.png');
 }
 persName:before {
-    -oxy-prepend-content: url('assets/histei/person-16.png');
+    -oxy-prepend-content: url('person-16.png');
 }
 orgName:before {
-    -oxy-prepend-content: url('assets/histei/org-16.png');
+    -oxy-prepend-content: url('org-16.png');
 }
 placeName:before {
-    -oxy-prepend-content: url('assets/histei/place-16.png');
+    -oxy-prepend-content: url('place-16.png');
 }
 district:before {
-    -oxy-prepend-content: url('assets/histei/district-16.png');
+    -oxy-prepend-content: url('district-16.png');
 }
 settlement:before {
-    -oxy-prepend-content: url('assets/histei/settlement-16.png');
+    -oxy-prepend-content: url('settlement-16.png');
 }
 region:before {
-    -oxy-prepend-content: url('assets/histei/region-16.png');
+    -oxy-prepend-content: url('region-16.png');
 }
 country:before {
-    -oxy-prepend-content: url('assets/histei/country-16.png');
+    -oxy-prepend-content: url('country-16.png');
 }
 bloc:before {
-    -oxy-prepend-content: url('assets/histei/bloc-16.png');
+    -oxy-prepend-content: url('bloc-16.png');
 }
 
 /* Address */
 address:before {
-    -oxy-prepend-content: url('assets/histei/address-16.png');
+    -oxy-prepend-content: url('address-16.png');
 }
 addrLine:before {
-    -oxy-prepend-content: url('assets/histei/address_line-16.png');
+    -oxy-prepend-content: url('address_line-16.png');
 }
 street:before {
-    -oxy-prepend-content: url('assets/histei/street-16.png');
+    -oxy-prepend-content: url('street-16.png');
 }
 postCode:before {
-    -oxy-prepend-content: url('assets/histei/postcode-16.png');
+    -oxy-prepend-content: url('postcode-16.png');
 }
 postBox:before {
-    -oxy-prepend-content: url('assets/histei/postbox-16.png');
+    -oxy-prepend-content: url('postbox-16.png');
 }
 
 /* Elements with hidden Oxygen tags */
@@ -201,7 +201,7 @@ ptr:before,
 ref:before {
     padding-right: 2px;
     vertical-align: middle;
-    content: url('assets/histei/link-16.png');
+    content: url('link-16.png');
 }
 
 ptr[target]:after,
@@ -209,7 +209,7 @@ ref[target]:after {
     padding-left: 5px;
     vertical-align: middle;
     link: attr(target, string, "");
-    content: url('assets/histei/link_open-16.png');
+    content: url('link_open-16.png');
 }
 
 ptr:hover:after,
@@ -241,7 +241,7 @@ note[type="url"]:after {
     padding-left:5px;
     vertical-align: middle;
     link: oxy_xpath("text()");
-    content: url('assets/histei/link_open-16.png');
+    content: url('link_open-16.png');
 }
 
 /* Headings & Labels */
@@ -265,18 +265,7 @@ head[type="sub"] {
 head:before {
     padding-right: 2px;
     vertical-align: middle;
-    content:
-        url('assets/histei/head-16.png')
-        oxy_label(
-            text, oxy_concat("${i18n(type.label)}: ")
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@type"
-            values, "main, sub, title"
-        )
-        "  "
-    ;
+    content:url('head-16.png') attr(type)"  ";
 }
 
 label {
@@ -289,7 +278,7 @@ label {
 label:before{
     padding-right: 2px;
     vertical-align: middle;
-    content: url('assets/histei/label-16.png');
+    content: url('label-16.png');
 }
 
 /* Paragraph and accompanying Line Break */
@@ -297,7 +286,7 @@ label:before{
 p:before{
     padding: 0px;
     vertical-align: middle;
-    content: url('assets/histei/paragraph-16.png');
+    content: url('paragraph-16.png');
 }
 
 p {
@@ -308,13 +297,12 @@ p {
     -oxy-foldable:true;
 }
 
-lb {
-    padding: 0px;
-    vertical-align: middle;
-    visibility:-oxy-collapse-text;
-    -oxy-display-tags:none;
-    content:url('assets/histei/line_break-12.png') "\A";
+lb::after  {
+  content:url('line_break-12.png') "\A";
+  /* Show line break by breaking the line */
+  /*display: block;*/
 }
+
 
 lb[break="no"] {
     color:purple;
@@ -323,16 +311,6 @@ lb[break="no"] {
     content:"→\A";
 }
 
-/* An attempt at numbering linebreaks...
-text p lb{
-    font-family:courier, fixed, monospace;
-    font-size:x-small;
-    content:
-        oxy_xpath(
-            "if (((count(./preceding::lb intersect ./preceding::pb[1]/following::lb) + 1) mod 5) eq 0) then concat('\A', substring(concat(count(./preceding::lb intersect ./preceding::pb[1]/following::lb) + 1, '     '), 1,4)) else if ((count(./preceding::lb intersect ./preceding::pb[1]/following::lb) + 1) eq 1) then '    ' else '\A     '"
-        )
-    ;
-}*/
 
 /* Global Textual Styles */
 

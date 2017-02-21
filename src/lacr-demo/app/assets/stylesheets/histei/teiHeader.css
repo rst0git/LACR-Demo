@@ -1,12 +1,7 @@
 /*-----------------------------------------------------------------------------------------------
------ HisTEI framework customizations for Oxygen 
+----- HisTEI framework customizations for Oxygen
 -----   TEI Header for a Document
 -------------------------------------------------------------------------------------------------*/
-
-/* Bibliographic References used in sourceDesc when transcribing published work */
-@import "bibl.css";
-
-@namespace xml url('http://www.w3.org/XML/1998/namespace');
 
 /* Foldable Sections */
 titleStmt,
@@ -66,7 +61,7 @@ handNotes:before {
 }
 
 msDesc:before {
-    background-color:rgba(53, 25, 0, 0.6);    
+    background-color:rgba(53, 25, 0, 0.6);
 }
 
 /* Fields */
@@ -112,7 +107,7 @@ stdVals:before,
 interpretation:before,
 punctuation:before,
 change:before {
-    content: 
+    content:
         oxy_label(
             text, oxy_concat("${i18n(", oxy_name(), ".label)}:")
             styles, "@import 'labels.css';"
@@ -128,15 +123,15 @@ teiHeader note[type]:before {
 
 repository:before {
     -oxy-prepend-content:
-        url('../images/repository-16.png')
+        url('repository-16.png')
 }
 
 collection:before {
     -oxy-prepend-content:
-        url('../images/collection-16.png')
+        url('collection-16.png')
 }
 
-/* Collapse text for all reference elements 
+/* Collapse text for all reference elements
     (so that only the combobox will edit the field) */
 repository,
 catRef,
@@ -152,12 +147,12 @@ creation > bloc {
     display:block;
     vertical-align:middle;
     padding:5px 0px;
-    visibility:-oxy-collapse-text;
+    /*visibility: collapse;*/
 }
 
 /* Reference fields that use the HisTEI contextual editor */
 repository {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -170,7 +165,7 @@ repository {
 }
 
 creation > persName {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -182,7 +177,7 @@ creation > persName {
 }
 
 creation > orgName {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -194,7 +189,7 @@ creation > orgName {
 }
 
 creation > placeName {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -211,7 +206,7 @@ creation > settlement,
 creation > region,
 creation > country,
 creation > bloc {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -228,7 +223,7 @@ catRef:before {
     -oxy-append-content:
         oxy_label(
             text, "${i18n(scheme.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
@@ -242,7 +237,7 @@ catRef:before {
 }
 
 catRef {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -255,7 +250,7 @@ catRef {
 }
 
 catRef[scheme] {
-    content: 
+    content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
@@ -269,7 +264,7 @@ catRef[scheme] {
 
 /* Field Labels not automatically retrievable */
 publicationStmt > idno:before {
-    content: 
+    content:
         oxy_label(
             text, "${i18n(idno.label.internal)}:"
             styles, "@import 'labels.css';"
@@ -278,7 +273,7 @@ publicationStmt > idno:before {
 }
 
 msIdentifier > idno:before {
-    content: 
+    content:
         oxy_label(
             text, "${i18n(idno.label.archive)}:"
             width, 100px
@@ -288,7 +283,7 @@ msIdentifier > idno:before {
 }
 
 altIdentifier > idno:before {
-    content: 
+    content:
         oxy_label(
             text, "${i18n(idno.label.alternative)}:"
             width, 110px
@@ -362,10 +357,10 @@ handNote:before {
     padding: 0px;
     vertical-align: middle;
     -oxy-append-content:
-        url('../images/hand-16.png')
+        url('hand-16.png')
         oxy_label(
             text, "${i18n(id.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_textfield(
             edit, "@xml:id"
@@ -373,7 +368,7 @@ handNote:before {
         )
         oxy_label(
             text, "${i18n(scope.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
                 edit, "@scope"
@@ -386,7 +381,7 @@ handNote:after {
     content:
         oxy_label(
             text, "${i18n(desc.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_textArea(
             edit, "#text"
@@ -403,7 +398,7 @@ handNote:after {
         oxy_combobox(
             edit, "@script"
             editable, true
-        )  
+        )
     ;
 }
 
@@ -417,7 +412,7 @@ revisionDesc:before {
             text, "${i18n(status.label)}: "
             color, white
             width, 75px
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
                 edit, "@status"
@@ -434,7 +429,7 @@ change {
     content:
         oxy_label(
             text, "${i18n(who.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor"
@@ -449,7 +444,7 @@ change {
 
 change:before {
     -oxy-prepend-content:
-        url('../images/change-16.png')
+        url('change-16.png')
 }
 
 change:before {
@@ -458,14 +453,14 @@ change:before {
     -oxy-append-content:
         oxy_label(
             text, "${i18n(status.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
                 edit, "@status"
         )
         oxy_label(
             text, "${i18n(when.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_datePicker(
             columns, 18
@@ -480,7 +475,7 @@ change:after {
     content:
         oxy_label(
             text, "${i18n(desc.label)}: "
-            styles, "@import 'labels_sub.css';"            
+            styles, "@import 'labels_sub.css';"
         )
         oxy_textArea(
             edit, "#text"
@@ -541,7 +536,7 @@ normalization[source]:after {
     padding-left: 5px;
     vertical-align: middle;
     link: attr(source, string, "");
-    content: url('../images/link_open-16.png');
+    content: url('link_open-16.png');
 }
 
 quotation:before {
@@ -569,5 +564,3 @@ hyphenation:before {
         " "
     ;
 }
-
-

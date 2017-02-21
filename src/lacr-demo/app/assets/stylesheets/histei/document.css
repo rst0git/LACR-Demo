@@ -5,7 +5,7 @@
 
 /* TEI Header for a Document */
 @import "teiHeader.css";
-/* Facsimile */
-@import "facsimile.css";
 /* Text Editing */
 @import "text.css";
+
+@import "global_fields.css";

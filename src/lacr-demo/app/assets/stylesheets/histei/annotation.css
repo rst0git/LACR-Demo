@@ -1,12 +1,10 @@
 /*-----------------------------------------------------------------------------------------------
------ HisTEI framework customizations for Oxygen 
+----- HisTEI framework customizations for Oxygen
 -----   TEI Documents
 -------------------------------------------------------------------------------------------------*/
 
 /* TEI Document */
 @import "document.css";
-
-@namespace xml url('http://www.w3.org/XML/1998/namespace');
 
 /* Labels */
 s:focus,
@@ -31,7 +29,7 @@ measure:focus:after {
         oxy_label(
             text, oxy_concat("${i18n(", oxy_name(), ".label)}")
             color, white
-            width, 60px
+            width: 60px;
             styles, "@import 'labels.css';"
         )
     ;
@@ -79,11 +77,10 @@ w:focus:after {
 }
 
 cl:focus:after {
-    -oxy-append-content: 
+    -oxy-append-content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ana"
             contextual_type, "ann"
             contextual_filter, "clause"
         )
@@ -91,11 +88,10 @@ cl:focus:after {
 }
 
 phr:focus:after {
-    -oxy-append-content: 
+    -oxy-append-content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ana"
             contextual_type, "ann"
             contextual_filter, "phrase"
         )
@@ -103,11 +99,10 @@ phr:focus:after {
 }
 
 w:focus:after {
-    -oxy-append-content: 
+    -oxy-append-content:
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ana"
             contextual_type, "ann"
             contextual_filter, "pos"
         )
@@ -119,7 +114,6 @@ w:focus:after {
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@type"
             contextual_type, "ann"
             contextual_filter, "word"
         )
@@ -137,7 +131,6 @@ phr:focus:after {
         oxy_editor(
             rendererClassName, "info.histei.contextual_info.ContextualEditor",
             swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@function"
             contextual_type, "ann"
             contextual_filter, "function"
         )
@@ -153,14 +146,13 @@ pc:focus:after {
             styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
-            edit, "@force"
-            columns, 7
+            columns: 7
         )
     ;
 }
 
 /* @xml:lang */
-s:focus:after,
+/*s:focus:after,
 cl:focus:after,
 phr:focus:after,
 w:focus:after {
@@ -171,11 +163,10 @@ w:focus:after {
             styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
-            edit, "@xml:lang"
-            columns, 7
+            columns: 7
         )
     ;
-}
+}*/
 
 /* Numbers and Measures */
 
@@ -186,12 +177,11 @@ measure:focus:after {
         oxy_label(
             text, "${i18n(type.label)}: "
             color, white
-            width, 50px
+            width: 50px;
             styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
-            edit, "@type"
-            columns, 10
+            columns: 10
         )
     ;
 }
@@ -201,12 +191,11 @@ num:focus:after {
         oxy_label(
             text, "${i18n(value.label)}: "
             color, white
-            width, 50px
+            width: 50px;
             styles, "@import 'labels_sub.css';"
         )
         oxy_textfield(
-            edit, "@value"
-            columns, 4
+            columns: 4
         )
     ;
 }
@@ -216,31 +205,26 @@ measure:focus:after {
         oxy_label(
             text, "${i18n(quantity.label)}: "
             color, white
-            width, 75px
+            width: 75px;
             styles, "@import 'labels_sub.css';"
         )
         oxy_textfield(
-            edit, "@quantity"
-            columns, 4
+            columns: 4
         )
         oxy_label(
             text, "${i18n(unit.label)}: "
             color, white
-            width, 45px
+            width: 45px;
             styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@unit"
         )
         oxy_label(
             text, "${i18n(commodity.label)}: "
             color, white
-            width, 95px
+            width: 95px;
             styles, "@import 'labels_sub.css';"
         )
         oxy_combobox(
-            edit, "@commodity"
-            columns, 10
+            columns: 10
         )
     ;
 }
