@@ -193,10 +193,11 @@
 
 .lb::after  {
   content:url('line_break-12.png') "\A";
-  /* Show line break by breaking the line */
-  /*display: block;*/
 }
 
+.lb[data-break="yes"] {
+  /*display: block;*/
+}
 
 .lb[data-break="no"] {
     color:purple;
