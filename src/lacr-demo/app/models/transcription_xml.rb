@@ -11,7 +11,7 @@ class TranscriptionXml < ApplicationRecord
       end
       # Rename the tag
       c['class'] = "xml-tag #{c.name.gsub(':', '-')}"
-      c.name = "div"
+      c.name = "span"
       # Use recursion
       xml_to_html(c)
     end

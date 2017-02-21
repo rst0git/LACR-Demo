@@ -1,230 +1,56 @@
 /*-----------------------------------------------------------------------------------------------
------ HisTEI framework customizations for Oxygen
------   TEI Documents
+----- Based on HisTEI framework customizations for Oxygen
 -------------------------------------------------------------------------------------------------*/
 
-/* TEI Document */
-@import "document.css";
+@import "text.css";
+@import "global_fields.css";
+@import "contextual_info.css";
 
 /* Labels */
-s:focus,
-cl:focus,
-phr:focus,
-w:focus,
-pc:focus,
-num:focus,
-measure:focus {
+.s:focus,
+.cl:focus,
+.phr:focus,
+.w:focus,
+.pc:focus,
+.num:focus,
+.measure:focus {
     padding:6px 0px;
 }
 
-s:focus:after,
-cl:focus:after,
-phr:focus:after,
-w:focus:after,
-pc:focus:after,
-num:focus:after,
-measure:focus:after {
+.s:focus:after,
+.cl:focus:after,
+.phr:focus:after,
+.w:focus:after,
+.pc:focus:after,
+.num:focus:after,
+.measure:focus:after {
     background-color:gray;
-    content:
-        oxy_label(
-            text, oxy_concat("${i18n(", oxy_name(), ".label)}")
-            color, white
-            width: 60px;
-            styles, "@import 'labels.css';"
-        )
-    ;
 }
 
-s:focus:after {
+.s:focus:after {
     background-color:rgba(53, 25, 0, 0.6);
 }
 
-cl:focus:after {
+.cl:focus:after {
     background-color: rgba(64, 64, 255, 0.7);
 }
 
-phr:focus:after {
+.phr:focus:after {
     background-color: rgba(0, 128, 0, 0.7);
 }
 
-w:focus:after {
+.w:focus:after {
     background-color: rgba(0, 49, 200, 0.7);
 }
 
-pc:focus:after {
+.pc:focus:after {
     background-color: rgba(0, 49, 200, 0.7);
 }
 
-num:focus:after {
+.num:focus:after {
     background-color: rgba(255, 128, 0, 0.7);
 }
 
-measure:focus:after {
+.measure:focus:after {
     background-color: rgba(128, 0, 255, 0.7);
-}
-
-/* @ana */
-cl:focus:after,
-phr:focus:after,
-w:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(ana.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-    ;
-}
-
-cl:focus:after {
-    -oxy-append-content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            contextual_type, "ann"
-            contextual_filter, "clause"
-        )
-    ;
-}
-
-phr:focus:after {
-    -oxy-append-content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            contextual_type, "ann"
-            contextual_filter, "phrase"
-        )
-    ;
-}
-
-w:focus:after {
-    -oxy-append-content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            contextual_type, "ann"
-            contextual_filter, "pos"
-        )
-        oxy_label(
-            text, "${i18n(type.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            contextual_type, "ann"
-            contextual_filter, "word"
-        )
-    ;
-}
-
-/* @function */
-phr:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(function.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            contextual_type, "ann"
-            contextual_filter, "function"
-        )
-    ;
-}
-
-/* @force for pc */
-pc:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(force.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            columns: 7
-        )
-    ;
-}
-
-/* @xml:lang */
-/*s:focus:after,
-cl:focus:after,
-phr:focus:after,
-w:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(lang.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            columns: 7
-        )
-    ;
-}*/
-
-/* Numbers and Measures */
-
-/* @type */
-num:focus:after,
-measure:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(type.label)}: "
-            color, white
-            width: 50px;
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            columns: 10
-        )
-    ;
-}
-
-num:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(value.label)}: "
-            color, white
-            width: 50px;
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            columns: 4
-        )
-    ;
-}
-
-measure:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(quantity.label)}: "
-            color, white
-            width: 75px;
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            columns: 4
-        )
-        oxy_label(
-            text, "${i18n(unit.label)}: "
-            color, white
-            width: 45px;
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_label(
-            text, "${i18n(commodity.label)}: "
-            color, white
-            width: 95px;
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            columns: 10
-        )
-    ;
 }

@@ -6,14 +6,14 @@
 
 
 /* Global styles for hover/focus during inline editing */
-supplied:focus:after,
-foreign:focus:after,
-gap:hover:after,
-supplied:focus:after,
-unclear:focus:after,
-add:focus:after,
-del:focus:after,
-handShift:hover:after {
+.supplied:focus:after,
+.foreign:focus:after,
+.gap:hover:after,
+.supplied:focus:after,
+.unclear:focus:after,
+.add:focus:after,
+.del:focus:after,
+.handShift:hover:after {
     padding:5px;
     border:1px dashed;
 }
@@ -21,343 +21,233 @@ handShift:hover:after {
 /* Sections, fields & labels */
 
 /* (Sub)Sections */
-gloss:before,
-titlePage:before,
-docTitle:before,
-docImprint:before,
-docDate:before,
-titlePart:before,
-figure:before,
-figDesc:before,
-/*div:before,*/
-opener:before,
-closer:before,
-postscript:before {
+.gloss:before,
+.titlePage:before,
+.docTitle:before,
+.docImprint:before,
+.docDate:before,
+.titlePart:before,
+.figure:before,
+.figDesc:before,
+.opener:before,
+.closer:before,
+.postscript:before {
     display:block;
     color:white;
     background-color:gray;
     font-weight:bold;
     width:100%;
     margin:5px;
-    content: oxy_concat("${i18n(", oxy_name(), ".label)}");
 }
 
-titlePage:before,
-docTitle:before,
-docDate:before,
-titlePart:before,
-docImprint:before {
+.titlePage:before,
+.docTitle:before,
+.docDate:before,
+.titlePart:before,
+.docImprint:before {
     color:black;
     background-color:silver;
 }
 
 /* Foldable Sections */
-titlePage,
-docTitle,
-docImprint,
-docDate,
-figure,
-figDesc,
-/*div,*/
-opener,
-closer,
-postscript,
-gloss {
+.titlePage,
+.docTitle,
+.docImprint,
+.docDate,
+.figure,
+.figDesc,
+.opener,
+.closer,
+.postscript,
+.gloss {
     display:block;
-    -oxy-foldable:true;
 }
 
-/* Field Labels */
-byline:before,
-dateline::before,
-salute:before,
-signed:before,
-opener > address:before,
-closer > address:before {
-    content:
-        oxy_label(
-            text, oxy_concat("${i18n(", oxy_name(), ".label)}: ")
-            styles, "@import 'labels.css';"
-        )
-    ;
-}
-
-/* Layout */
-div:before,
-titlePart:before {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(type.label)}: "
-            width, 75px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@type"
-            editable, true
-        )
-    ;
-}
-
-titlePage,
-docTitle {
-    -oxy-not-foldable-child: docTitle, titlePart;
-}
-
-div {
-    -oxy-not-foldable-child: head, opener;
-}
-
-titlePage,
-docTitle,
-figure,
-figDesc,
-/*div,*/
-opener,
-closer,
-byline,
-dateline,
-salute {
+.titlePage,
+.docTitle,
+.figure,
+.figDesc,
+.opener,
+.closer,
+.byline,
+.dateline,
+.salute {
     display:block;
     padding:1px;
 }
 
-opener {
+.opener {
     margin-bottom:.5em;
 }
 
-closer {
+.closer {
     margin-top:.5em;
 }
 
-titlePart,
-byline,
-dateline,
-salute,
-signed {
+.titlePart,
+.byline,
+.dateline,
+.salute,
+.signed {
     display:block;
     padding:2px;
     margin:2px;
     margin-bottom: 5px;
 }
 
-byline {
+.byline {
     font-size:smaller;
     font-variant:small-caps;
 }
 
-fw {
+.fw {
     display:block;
     padding:5px;
     text-align:right;
 }
 
-fw:before {
+.fw:before {
     padding: 0px;
     vertical-align: middle;
-    content:
-        url('forme_work-16.png')
-        oxy_label(
-            text, "${i18n(type.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@type"
-            editable, true
-        )
-    ;
+    content: url('forme_work-16.png');
 }
 
 /* Inline elements for text */
 
 /* Elements with hidden Oxygen tags */
-titlePart,
-byline,
-dateline,
-salute,
-signed,
-abbr,
-expan,
-add,
-del,
-gap,
-unclear,
-supplied,
-foreign,
-ab,
-seg,
-term,
-handShift,
-pb,
-pc,
-title,
-opener > *,
-closer > * {
-    -oxy-display-tags:none;
+.titlePart,
+.byline,
+.dateline,
+.salute,
+.signed,
+.abbr,
+.expan,
+.add,
+.del,
+.gap,
+.unclear,
+.supplied,
+.foreign,
+.ab,
+.seg,
+.term,
+.handShift,
+.pb,
+.pc,
+.title,
+.opener > *,
+.closer > * {
+  /*display: none;*/
 }
 
-div date,
-div persName,
-div orgName,
-div placeName,
-div district,
-div settlement,
-div region,
-div country,
-div bloc,
-div addrLine,
-div street,
-div postcode,
-div postbox {
+.date,
+.persName,
+.orgName,
+.placeName,
+.district,
+.settlement,
+.region,
+.country,
+.bloc,
+.addrLine,
+.street,
+.postcode,
+.postbox {
     color:olive;
 }
 
-/*div address {
+.address {
     background-color: rgba(64, 128, 64, 0.1);
-}*/
+}
 
-div persName:focus:after,
-div placeName:focus:after,
-div orgName:focus:after,
-div district:focus:after,
-div settlement:focus:after,
-div region:focus:after,
-div country:focus:after,
-div bloc:focus:after {
+.persName:focus:after,
+.placeName:focus:after,
+.orgName:focus:after,
+.district:focus:after,
+.settlement:focus:after,
+.region:focus:after,
+.country:focus:after,
+.bloc:focus:after {
     padding-left: 2px;
 }
 
-div persName:focus:after {
-    content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ref"
-            fontInherit, true
-            contextual_type, "psn"
-        )
-    ;
-}
-
-div placeName:focus:after {
-    content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ref"
-            fontInherit, true
-            contextual_type, "plc"
-        )
-    ;
-}
-
-div orgName:focus:after {
-    content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ref"
-            fontInherit, true
-            contextual_type, "org"
-        )
-    ;
-}
-
-div district:focus:after,
-div settlement:focus:after,
-div region:focus:after,
-div country:focus:after,
-div bloc:focus:after {
-    content:
-        oxy_editor(
-            rendererClassName, "info.histei.contextual_info.ContextualEditor",
-            swingEditorClassName, "info.histei.contextual_info.ContextualEditor",
-            edit, "@ref"
-            fontInherit, true
-            contextual_type, "plc"
-            contextual_filter, oxy_name()
-        )
-    ;
-}
 
 /* Milestones or elements with no text */
-pb,
-handShift,
-gap {
-    visibility:-oxy-collapse-text;
+.pb,
+.handShift,
+.gap {
+  /*visibility: collapse;*/
 }
 
-abbr {
+.abbr {
     background-color: rgba(0, 255, 0, 0.1);
     font-weight:bold;
 }
 
-expan {
+.expan {
     background-color: rgba(128, 0, 0, 0.1);
     font-style:italic;
 }
 
-add {
+.add {
     color: green;
     text-decoration: underline;
-    vertical-align: oxy_xpath("if (@place eq 'above') then 'super' else if (@place eq 'below') then 'sub' else 'middle'");
+    vertical-align: middle;
+}
+.add[data-place="below"] {
+  vertical-align:sub;
+}
+.add[data-place="above"] {
+  vertical-align: super;
 }
 
-del {
+.del {
     color: red;
     text-decoration: line-through;
 }
 
-gap:after {
+.gap::before {
     color:orange;
     content: "[...]";
     font-style: italic;
 }
 
-unclear {
+.unclear {
     color: maroon;
     font-style: italic;
 }
 
-supplied:before {
+.supplied:before {
     font-weight:normal;
     padding:0px;
     content: "[";
 }
 
-supplied {
+.supplied {
     color: blue;
     font-style:italic;
 }
 
-supplied:focus:after,
-supplied:after {
+.supplied:focus:after,
+.supplied:after {
     border:0px;
     padding:0px;
     content: "]";
 }
 
-pc {
+.pc {
     color:purple;
 }
 
-foreign {
+.foreign {
     color:#3D5229;
     font-style:italic;
     font-weight:bold;
 }
 
-foreign:focus:after {
-  content: attr(xml:lang);
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(lang.label)}: "
-            width, 40px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@xml:lang"
-        )
-    ;
+.foreign:focus:after {
+  content: attr(data-xml-lang);
+  /*vertical-align: sub;*/
 }
 
 salute,
@@ -385,59 +275,40 @@ text title:before {
 
 /* Note */
 
-div note {
+.note {
     display:inline;
     border: 1px solid maroon;
     padding:1px;
     font-size: 11px;
 }
 
-div note:before {
+.note:before {
     font-size:smaller;
     font-weight:bold;
-    content:
-        oxy_label(
-            text, "${i18n(note.label)}:"
-            width, 25px
-            styles, "@import 'labels.css';"
-        )
-    ;
 }
 
 /* @reason */
 
-gap:hover:after,
-supplied:focus:after,
-unclear:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(reason.label)}: "
-            width, 70px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@reason"
-        )
-    ;
+.gap:hover:before,
+.supplied:hover:after,
+.unclear:hover:after {
+  font-size: small;
+  font-style: normal;
+  color: black;
+  vertical-align: sub;
+  content: attr(data-reason);
 }
 
 /* @place */
-div note:before,
-fw:before,
-add:focus:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(place.label.textual)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@place"
-        )
-    ;
+.note:before,
+.fw:before,
+.add:focus:after {
+  content: attr(place);
+  vertical-align: sub;
 }
 
 /* Page Break */
-pb {
+.pb {
     display:block;
     background-color:transparent;
     border-style:solid none;
@@ -450,226 +321,117 @@ pb {
     line-height:1.5;
 }
 
-pb:before {
+.pb:before {
     padding: 0px;
     vertical-align: middle;
-    counter-increment:pages;
     content: url('page_break-16.png')
-        " Page " counter(pages)
-        oxy_label(
-            text, "${i18n(n.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@n"
-            columns, 4
-            tooltips, "${i18n(n.tooltip)}"
-        )
-        oxy_label(
-            text, "${i18n(break.label)}: "
-            width, 60px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@break"
-        )
-    ;
-}
-
-/* Media References to Facsimiles */
-[facs]:before {
-    -oxy-append-content:
-        oxy_button(
-            actionID, "media.open"
-            transparent, true
-            showText, true
-            showIcon, true
-        )
-}
-
-titlePage:before,
-div:before,
-pb:before {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(facs.label)}: "
-            width, 100px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_popup(
-            edit, "@facs"
-            selectionMode, multiple
-        )
-    ;
 }
 
 /* Hand References */
-handShift {
+.handShift {
     padding:0px;
     vertical-align: middle;
-    link: attr(new, string, "");
     content: url('hand_shift-16.png');
 }
 
-handShift:hover:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(hand.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@new"
-        )
-        oxy_label(
-            text, "${i18n(script.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@script"
-            editable, true
-        )
-    ;
+.handShift:hover:after {
+  content: attr(data-script);
+  vertical-align: sub;
 }
 
-add:focus:after,
-del:focus:after,
-unclear:focus:after,
-gap:hover:after {
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(hand.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@hand"
-        )
+.add:focus:after,
+.del:focus:after,
+.unclear:focus:after,
+.gap:hover:after {
+  content: attr(data-hand);
+  vertical-align: sub;
 }
 
-handShift[new]:hover:after {
+.handShift[data-new]:hover:after {
     padding-left: 5px;
     vertical-align: middle;
-    link: attr(new, string, "");
-    -oxy-append-content: url('hand_open-16.png');
+    content: url('hand_open-16.png');
 }
 
-[hand]:focus:after,
-gap[hand]:hover:after {
+[data-hand]:focus:after,
+.gap[data-hand]:hover:after {
     padding-left: 5px;
     vertical-align: middle;
-    link: attr(hand, string, "");
-    -oxy-append-content: url('hand_open-16.png');
+    content: url('hand_open-16.png');
 }
 
 /* Linking elements - anchors and pointers that refer to them (mainly for glosses) */
 
-ab {
+.ab {
     display:block;
     border:1px solid green;
 }
 
-seg:not([function]) {
+.seg:not([data-function]) {
     border-top:1px solid blue;
 }
 
-term {
+.term {
     background-color: rgba(0, 0, 128, 0.1);
     font-style:italic;
 }
 
-ab:focus:after,
-seg:not([function]):focus:after,
-term:focus:after {
-    content:
-        oxy_label(
-            text, "${i18n(id.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@xml:id"
-            columns, 20
-        )
-        oxy_label(
-            text, "${i18n(lang.label)}: "
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@xml:lang"
-            columns, 7
-        )
-    ;
+.ab:focus:after,
+.seg:not([data-function]):focus:after,
+.term:focus:after {
+    content: attr(data-xml-id) " " attr(data-xml-lang);
+    vertical-align: sub;
 }
 
-gloss:before {
+.gloss:before {
     background-color: rgba(0, 0, 255, 0.5);
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(target.label)}: "
-            color, white
-            width, 75px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@target"
-            columns, 20
-        )
-        oxy_label(
-            text, "${i18n(lang.label)}: "
-            color, white
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@xml:lang"
-            columns, 7
-        )
-    ;
 }
 
-gloss[target]:after {
+.gloss[data-target]:after {
     padding-left: 5px;
     vertical-align: middle;
-    link: attr(target, string, "");
     content: url('link_open-16.png');
 }
 
 
 /* Linguistic units and annotations */
 
-s,
-cl,
-phr,
-w,
-pc,
-num,
-measure {
+.s,
+.cl,
+.phr,
+.w,
+.pc,
+.num,
+.measure {
     vertical-align:bottom;
     padding-top:2px;
-    -oxy-display-tags:none;
+    /*display: none;*/
 }
 
-s {
+.s {
     border:1px solid rgb(53, 25, 0);
 }
 
-cl {
+.cl {
     border:1px solid rgb(64, 64, 255);
 }
 
-phr {
+.phr {
     border:1px solid rgb(0, 128, 0);
 }
 
-w {
+.w {
     border:1px solid rgb(0, 49, 200);
 }
 
-pc {
+.pc {
     border:1px solid rgb(0, 49, 200);
 }
 
-num {
+.num {
     border:1px solid rgb(255, 128, 0);
 }
 
-measure {
+.measure {
     border:1px solid rgb(128, 0, 255);
 }

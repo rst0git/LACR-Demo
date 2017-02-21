@@ -15,267 +15,162 @@
 }
 
 /* Field Icons */
-date:before,
-persName:before,
-orgName:before,
-placeName:before,
-district:before,
-settlement:before,
-region:before,
-country:before,
-bloc:before,
-address:before,
-addrLine:before,
-street:before,
-postCode:before,
-postBox:before {
+.date:before,
+.persName:before,
+.orgName:before,
+.placeName:before,
+.district:before,
+.settlement:before,
+.region:before,
+.country:before,
+.bloc:before,
+.address:before,
+.addrLine:before,
+.street:before,
+.postCode:before,
+.postBox:before {
     padding-right: 2px;
     vertical-align: middle;
 }
 
-date:before {
-    -oxy-prepend-content: url('date-16.png');
+.date:before {
+  content: url('date-16.png');
 }
-persName:before {
-    -oxy-prepend-content: url('person-16.png');
+.persName:before {
+  content: url('person-16.png');
 }
-orgName:before {
-    -oxy-prepend-content: url('org-16.png');
+.orgName:before {
+  content: url('org-16.png');
 }
-placeName:before {
-    -oxy-prepend-content: url('place-16.png');
+.placeName:before {
+  content: url('place-16.png');
 }
-district:before {
-    -oxy-prepend-content: url('district-16.png');
+.district:before {
+  content: url('district-16.png');
 }
-settlement:before {
-    -oxy-prepend-content: url('settlement-16.png');
+.settlement:before {
+  content: url('settlement-16.png');
 }
-region:before {
-    -oxy-prepend-content: url('region-16.png');
+.region:before {
+  content: url('region-16.png');
 }
-country:before {
-    -oxy-prepend-content: url('country-16.png');
+.country:before {
+  content: url('country-16.png');
 }
-bloc:before {
-    -oxy-prepend-content: url('bloc-16.png');
+.bloc:before {
+  content: url('bloc-16.png');
 }
 
 /* Address */
-address:before {
-    -oxy-prepend-content: url('address-16.png');
+.address:before {
+  content: url('address-16.png');
 }
-addrLine:before {
-    -oxy-prepend-content: url('address_line-16.png');
+.addrLine:before {
+  content: url('address_line-16.png');
 }
-street:before {
-    -oxy-prepend-content: url('street-16.png');
+.street:before {
+  content: url('street-16.png');
 }
-postCode:before {
-    -oxy-prepend-content: url('postcode-16.png');
+.postCode:before {
+  content: url('postcode-16.png');
 }
-postBox:before {
-    -oxy-prepend-content: url('postbox-16.png');
-}
-
-/* Elements with hidden Oxygen tags */
-date,
-persName,
-orgName,
-placeName,
-district,
-settlement,
-region,
-country,
-bloc,
-prt,
-ref,
-note,
-hi
-{
-    -oxy-display-tags:none;
+.postBox:before {
+  content: url('postbox-16.png');
 }
 
 /* Date */
 
-date:empty:after,
-date:not(:empty):focus:after,
-birth,
-death,
-event,
-affiliation,
-education:focus:after,
-faith:focus:after,
-occupation:focus:after,
-relation:focus:after,
-residence,
-socecStatus:focus:after,
-state:focus:after,
-trait:focus:after {
+.date:empty:after,
+.date:not(:empty):focus:after,
+.birth,
+.death,
+.event,
+.affiliation,
+.education:focus:after,
+.faith:focus:after,
+.occupation:focus:after,
+.relation:focus:after,
+.residence,
+.socecStatus:focus:after,
+.state:focus:after,
+.trait:focus:after {
     border:1px solid;
     margin:2px 0px;
     padding:3px;
     font-size:small;
     font-weight:normal;
     line-height:1.25em;
-    content:
-        oxy_label(
-            text, "${i18n(date.label.when)}: "
-            width, 40px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@when"
-            columns, 9
-        )
-        oxy_label(
-            text, "${i18n(date.label.from)}: "
-            width, 45px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@from"
-            columns, 9
-        )
-        oxy_label(
-            text, "${i18n(date.label.to)}: "
-            width, 25px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@to"
-            columns, 9
-        )
-/*        "\A"*/
-        oxy_label(
-            text, "${i18n(date.label.not.before)}: "
-            /*width, 120px*/
-            width, 80px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@notBefore"
-            columns, 9
-        )
-        oxy_label(
-            text, "${i18n(date.label.not.after)}: "
-            width, 70px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@notAfter"
-            columns, 9
-        )
-        oxy_label(
-            text, "${i18n(date.label.cert)}: "
-            width, 70px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_combobox(
-            edit, "@cert"
-            editable, false
-            columns, 8
-        );
 }
 
 /* Links */
-
-ptr,
-ref,
-note[type="url"] {
+ .ptr, .ref, .note[data-type="url"] {
     color:blue;
-    -oxy-display-tags:none;
 }
 
-ptr,
-ref {
+.ptr, .ref {
     border:1px dashed;
 }
 
-/* ptr can't contain text, so disallow editing text() node */
-ptr {
-    visibility:-oxy-collapse-text;
-}
-
-ptr:before,
-ref:before {
+.ptr:before,
+.ref:before {
     padding-right: 2px;
     vertical-align: middle;
     content: url('link-16.png');
 }
 
-ptr[target]:after,
-ref[target]:after {
+.ptr[data-target]:after,
+.ref[data-target]:after {
     padding-left: 5px;
     vertical-align: middle;
-    link: attr(target, string, "");
     content: url('link_open-16.png');
 }
 
-ptr:hover:after,
-ref:focus:after {
-    padding:5px;
-    -oxy-append-content:
-        oxy_label(
-            text, "${i18n(url.label)}: "
-            width, 50px
-            styles, "@import 'labels_sub.css';"
-        )
-        oxy_textfield(
-            edit, "@target"
-            columns, 25
-        )
-    ;
+.ptr:hover:after,
+.ref:focus:after {
+  padding:5px;
+  content: attr(target);
+  vertical-align: sub;
 }
 
-note[type="url"]:before {
-    content:
-        oxy_label(
-            text, "${i18n(url.label)}: "
-            styles, "@import 'labels.css';"
-        )
-    ;
-}
 
-note[type="url"]:after {
-    padding-left:5px;
-    vertical-align: middle;
-    link: oxy_xpath("text()");
-    content: url('link_open-16.png');
+.note[data-type="url"]:after {
+  padding-left:5px;
+  vertical-align: middle;
+  content: url('link_open-16.png');
 }
 
 /* Headings & Labels */
 
-head {
+.head {
     display:block;
     font-weight:bold;
     padding:5px;
     border-bottom:1px solid;
 }
 
-head[type="title"] {
+.head[data-type="title"] {
     font-size:larger;
 }
 
-head[type="sub"] {
+.head[data-type="sub"] {
     font-size:smaller;
     font-variant:small-caps;
 }
 
-head:before {
+.head:before {
     padding-right: 2px;
     vertical-align: middle;
     content:url('head-16.png') attr(type)"  ";
 }
 
-label {
+.label {
     display:block;
     font-weight:bold;
     padding:2px;
     margin:3px;
 }
 
-label:before{
+.label:before{
     padding-right: 2px;
     vertical-align: middle;
     content: url('label-16.png');
@@ -283,28 +178,27 @@ label:before{
 
 /* Paragraph and accompanying Line Break */
 
-p:before{
+.p:before{
     padding: 0px;
     vertical-align: middle;
     content: url('paragraph-16.png');
 }
 
-p {
+.p {
     display:block;
     padding:2px;
     margin:2px;
     margin-bottom: 10px;
-    -oxy-foldable:true;
 }
 
-lb::after  {
+.lb::after  {
   content:url('line_break-12.png') "\A";
   /* Show line break by breaking the line */
   /*display: block;*/
 }
 
 
-lb[break="no"] {
+.lb[data-break="no"] {
     color:purple;
     font-weight:bold;
     /* Possibilities: → – */
@@ -313,25 +207,24 @@ lb[break="no"] {
 
 
 /* Global Textual Styles */
-
-hi[rend="bold"] {
+.hi[data-rend="bold"] {
   font-weight:bold;
 }
 
-hi[rend="italic"] {
+.hi[data-rend="italic"] {
   font-style:italic;
 }
 
-hi[rend="superscript"] {
+.hi[data-rend="superscript"] {
     font-size:small;
     vertical-align:super;
 }
 
-hi[rend="subscript"] {
+.hi[data-rend="subscript"] {
     font-size:small;
     vertical-align:sub;
 }
 
-hi[rend="underline"] {
+.hi[data-rend="underline"] {
   text-decoration:underline;
 }
