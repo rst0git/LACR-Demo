@@ -15,11 +15,11 @@ class XqueryController < ApplicationController
     session.close
   end
 
-  def upload
-    #  session = BaseXClient::Session.new("localhost", 1984, "admin", "admin")
-    # session.open_or_create_db("xmldb")
-    #  session.execute("add /home/ubuntu/workspace/ARO-4-0001-01_ARO-4-0010-06_WH_AH_EF.xml")
-    #  session.close
+  def upload(file_path)
+     session = BaseXClient::Session.new("localhost", 1984, "admin", "admin")
+     session.open_or_create_db("xmldb")
+     session.add(file_path)
+     session.close
   end
 
 end
