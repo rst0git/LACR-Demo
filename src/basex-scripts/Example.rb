@@ -14,11 +14,10 @@ begin
 
   # perform command and print returned string
 
-#   print session.execute('open test')
+#   print session.create('test', '')
+#   puts session.open_db('test123')
+   puts session.open_db('test1')
 #	print session.execute('xquery  //text()')
-#   print session.execute('info db')
-#   print session.execute('info storage')
-   print session.execute('list test /')
 
 
   # close session

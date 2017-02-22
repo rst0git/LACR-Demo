@@ -46,9 +46,18 @@ module BaseXClient
       result = receive
       @info = receive
       if !ok
-        raise @info
+        return @info
       end
       return result
+    end
+
+    def open_or_create_db(db_name)
+      send("open #{db_name}")
+      receive # Hack need to be fixed
+      receive # Hack need to be fixed
+      if !ok
+        create(db_name, '')
+      end
     end
 
     def query(cmd)
