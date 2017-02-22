@@ -29,5 +29,4 @@ Rails.application.routes.draw do
   # Search routes
   get 'search', to: 'search#search'
   get 'advanced_search', to: 'search#advanced_search'
-  post 'advanced_search', to: 'search#filter'
 end

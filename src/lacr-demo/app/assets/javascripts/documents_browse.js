@@ -19,12 +19,13 @@ function load_document (p, v){
   $("#transcriptions").load("/doc/page-s?p="+p+"&v="+v, function(responseTxt, statusTxt, xhr){
         if(statusTxt == "success"){
           // Transform language codes
-          $(".language").each(function() {
+          $(".pr-language").each(function() {
             $(this).html(ISO_639_2[$(this).html()]['native'][0]);
           });
         }
     });
   $("#doc_view").attr('href', "/doc/show?p="+p+"&v="+v);
+  $('#doc_view').css('display', 'inline-block');
   $('div.active').removeClass("active");
   $('#vol-'+v+'-page-'+p).addClass("active");
 }
@@ -49,6 +50,7 @@ $(document).ready(function() {
       if (data.length === 0){
         $('#doc-title').html('No documents have been found.');
         $('.doc-tools').hide();
+        $('#doc_view').hide();
         $('#doc-browse').hide();
       }
       else {

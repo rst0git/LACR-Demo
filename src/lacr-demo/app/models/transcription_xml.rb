@@ -3,6 +3,20 @@ class TranscriptionXml < ApplicationRecord
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
 
+  def xml_to_html(tag)
+    tag.children().each do |c|
+      # Rename the attributes
+      c.keys.each do |k|
+        c["data-#{k}"] = c.delete(k)
+      end
+      # Rename the tag
+      c['class'] = "xml-tag #{c.name.gsub(':', '-')}"
+      c.name = "span"
+      # Use recursion
+      xml_to_html(c)
+    end
+  end
+
   def histei_split_to_paragraphs
     doc = Nokogiri::XML (File.open(xml.current_path))
 
@@ -35,12 +49,15 @@ class TranscriptionXml < ApplicationRecord
       # Convert the 'entry' and 'date' Nokogiri objects to Ruby Hashes
       entry_id = entry.xpath("@xml:id").to_s
       entry_lang = entry.xpath("@xml:lang").to_s
-      entry_type = entry.xpath("@type").to_s
       entry_xml = entry.to_xml
+      entry_text =(Nokogiri::XML(entry_xml.gsub('<lb break="yes"/>', "\n"))).xpath('normalize-space()')
+      xml_to_html(entry)
+      entry_html = entry.to_xml
 
       # Create TrParagraph record
       pr = TrParagraph.new
       pr.content_xml = entry_xml
+      pr.content_html = entry_html
       pr.save
 
       # Create Search record
@@ -48,13 +65,12 @@ class TranscriptionXml < ApplicationRecord
       s.tr_paragraph = pr
       s.transcription_xml = self
       s.entry = entry_id
-      s.entry_type = entry_type
       s.lang = entry_lang
       s.date = entry_date
       s.date_incorrect = entry_date_incorrect
       s.parse_entry_to_vol_page_paragraph
       # Replace line-break tag with \n and normalize whitespace
-      s.content = (Nokogiri::XML(entry_xml.gsub('<lb break="yes"/>', "\n"))).xpath('normalize-space()')
+      s.content = entry_text
       s.save
     end
 

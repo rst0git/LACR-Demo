@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20170213221951) do
     t.integer  "tr_paragraph_id"
     t.integer  "transcription_xml_id"
     t.string   "entry"
-    t.string   "entry_type"
     t.string   "lang"
     t.integer  "volume"
     t.integer  "page"
@@ -44,9 +43,10 @@ ActiveRecord::Schema.define(version: 20170213221951) do
 
   create_table "tr_paragraphs", force: :cascade do |t|
     t.text     "content_xml"
+    t.text     "content_html"
     t.integer  "search_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "transcription_xmls", force: :cascade do |t|
