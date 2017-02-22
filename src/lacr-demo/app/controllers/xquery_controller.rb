@@ -8,11 +8,11 @@ class XqueryController < ApplicationController
   def show
     #
     # # create session
-    # session = BaseXClient::Session.new("localhost", 1984, "admin", "admin")
+    session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
     #
     #
     # # perform command and print returned string
-    # print session.execute("help")
+    print session.execute("help")
     #  @query_result = ''
     #  @query_result += session.execute("open db") + '\n'
     # @query_result += session.execute(params[:search])
@@ -20,7 +20,7 @@ class XqueryController < ApplicationController
     #
     #
     # # close session
-    # session.close
+    session.close
 end
 
 
