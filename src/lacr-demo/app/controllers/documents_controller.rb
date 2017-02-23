@@ -85,7 +85,7 @@ class DocumentsController < ApplicationController
         @unsuccesfully_uploaded = {xml:[], image:[]}
         if params.has_key?(:transcription_xml)
           xml_files = xml_upload_params
-          xml_files_paths = []
+          xml_files_content = []
           # Save all uploaded xml files, call method ...
           xml_files['xml'].each do |file|
 
@@ -96,7 +96,7 @@ class DocumentsController < ApplicationController
               t.xml = file
               if t.save!
                 # Store file content and filename for import to BaseX
-                xml_files_paths.push([file.original_filename, nokogori_obj.to_xml])
+                xml_files_content.push([file.original_filename, nokogori_obj.to_xml])
                 @succesfully_uploaded[:xml].push(file.original_filename)
                 # Proccess the XML file
                 t.histei_split_to_paragraphs
@@ -107,7 +107,7 @@ class DocumentsController < ApplicationController
           end
           # Add the successfully uploaded files to the XML database
           x = XqueryController.new
-          x.upload(xml_files_paths)
+          x.upload(xml_files_content)
           # Generate new index for Elasticsearch
           Search.reindex()
       end
