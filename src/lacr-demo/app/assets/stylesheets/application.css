@@ -16,6 +16,7 @@
  *= require documents.scss
  *= require home.scss
  *= require search.scss
+ *= require jquery.fullPage.css
  *= require_self
  */
 
