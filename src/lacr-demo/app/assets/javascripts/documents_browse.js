@@ -19,7 +19,7 @@ function load_document (p, v){
   $("#transcriptions").load("/doc/page-s?p="+p+"&v="+v, function(responseTxt, statusTxt, xhr){
         if(statusTxt == "success"){
           // Transform language codes
-          $(".language").each(function() {
+          $(".pr-language").each(function() {
             $(this).html(ISO_639_2[$(this).html()]['native'][0]);
           });
         }
