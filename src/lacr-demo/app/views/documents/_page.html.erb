@@ -19,7 +19,7 @@
 			<div class="panel-body">
 				<pre class="prettyprint transcription" style="display: none;"><code class="language-xml"><%= document.tr_paragraph.content_xml.gsub(/^\s+/, ' ')%></code></pre>
 				<div class="transcription">
-					<%= document.tr_paragraph.content_xml.html_safe %>
+					<%= document.tr_paragraph.content_html.html_safe %>
 				</div>
 				<div class="panel-footer">
 					<button class="btn btn-sm" onclick="toggle_xml(this);">XML</button>
