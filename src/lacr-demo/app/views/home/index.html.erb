@@ -29,12 +29,104 @@
       </div> <!-- container -->
     </div> <!-- home-top-container -->
 
-  <div class="section container-fluid" id="index-content">
-          <div class="container-fluid">
-            <div class="row justify-content-center">
-              <div class="col-md-1">
+    <div class="section container">
+      <h2>Advanced Search</h2>
+      <hr/>
+      <div class="row">
+        <%= form_tag advanced_search_path, id: "adv-search", method: :get do |f|%>
+
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                <%= label_tag 'q', 'Content'%>
               </div>
-              <div class="col-md-5">
+              <div class="col-md-6">
+                <%= search_field_tag('q','', class: "form-control") %>
+              </div>
+            </div>
+          </div>
+    <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                <%= label_tag 'entry', 'Entry ID'%>
+              </div>
+              <div class="col-md-6">
+                <%= search_field_tag('entry','', class: "form-control", placeholder: "ARO-4-0005-03") %>
+              </div>
+            </div>
+          </div>
+    <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                <%= label_tag 'content_none', 'Date:'%>
+              </div>
+              <div class="col-md-2">
+                <div class="input-group">
+                  <span class="input-group-addon" id="date_from">from</span>
+                  <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd", describedby: "date_from", class: "form-control") %>
+                </div>
+              </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="date_to">to</span>
+                    <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd ", describedby: "date_to", class: "form-control") %>
+                </div>
+              </div>
+            </div>
+          </div>
+    <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                <label for="lang">Language:</label>
+              </div>
+              <div class="col-md-6">
+                <select class="form-control" id="lang" name="lang">
+                  <option value="">Any</option>
+                  <option value="lat">Latin</option>
+                  <option value="sco">Scots</option>
+                  <option value="nld">Dutch</option>
+                </select>
+              </div>
+            </div>
+          </div>
+    <br>
+        <div class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" id="volume">Volume</span>
+              <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon" id="page">Page</span>
+                <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon" id="paragraph">Paragraph</span>
+                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
+            </div>
+          </div>
+        </div>
+    <hr>
+        <div><%= submit_tag 'Search', class: 'btn btn-primary' %></div>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <div class="section">
+          <div class="container">
+            <div class="row text-center">
+              <div class="col-md-offset-1 col-md-5">
                 <h2 class="h2-home">Images of the Original Documents</h2>
                 <p>All of the original documents are available to view in stunning high resolution images that will allow for true appreciation of the source material. </p>
               </div>
@@ -42,15 +134,11 @@
                 <h2 class="h2-home">Read the entire Corpus</h2>
                 <p>The transcribed text of the entire corpus of aberdeen burgh records will be made available giving access to these fascinating and world renowned documents  </p>
              </div>
-             <div class="col-md-1">
-             </div>
            </div>
 
-          <div class="container-fluid">
+
             <div class="row">
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-3">
+              <div class="col-md-3 col-md-offset-1">
                 <h2 class="h2-home">Powerful search</h2>
                 <p>Our search has the capabilities will make finding exactly what you're looking for easy; Autocomplete, search suggestions and multiple advanced search fields all at lightning fast speeds.</p>
               </div>
@@ -62,14 +150,11 @@
                 <h2 class="h2-home">Customized Search</h2>
                 <p>A plethora of advanced search fields such as setting a start and end date, document by ID and the ability to search for proper names, aim to make search as concise as possible. </p>
               </div>
-              <div class="col-md-1">
-              </div>
             </div>
-          </div>
         </div>
     </div>
-  </div>  <!-- <div id="fullpage"> -->
-</div>
+</div>  <!-- <div id="fullpage"> -->
+
 
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "home.js" %>

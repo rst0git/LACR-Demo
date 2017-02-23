@@ -122,13 +122,14 @@
   }
 
   #search-home{
-    textarea:focus, input:focus, .uneditable-input:focus {
-      border-color: rgba(119, 119, 119, 0.8) !important;
-      box-shadow: 0 1px 1px rgba(119, 119, 119, 0.075) inset, 0 0 8px rgba(119, 119, 119, 0.6) !important;
-      outline: 0 none !important;
-    }
     width: 100%;
     align-self: center;
+  }
+
+  textarea:focus, input:focus, .uneditable-input:focus {
+    border-color: rgba(119, 119, 119, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(119, 119, 119, 0.075) inset, 0 0 8px rgba(119, 119, 119, 0.6) !important;
+    outline: 0 none !important;
   }
 
   #search-container{
