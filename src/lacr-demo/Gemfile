@@ -46,6 +46,8 @@ gem 'typhoeus' # Significantly increase performance with persistent HTTP connect
 gem 'devise'
 gem 'devise-bootstrap-views'
 
+gem 'lodash-rails'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
