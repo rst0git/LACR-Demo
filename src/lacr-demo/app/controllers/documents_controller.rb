@@ -96,7 +96,7 @@ class DocumentsController < ApplicationController
               t.xml = file
               if t.save!
                 # Store file content and filename for import to BaseX
-                xml_files_content.push([file.original_filename, nokogori_obj.to_xml])
+                xml_files_content.push([file.original_filename, nokogiri_obj.to_xml])
                 @succesfully_uploaded[:xml].push(file.original_filename)
                 # Proccess the XML file
                 t.histei_split_to_paragraphs
