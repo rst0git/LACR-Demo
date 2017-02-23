@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserFlowsTest < ActionDispatch::IntegrationTest
+class UserControllerTest < ActionDispatch::IntegrationTest
 
 	test "user should see home page" do
 		get "/"
@@ -160,6 +160,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
 		assert_select 'p', 'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
 	end
 
+	#this is not user_controller_test
 	test "user should not see document upload page" do
 		get "/doc/new"
 		assert_equal 302, status
