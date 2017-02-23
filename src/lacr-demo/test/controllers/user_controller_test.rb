@@ -24,7 +24,22 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users", params:{ user: {email: 'user@test.com', password: 'password', password_confirmation: 'password'} }
 		assert_equal 200, status
 		assert_equal "/users", path
-		assert_select 'li', 'Welcome! You have signed up successfully.'
+		assert_select 'div.alert' do
+			assert_select 'h5', '1 error prohibited this user from being saved:'
+			assert_select 'li', 'Email has already been taken'
+		end
+	end
+
+	test "user should not be able sign_up with different password confirmation" do
+  		get "/users/sign_up"
+		assert_equal 200, status
+		post "/users", params:{ user: {email: 'user@test.com', password: 'password2', password_confirmation: 'password'} }
+		assert_equal 200, status
+		assert_equal "/users", path
+		assert_select 'div.alert' do
+			assert_select 'h5', '1 error prohibited this user from being saved:'
+			assert_select 'li', 'Password confirmation doesn\'t match Password'
+		end
 	end
 
 	test "user should be able to login" do
@@ -36,6 +51,30 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		assert_equal 200, status
 		assert_equal "/", path
 		assert_select 'p', 'Signed in successfully.'
+	end
+
+	test "user should not be able to login with wrong password" do
+		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
+  		get "/users/sign_in"
+		assert_equal 200, status
+		post "/users/sign_in", params:{ user: {email: @user.email, password: 'password2'} }
+		assert_equal 200, status
+		assert_equal "/users/sign_in", path
+		assert_select 'div.alert' do
+			assert_select 'p', 'Invalid Email or password.'
+		end
+	end
+
+	test "user should not be able to login with wrong email" do
+		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
+  		get "/users/sign_in"
+		assert_equal 200, status
+		post "/users/sign_in", params:{ user: {email: 'user1@test.com', password: @user.password} }
+		assert_equal 200, status
+		assert_equal "/users/sign_in", path
+		assert_select 'div.alert' do
+			assert_select 'p', 'Invalid Email or password.'
+		end
 	end
 
 	test "user should be able to edit password" do
@@ -162,15 +201,6 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		assert_equal 200, status
 		assert_equal "/", path
 		assert_select 'p', 'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
-	end
-
-	#this is not user_controller_test
-	test "user should not see document upload page" do
-		get "/doc/new"
-		assert_equal 302, status
-		follow_redirect!
-		assert_equal "/users/sign_in", path
-		assert_equal 200, status
 	end
 
 end
