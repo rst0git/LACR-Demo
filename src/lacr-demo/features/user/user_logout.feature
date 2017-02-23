@@ -10,4 +10,4 @@ Scenario: Successful log out
 	Given I am logged in
 	When I click on log out
 	Then I should be logged out 
-	And on the home page
+	And I should be on the home page

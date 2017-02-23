@@ -5,16 +5,16 @@ Feature: User registration
 
 Background:
 	Given I am on the home page
+	And I have chosen to register
 	
 
 Scenario: Successful registration
 
 	New user should be able to register easily.
 
-	Given I have chosen to register
 	When I enter valid details
 	And I click on "Sign up"
-	Then I should see greeting message
+	Then I should see "Welcome! You have signed up successfully."
 	
 
 Scenario: Duplicate email
@@ -22,44 +22,44 @@ Scenario: Duplicate email
 	Where someone tries to create an account for an email address 
 	that already exists.
 
-	Given I have chosen to register
 	When I enter an email address that has already registered
 	And I click on "Sign up" 
-	Then I should be told that email is already registered
-	And I should be offered the option to recovery my password
+	Then I should see "Email has already been taken"
+	And I should see the option to recovery my password
+	And I should be on the registration page
 	
 
 Scenario: Invalid email address
 
 	Where someone tries to register with an invalid email address.
 
-	Given I have chosen to register
 	When I enter an invalid email address
+	And I enter valid password
+	And I enter valid password confirmation
 	And I click on "Sign up"
-	Then I should be told that email is invalid
-	And I should be still on the registration page
+	Then I should see "Email is invalid"
+	And I should be on the registration page
 	
 
 Scenario: Password confirmation does not match
 
 	Where someone tries to register with different password and password confirmation
 
-	Given I have chosen to register
-	When I enter an valid email address
-	And valid password
-	And password confirmation is not the same as password
+	When I enter valid email address
+	And I enter valid password
+	And I enter different password confirmation
 	And I click on "Sign up"
-	Then I should be told that password and password confirmation does not match
-	And I should be still on the registration page
+	Then I should see "Password confirmation doesn't match Password"
+	And I should be on the registration page
 	
 
 Scenario: Password is too short
 
 	Where someone tries to register with short password
 
-	Given I have chosen to register
 	When I enter an valid email address
-	And short password with less than 6 characters
+	And I enter short password with less than 6 characters
+	And I enter short password confirmation with less than 6 characters
 	And I click on "Sign up"
-	Then I should be told that password is too short
-	And I should be still on the registration page
+	Then I should see "Password is too short (minimum is 6 characters)"
+	And I should be on the registration page
