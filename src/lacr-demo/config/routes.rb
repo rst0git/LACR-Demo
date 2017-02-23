@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+  end
+
   # Home page routes
   root to: 'home#index'
   get '/about', to: 'home#about'
