@@ -107,10 +107,6 @@ mark{
  .navbar-default .navbar-toggle .icon-bar {
    background-color: #666666;
  }
- .navbar-default .navbar-collapse,
- .navbar-default .navbar-form {
-   border-color: #666666;
- }
  .navbar-default .navbar-link {
    color: #666666;
  }
@@ -196,6 +192,13 @@ mark{
   display: table-cell;
 	vertical-align: middle;
 	float: none;
+}
+
+.fp-next {
+  border-color: transparent transparent transparent rgba(30, 30, 30, 0.3) !important;
+}
+.fp-prev {
+  border-color: transparent rgba(30, 30, 30, 0.3) transparent transparent !important;
 }
 
 #navbar-collapse-search .navbar-form{

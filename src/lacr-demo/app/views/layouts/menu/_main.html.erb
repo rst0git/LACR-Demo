@@ -2,36 +2,51 @@
   <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <%= link_to "Aberdeen Council Registers", root_url, class: "navbar-brand" %>
-      </div>
-
-      <form class="navbar-form navbar-left" action="/search" method="get">
-        <div class="input-group">
-          <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-        <input type="hidden" name="r" value="<%= @results_per_page%>">
-        <input type="hidden" name="m" value="<%= @misspellings%>">
-      </form>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <% if not current_page?(root_path) %>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-search">
+          <span class="sr-only">Toggle search</span>
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+        <%end%>
+        <%= link_to "Aberdeen Council Registers", root_path+"#homepage", class: "navbar-brand" %>
+      </div>  <!-- navbar-header -->
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+      <% if not current_page?(root_path) %>
+      <div class="collapse navbar-collapse navbar-left" id="navbar-collapse-search">
         <ul class="nav navbar-nav">
-          <li> <%= link_to "Advanced Search", advanced_search_path %> </li>
-          <li> <%= link_to "Documents", doc_path %> </li>
-          <!-- render menu for user authenticacion -->
+          <li>
+            <form class="navbar-form" action="/search" method="get">
+              <div class="input-group">
+                <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <input type="hidden" name="r" value="<%= @results_per_page%>">
+              <input type="hidden" name="m" value="<%= @misspellings%>">
+            </form>
+          </li>
+        </ul>
+      </div> <!-- input-group -->
+      <% end %>
+
+      <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-menu">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Documents", doc_path %></li>
+          <li><%= link_to "Advanced Search", root_path+"#advsearch" %> </li>
+          <!-- menu for user authenticacion -->
           <%= render 'layouts/menu/registration_items' %>
           <%= render 'layouts/menu/login_items' %>
+          <li> <%= link_to "About", root_path+"#about" %> </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
