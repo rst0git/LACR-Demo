@@ -13,8 +13,7 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users", params:{ user: {email: 'user@test.com', password: 'password', password_confirmation: 'password'} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Welcome! You have signed up successfully.'
+		assert_equal 'Welcome! You have signed up successfully.', flash[:notice]
 	end
 
 	test "user should not be able sign_up with already registered email" do
@@ -49,32 +48,27 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 	end
 
 	test "user should not be able to login with wrong password" do
 		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
-  		get "/users/sign_in"
+		get "/users/sign_in"
 		assert_equal 200, status
 		post "/users/sign_in", params:{ user: {email: @user.email, password: 'password2'} }
 		assert_equal 200, status
 		assert_equal "/users/sign_in", path
-		assert_select 'div.alert' do
-			assert_select 'p', 'Invalid Email or password.'
-		end
+		assert_equal 'Invalid Email or password.', flash[:alert]
 	end
 
 	test "user should not be able to login with wrong email" do
 		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
-  		get "/users/sign_in"
+		get "/users/sign_in"
 		assert_equal 200, status
 		post "/users/sign_in", params:{ user: {email: 'user1@test.com', password: @user.password} }
 		assert_equal 200, status
 		assert_equal "/users/sign_in", path
-		assert_select 'div.alert' do
-			assert_select 'p', 'Invalid Email or password.'
-		end
+		assert_equal 'Invalid Email or password.', flash[:alert]
 	end
 
 	test "user should be able to edit password" do
@@ -84,16 +78,14 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		get "/users/edit"
 		assert_equal 200, status
-		put "/users", params:{ user: {email: @user.email, password: 'password2', 
+		put "/users", params:{ user: {email: @user.email, password: 'password2',
 			password_confirmation: 'password2', current_password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Your account has been updated successfully.'
+		assert_equal 'Your account has been updated successfully.', flash[:notice]
 	end
 
 	test "user should not be able to edit password without confirmation" do
@@ -103,11 +95,10 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		get "/users/edit"
 		assert_equal 200, status
-		put "/users", params:{ user: {email: @user.email, password: 'password2', 
+		put "/users", params:{ user: {email: @user.email, password: 'password2',
 			password_confirmation: 'password', current_password: @user.password} }
 		assert_equal 200, status
 		assert_equal "/users", path
@@ -121,11 +112,10 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		get "/users/edit"
 		assert_equal 200, status
-		put "/users", params:{ user: {email: @user.email, password: 'password2', 
+		put "/users", params:{ user: {email: @user.email, password: 'password2',
 			password_confirmation: 'password2', current_password: 'password3'} }
 		assert_equal 200, status
 		assert_equal "/users", path
@@ -140,16 +130,14 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		get "/users/edit"
 		assert_equal 200, status
-		put "/users", params:{ user: {email: 'user1@test.com', password: '', 
+		put "/users", params:{ user: {email: 'user1@test.com', password: '',
 			password_confirmation: '', current_password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Your account has been updated successfully.'
+		assert_equal 'Your account has been updated successfully.', flash[:notice]
 	end
 
 	test "user should not be able to edit email if already registered" do
@@ -160,11 +148,10 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		get "/users/edit"
 		assert_equal 200, status
-		put "/users", params:{ user: {email: @user1.email, password: '', 
+		put "/users", params:{ user: {email: @user1.email, password: '',
 			password_confirmation: '', current_password: @user.password} }
 		assert_equal 200, status
 		assert_equal "/users", path
@@ -178,29 +165,24 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		delete "/users/sign_out"
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed out successfully.'
+		assert_equal 'Signed out successfully.', flash[:notice]
 	end
 
 	test "user should be able to destroy the account" do
 		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
-  		get "/users/sign_in"
+		get "/users/sign_in"
 		assert_equal 200, status
 		post "/users/sign_in", params:{ user: {email: @user.email, password: @user.password} }
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Signed in successfully.'
+		assert_equal 'Signed in successfully.', flash[:notice]
 		delete "/users"
 		follow_redirect!
 		assert_equal 200, status
-		assert_equal "/", path
-		assert_select 'p', 'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
+		assert_equal 'Bye! Your account has been successfully cancelled. We hope to see you again soon.', flash[:notice]
 	end
-
 end

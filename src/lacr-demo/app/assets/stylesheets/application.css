@@ -197,3 +197,12 @@ mark{
 	vertical-align: middle;
 	float: none;
 }
+
+#navbar-collapse-search .navbar-form{
+  /*Fix overflow on small screen*/
+  margin-right: 0;
+}
+
+#noty_topRight_layout_container{
+  margin-top: 50px !important;
+}
