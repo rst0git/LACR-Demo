@@ -51,7 +51,7 @@
 
     <hr>
 
-<div class="section">
+  <div class="section">
         <div class="container-fluid" id="index-content">
 
           <div class="container-fluid">
@@ -94,5 +94,9 @@
         </div>
     </div>
 
+  </div>
 </div>
-</div>
+
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "home.js" %>
+<%end%>
