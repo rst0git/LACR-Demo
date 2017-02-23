@@ -2,12 +2,6 @@ require 'test_helper'
 
 class UserControllerTest < ActionDispatch::IntegrationTest
 
-	test "user should see home page" do
-		get "/"
-		assert_equal 200, status
-		assert_select 'h1', 'Aberdeen Registers'
-	end
-
 	test "user should see login page" do
 		get "/sign_in"
 		assert_equal 200, status
