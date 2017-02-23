@@ -1,8 +1,10 @@
-<h1>Enter Query</h1>
-<%= form_tag(query_path, :method => "post", id: "search-form") do %>
-<%= text_field_tag :search, params[:search], placeholder: "Query Database" %>
-<%= submit_tag "Search" %>
-<% end %>
+<div class="container">
+  <h1>Enter Query</h1>
+  <%= form_tag(query_path, :method => "post", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Query Database" %>
+  <%= submit_tag "Search" %>
+  <% end %>
 
-<h1>How do I use XQuery?</h1>
-<a href="https://www.w3schools.com/xml/xquery_intro.asp" target="_blank">Everything you need to know about XQuery provided by W3Schools</a>
+  <h1>How do I use XQuery?</h1>
+  <a href="https://www.w3schools.com/xml/xquery_intro.asp" target="_blank">Everything you need to know about XQuery provided by W3Schools</a>
+</div>

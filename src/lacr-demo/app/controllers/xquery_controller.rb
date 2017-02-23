@@ -10,15 +10,17 @@ class XqueryController < ApplicationController
     # Open DB or create if does not exist
     session.open_or_create_db("xmldb")
     # Execute the query entered by the user
-    @query_result = session.query(params[:search])
+    @query_result = session.execute("#{params[:search]}")
     # close session
     session.close
   end
 
-  def upload(file_path)
-     session = BaseXClient::Session.new("localhost", 1984, "admin", "admin")
+  def upload(files)
+     session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
      session.open_or_create_db("xmldb")
-     session.add(file_path)
+     files.each do |file_name, file_content|
+       session.add(file_name, file_content)
+     end
      session.close
   end
 

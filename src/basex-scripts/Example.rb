@@ -16,8 +16,8 @@ begin
 
 #   print session.create('test', '')
 #   puts session.open_db('test123')
-   puts session.open_db('test1')
-#	print session.execute('xquery  //text()')
+#   puts session.open_db('test1')
+	print session.execute('help')
 
 
   # close session
