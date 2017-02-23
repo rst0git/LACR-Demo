@@ -5,13 +5,13 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-md-4">
-						<strong>ID: </strong><span class="entry"><%= document.entry %></span>
+						<strong>ID: </strong><span><%= document.entry %></span>
 					</div>
 					<div class="col-md-4">
-						<strong>Date: </strong><span class="date"><% if document.date_incorrect %><%= document.date_incorrect %><% else %><%= document.date %><% end %></span>
+						<strong>Date: </strong><span><% if document.date_incorrect %><%= document.date_incorrect %><% else %><%= document.date %><% end %></span>
 					</div>
 					<div class="col-md-4">
-						<strong>Language: </strong><span class="language"><%= document.lang %></span>
+						<strong>Language: </strong><span class="pr-language"><%= document.lang %></span>
 					</div> <!-- col-md-4 -->
 				</div> <!-- row -->
 			</div>  <!-- panel-heading -->

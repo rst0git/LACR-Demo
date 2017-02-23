@@ -11,7 +11,7 @@ var load_document = function (p, v){
   $("#transcription-image").load("/doc/page?p="+p+"&v="+v, function(responseTxt, statusTxt, xhr){
         if(statusTxt == "success"){
           // Transform language codes
-          $(".language").each(function() {
+          $(".pr-language").each(function() {
             $(this).html(ISO_639_2[$(this).html()]['native'][0]);
           });
 
