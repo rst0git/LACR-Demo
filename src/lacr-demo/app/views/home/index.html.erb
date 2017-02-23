@@ -1,4 +1,4 @@
-  <div id="fullpage">
+<div id="fullpage">
     <div id="home-top-container" class="section">
       <div class="container">
         <div class="jumbotron">
@@ -14,7 +14,7 @@
               <form class="navbar-form navbar-left" id="search-home" action="/search" method="get">
                 <div class="input-group" id="search-home">
                   <input type="search" class="form-control" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
-                  <div class="input-group-btn" >
+                  <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                       <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
@@ -31,11 +31,9 @@
 
     <div class="section">
       <div class="container">
-        <h2>Advanced Search</h2>
-        <hr/>
+        <h1>Advanced Search</h1>
         <div class="row">
           <%= form_tag advanced_search_path, id: "adv-search", method: :get do |f|%>
-
           <div class="row">
             <div class="form-group">
               <div class="col-md-2">
@@ -147,7 +145,7 @@
               <div class="col-md-4">
                 <h1 class="h2-home">Highly Contextual</h1>
                 <h4>Relevant Contents of the documents will be displayed around the search term in order to give much greater context. Dates and document ID’s will also be displayed to further enhance this. </h4>
-             </div>
+              </div>
               <div class="col-md-4">
                 <h1 class="h2-home">Customized Search</h1>
                 <h4>A plethora of advanced search fields such as setting a start and end date, document by ID and the ability to search for proper names, aim to make search as concise as possible. </h4>
