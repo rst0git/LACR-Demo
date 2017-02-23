@@ -17,6 +17,16 @@ class UserControllerTest < ActionDispatch::IntegrationTest
 		assert_select 'p', 'Welcome! You have signed up successfully.'
 	end
 
+	test "user should not be able sign_up with already registered email" do
+		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
+  		get "/users/sign_up"
+		assert_equal 200, status
+		post "/users", params:{ user: {email: 'user@test.com', password: 'password', password_confirmation: 'password'} }
+		assert_equal 200, status
+		assert_equal "/users", path
+		assert_select 'li', 'Welcome! You have signed up successfully.'
+	end
+
 	test "user should be able to login" do
 		@user = User.create(email: 'user@test.com', password: 'password', password_confirmation: 'password')
   		get "/users/sign_in"
