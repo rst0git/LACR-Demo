@@ -11,7 +11,11 @@
 
   <body>
   <!-- Navigation -->
+  <% if current_page?(root_path) %>
+  <%= render 'layouts/menu/main-index' %>
+  <% else %>
   <%= render 'layouts/menu/main' %>
+  <% end %>
   <%= render 'layouts/menu/flash_messages' %>
   <%= yield :before_container %>
   <%= yield %>

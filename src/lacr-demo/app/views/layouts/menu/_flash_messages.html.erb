@@ -1,19 +1,11 @@
 
  <% if notice %>
-   <script type="text/javascript">
-   n = noty({text: '<div class="notification-notice container"><%= notice %></div>',
-             layout: 'topRight',
-             timeout: 5000,
-             type: 'information'});
-
-   </script>
+   <div class="alert alert-info">
+       <p class="notice"><%= notice %></p>
+   </div>
  <% end %>
  <% if alert %>
-   <script type="text/javascript">
-   n = noty({text: '<div class="notification-alert container"><%= alert %></div>',
-             layout: 'topRight',
-             timeout: 5000,
-             type: 'information'});
-
-   </script>
+   <div class="alert alert-info">
+     <p class="alert"><%= alert %></p>
+   </div>
  <% end %>
