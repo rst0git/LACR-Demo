@@ -15,7 +15,7 @@
 //= require twitter/bootstrap
 //= require typeahead.bundle.js
 //= require jquery.noty.packaged.min.js
-
+//= require jquery.fullPage.min.js
 
 // Autocomplete for the Simple Search
 var autocomplete = new Bloodhound({
