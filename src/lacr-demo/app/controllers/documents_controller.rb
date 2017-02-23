@@ -90,8 +90,8 @@ class DocumentsController < ApplicationController
           xml_files['xml'].each do |file|
 
             # Check namespace
-            nokogori_obj = Nokogiri::XML(File.open(file.path))
-            if ( nokogori_obj.collect_namespaces.values.include? TranscriptionXml::HISTEI_NS )
+            nokogiri_obj = Nokogiri::XML(File.open(file.path))
+            if ( nokogiri_obj.collect_namespaces.values.include? TranscriptionXml::HISTEI_NS )
               t = TranscriptionXml.new
               t.xml = file
               if t.save!
