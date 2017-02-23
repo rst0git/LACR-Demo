@@ -1,10 +1,6 @@
 Given(/^I am logged in as a valid user$/) do
   if User.find_by_email('testuser@test.com').nil?
-    p 'user does not exist'
     User.create!(email: 'testuser@test.com', password: 'password', password_confirmation: 'password')
-    p 'user created'
-  else
-    p 'user already exist'
   end
   visit '/'
   click_on 'Login'

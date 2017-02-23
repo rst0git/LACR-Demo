@@ -7,7 +7,7 @@ Scenario: Successful log out
   
 	Where someone tries to log out
   
-	Given I am logged in
+	Given I am logged in as a valid user
 	When I click on log out
 	Then I should be logged out 
 	And I should be on the home page

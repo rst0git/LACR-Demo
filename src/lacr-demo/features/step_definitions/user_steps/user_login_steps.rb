@@ -1,27 +1,32 @@
 Given(/^I am on the home page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	if User.find_by_email('testuser@test.com').nil?
+		User.create!(email: 'testuser@test.com', password: 'password', password_confirmation: 'password')
+	end
+ 	visit '/'
+	page.current_path == '/'
 end
 
 Given(/^I have chosen to log in$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	click_on 'Login'
+	page.current_path == '/login'
 end
 
 When(/^I enter my email$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	fill_in 'Email', with: 'testuser@test.com'
 end
 
 When(/^I enter my password$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	fill_in 'Password', with: 'password'
 end
 
 When(/^I enter invalid password$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	fill_in 'Password', with: 'password2'
 end
 
 Then(/^I should be on the login page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	page.current_path == '/login'
 end
 
 When(/^I enter an email which is not registered yet$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+	fill_in 'Email', with: 'testuser1@test.com'
 end

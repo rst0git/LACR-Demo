@@ -1,11 +1,8 @@
-Given(/^I am logged in$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When(/^I click on log out$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on 'Logout'
 end
 
 Then(/^I should be logged out$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.has_content? 'Signed out successfully.'
+  page.current_path == '/'
 end
