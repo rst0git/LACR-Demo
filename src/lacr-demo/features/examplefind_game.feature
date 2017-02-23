@@ -1,4 +1,7 @@
 Feature: Find the League of Legends Website
+As a <persona|role>
+I want to <action>
+So that <outcome>
 
 @javascript 
 Scenario: Search for the website        
