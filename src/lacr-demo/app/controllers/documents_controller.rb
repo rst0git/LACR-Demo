@@ -95,7 +95,7 @@ class DocumentsController < ApplicationController
               t = TranscriptionXml.new
               t.xml = file
               if t.save!
-                # Keep the path of successfully uploaded file
+                # Store file content and file for import to BaseX
                 xml_files_paths.push([file.original_filename, nokogori_obj.to_xml])
                 @succesfully_uploaded[:xml].push(file.original_filename)
                 # Proccess the XML file
