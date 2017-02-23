@@ -57,7 +57,7 @@ Scenario: Password is too short
 
 	Where someone tries to register with short password
 
-	When I enter an valid email address
+	When I enter valid email address
 	And I enter short password with less than 6 characters
 	And I enter short password confirmation with less than 6 characters
 	And I click on "Sign up"

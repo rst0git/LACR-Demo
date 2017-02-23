@@ -1,35 +1,50 @@
 Given(/^I am logged in as a valid user$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  if User.find_by_email('testuser@test.com').nil?
+    p 'user does not exist'
+    User.create!(email: 'testuser@test.com', password: 'password', password_confirmation: 'password')
+    p 'user created'
+  else
+    p 'user already exist'
+  end
+  visit '/'
+  click_on 'Login'
+  page.current_path == '/login'
+  fill_in 'Email', with: 'testuser@test.com'
+  fill_in 'Password', with: 'password'
+  click_on 'Sign in'
+  page.current_path == '/'
+  page.has_content? 'Signed in successfully.'
 end
 
 Given(/^I have chosen to cancel my account$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_on 'Edit registration'
+  page.current_path == '/users/edit'
 end
 
-When(/^I am asked Are you sure\?$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When(/^I click on "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then(/^my account should be canceled$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+When(/^I approve it$/) do
+  accept_alert do
+    click_on 'Cancel my account'
+  end
 end
 
 Then(/^I am notified that it is canceled$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.has_content? 'Bye! Your account has been successfully cancelled. We hope to see you again soon.'
 end
 
 Then(/^I should be on the home page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.current_path == '/'
+end
+
+When(/^I disapprove it$/) do
+  dismiss_confirm do
+    click_on 'Cancel my account'
+  end
 end
 
 Then(/^my account should not be canceled$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  !User.find_by_email('testuser@test.com').nil?
 end
 
 Then(/^I should be on the edit account page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.current_path == '/users/edit'
 end
