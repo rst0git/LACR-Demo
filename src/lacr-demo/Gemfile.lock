@@ -102,8 +102,6 @@ GEM
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    lodash-rails (4.17.4)
-      railties (>= 3.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -229,7 +227,6 @@ DEPENDENCIES
   jquery-turbolinks
   less-rails
   listen (~> 3.0.5)
-  lodash-rails
   mini_magick
   oj
   pg
