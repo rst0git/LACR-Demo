@@ -1,6 +1,10 @@
 
  <% if notice %>
+   <div class="alert alert-info notice">
+       <p><%= notice %></p>
+   </div>
    <script type="text/javascript">
+   $('.notice').hide();
    n = noty({text: '<div class="notification-notice container"><%= notice %></div>',
              layout: 'topRight',
              timeout: 5000,
@@ -9,7 +13,11 @@
    </script>
  <% end %>
  <% if alert %>
+   <div class="alert alert-info">
+     <p><%= alert %></p>
+   </div>
    <script type="text/javascript">
+   $('.alert').hide();
    n = noty({text: '<div class="notification-alert container"><%= alert %></div>',
              layout: 'topRight',
              timeout: 5000,
