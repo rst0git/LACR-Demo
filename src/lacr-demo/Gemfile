@@ -56,5 +56,14 @@ group :development do
   gem 'byebug'
 end
 
+group :test do
+	gem 'cucumber-rails', :require => false
+	# database_cleaner is not required, but highly recommended
+	gem 'database_cleaner'
+  # for testing JavaScript, require older version selenium and firefox version 47.0.1 for more info check:
+  # https://github.com/teamcapybara/capybara#drivers
+  gem 'selenium-webdriver', '~> 2.53.4'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
