@@ -5,13 +5,5 @@
   <%= submit_tag "Search" %>
   <% end %>
   <a href="https://www.w3schools.com/xml/xquery_intro.asp" target="_blank">Not the results you expected? Try this XQuery tutorial provided by W3Schools</a><br>
-  <pre class="prettyprint">
-    <code class="language-xml">
-      <%=@query_result%>
-    </code>
-  </pre>
+  <pre><code><%=@query_result%></code></pre>
 </div>
-
-<% content_for :javascript_includes do %>
-  <%# javascript_include_tag "xquery.js" %>
-<%end%>
