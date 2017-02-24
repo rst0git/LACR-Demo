@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $('a').click(function(e) {e.preventDefault();
-       load_page($(this).attr('data-page'));
+    $('a.result-link').click(function(e) {
+      e.preventDefault();
+      load_page($(this).attr('data-page'));
      });
 });
 
@@ -12,6 +13,16 @@ function load_page(url){
   // Load the page with Ajax
   $('#result-container').load(url, function () {
     // Load Fullpage.js
-    $('#fullpage').fullpage();
+    $('#fullpage').fullpage({
+      anchors:['results'],
+      scrollOverflow: true,
+      scrollOverflowReset: true,
+      fitToSectionDelay: 0,
+      paddingTop: "70px",
+      paddingBottom: "20px",
+      verticalCentered: false,
+      loopHorizontal: false,
+    });
+    document.location.href = "#results/1";
   });
 }

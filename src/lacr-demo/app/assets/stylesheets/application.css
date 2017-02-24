@@ -197,3 +197,10 @@ mark{
 	vertical-align: middle;
 	float: none;
 }
+
+.fp-next {
+  border-color: transparent transparent transparent rgba(30, 30, 30, 0.3) !important;
+}
+.fp-prev {
+  border-color: transparent rgba(30, 30, 30, 0.3) transparent transparent !important;
+}

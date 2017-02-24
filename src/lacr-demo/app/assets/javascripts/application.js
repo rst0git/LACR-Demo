@@ -16,6 +16,8 @@
 //= require typeahead.bundle.js
 //= require jquery.noty.packaged.min.js
 //= require jquery.fullPage.min.js
+//= require scrolloverflow.min.js
+//= require jquery.fullpage.extensions.min.js
 
 // Autocomplete for the Simple Search
 var autocomplete = new Bloodhound({
