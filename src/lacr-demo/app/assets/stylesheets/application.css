@@ -107,10 +107,6 @@ mark{
  .navbar-default .navbar-toggle .icon-bar {
    background-color: #666666;
  }
- .navbar-default .navbar-collapse,
- .navbar-default .navbar-form {
-   border-color: #666666;
- }
  .navbar-default .navbar-link {
    color: #666666;
  }
@@ -196,4 +192,8 @@ mark{
   display: table-cell;
 	vertical-align: middle;
 	float: none;
+}
+#navbar-collapse-search .navbar-form{
+  /*Fix overflow on small screen*/
+  margin-right: 0;
 }
