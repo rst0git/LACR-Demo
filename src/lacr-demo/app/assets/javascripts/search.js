@@ -16,7 +16,6 @@ function load_page(url){
     $('#fullpage').fullpage({
       anchors:['results'],
       scrollOverflow: true,
-      scrollOverflowReset: true,
       fitToSectionDelay: 0,
       paddingTop: "70px",
       paddingBottom: "20px",
