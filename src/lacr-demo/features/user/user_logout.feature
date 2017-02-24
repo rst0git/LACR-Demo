@@ -1,13 +1,13 @@
-Feature: (Your feature)
-	In order to (to what?)
-	As a (as a what?)
-	I need (what da ya need?)
+Feature: User Log out
+	In order to log out
+	As a valid user
+	I need to be already logged in and click on log out
 
-Background:
-	Given context
-
-Scenario: (Scenario Description)
-	Given I (Given?)
-	And (And?)
-	When I (when?)
-	Then I (then?)
+Scenario: Successful log out
+  
+	Where someone tries to log out
+  
+	Given I am logged in
+	When I click on log out
+	Then I should be logged out 
+	And on the home page
