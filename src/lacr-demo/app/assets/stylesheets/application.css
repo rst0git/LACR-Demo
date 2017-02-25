@@ -204,3 +204,12 @@ mark{
 .fp-prev {
   border-color: transparent rgba(30, 30, 30, 0.3) transparent transparent !important;
 }
+
+#navbar-collapse-search .navbar-form{
+  /*Fix overflow on small screen*/
+  margin-right: 0;
+}
+
+#noty_topRight_layout_container{
+  margin-top: 50px !important;
+}

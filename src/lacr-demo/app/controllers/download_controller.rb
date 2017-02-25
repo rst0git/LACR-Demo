@@ -3,6 +3,7 @@ require 'zip'
 class DownloadController < ApplicationController
   def index
     selected = params['selected']
+    add_images = params['img'] == "true"
       # If there are selected pages
       if selected
         images_paths = Set.new
@@ -14,9 +15,11 @@ class DownloadController < ApplicationController
           if entry.key?("volume") and entry.key?("page")
             vol, page = entry['volume'], entry['page']
 
-            img = PageImage.find_by_volume_and_page(vol, page)
-            if img
-              images_paths.add([img.image_identifier, img.image.path])
+            if add_images
+              img = PageImage.find_by_volume_and_page(vol, page)
+              if img
+                images_paths.add([img.image_identifier, img.image.path])
+              end
             end
 
             xml = Search.where('volume' => vol).rewhere('page' => page)
@@ -30,45 +33,61 @@ class DownloadController < ApplicationController
 
         # Catch exceptions during archiving files
         begin
-            md5 = Digest::MD5.hexdigest(xml_paths.to_a.join(" ")+images_paths.to_a.join(" "))[0..6]
-            zip_dir = "#{Rails.root}/public/download/#{md5}"
-            # Check if archive already exist
-            if not File.directory?(zip_dir)
-              # Create "zip_dir" if does not exist
-              FileUtils.mkdir_p(zip_dir)
-              # Default archive name "archive.zip"
-              zip_file_path =  "#{zip_dir}/archive.zip"
 
-              Zip::File.open(zip_file_path, Zip::File::CREATE) do |zip_file|
-                if (xml_paths)
-                  zip_file.mkdir('Transcriptions')
-                  xml_paths.each do |filename, path|
-                    zip_file.add("Transcriptions/#{filename}", path)
-                  end # xml_paths.each do |filename, path|
-                end # if (xml_paths)
-                if (images_paths)
-                  zip_file.mkdir('Images')
-                  images_paths.each do |filename, path|
-                    zip_file.add("Images/#{filename}", path)
-                  end # images_paths.each do |filename, path|
-                end # if (images_paths)
-              end # Zip::File.open(zip_file_path, Zip::File::CREATE) do |zip_file|
-            end
-            respond_to do |format|
-              format.json { render json: {'type': 'success', 'msg': "Archive created.", 'url': "/download/#{md5}/archive.zip"} }
-              format.js   { render :layout => false }
-            end
+          filename = 'archive.zip'
+          temp_file = Tempfile.new(filename)
+          Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip_file|
+            if (xml_paths)
+              zip_file.mkdir('Transcriptions')
+              xml_paths.each do |filename, path|
+                zip_file.add("Transcriptions/#{filename}", path)
+              end # xml_paths.each
+            end # if (xml_paths)
+            if add_images
+              if (images_paths)
+                zip_file.mkdir('Images')
+                images_paths.each do |filename, path|
+                  zip_file.add("Images/#{filename}", path)
+                end # images_paths.each do |filename, path|
+              end # if (images_paths)
+            end # if add_images
+          end # Zip::File.open
+
+          # Sore the filepath in the session
+          key_length = 6
+          key = rand(36**key_length).to_s(36)
+          session[:tmp_file] = {key => temp_file.path}
+
+          respond_to do |format|
+            format.json { render json: {'type': 'success', 'msg': "Archive created.", 'url': download_archive_path + "?key=#{key}" }}
+            format.js   { render :layout => false }
+          end # respond_to
+
         rescue
           respond_to do |format|
             format.json { render json: {'type': 'warning', 'msg': "Error: Files archiving failure."} }
             format.js   { render :layout => false }
-          end
-        end
+          end # respond_to
+        end # begin rescue
     else
       respond_to do |format|
         format.json { render json: {'type': 'warning', 'msg': "Download error: No selected documents!"} }
         format.js   { render :layout => false }
-      end
-    end
-  end
+      end # respond
+    end # if selected
+  end # index
+
+  def archive
+      if params.has_key? "key"
+        filepath = session[:tmp_file][params[:key]]
+        if filepath
+          begin
+            zip_data = File.read(filepath)
+            send_data(zip_data, :type => 'application/zip', :filename => 'archive.zip')
+            return
+          end # begin ensure
+        end # if key
+      end # params.has_key? "key"
+      render file: "#{Rails.root}/public/404.html" , status: :not_found
+  end # archive
 end
