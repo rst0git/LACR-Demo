@@ -67,7 +67,7 @@ $(document).ready(function() {
                     </button>').appendTo('#volume');
                 $('\
                   <div data-vol="'+e.volume+'" data-page="'+e.page+'" class="vol-'+e.volume+' collapse">\
-                    <input type="checkbox" data-vol="'+e.volume+'" data-page="all">\
+                    <label><input type="checkbox" data-vol="'+e.volume+'" data-page="all"> Select all</label>\
                   </div>').appendTo('#page');
               }
               $('\
