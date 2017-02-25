@@ -11,9 +11,9 @@
               <p id="p-home-light-text">Aberdeen’s fifteenth-century town council registers illuminate the workings of this Scottish burgh in a way unsurpassed by other Scottish urban records of the era. They also demonstrate the interconnections of people and ideas across northern Europe in the age of the renaissance.</p>
             </div>
             <div class="col-md-offset-2 col-md-6">
-              <form class="navbar-form navbar-left" id="search-home" action="/search" method="get">
-                <div class="input-group" id="search-home">
-                  <input type="search" class="form-control" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+              <form action="/search" method="get">
+                <div class="input-group">
+                  <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
                   <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                       <i class="fa fa-search" aria-hidden="true"></i>
