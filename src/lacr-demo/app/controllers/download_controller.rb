@@ -30,15 +30,15 @@ class DownloadController < ApplicationController
 
         # Catch exceptions during archiving files
         begin
+
           filename = 'archive.zip'
           temp_file = Tempfile.new(filename)
-
           Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip_file|
             if (xml_paths)
               zip_file.mkdir('Transcriptions')
               xml_paths.each do |filename, path|
                 zip_file.add("Transcriptions/#{filename}", path)
-              end # xml_paths.each do |filename, path|
+              end # xml_paths.each
             end # if (xml_paths)
             if (images_paths)
               zip_file.mkdir('Images')
@@ -47,52 +47,41 @@ class DownloadController < ApplicationController
               end # images_paths.each do |filename, path|
             end # if (images_paths)
           end # Zip::File.open
-          zip_data = File.read(temp_file.path)
-          send_data(zip_data, :type => 'application/zip', :filename => filename)
-        ensure
-          #Close and delete the temp file
-          temp_file.close
-          temp_file.unlink
-        end
-            # md5 = Digest::MD5.hexdigest(xml_paths.to_a.join(" ")+images_paths.to_a.join(" "))[0..6]
-            # zip_dir = "#{Rails.root}/public/download/#{md5}"
-            # # Check if archive already exist
-            # if not File.directory?(zip_dir)
-            #   # Create "zip_dir" if does not exist
-            #   FileUtils.mkdir_p(zip_dir)
-            #   # Default archive name "archive.zip"
-            #   zip_file_path =  "#{zip_dir}/archive.zip"
-            #
-            #   Zip::File.open(zip_file_path, Zip::File::CREATE) do |zip_file|
-            #     if (xml_paths)
-            #       zip_file.mkdir('Transcriptions')
-            #       xml_paths.each do |filename, path|
-            #         zip_file.add("Transcriptions/#{filename}", path)
-            #       end # xml_paths.each do |filename, path|
-            #     end # if (xml_paths)
-            #     if (images_paths)
-            #       zip_file.mkdir('Images')
-            #       images_paths.each do |filename, path|
-            #         zip_file.add("Images/#{filename}", path)
-            #       end # images_paths.each do |filename, path|
-            #     end # if (images_paths)
-            #   end # Zip::File.open(zip_file_path, Zip::File::CREATE) do |zip_file|
-            # end
-            # respond_to do |format|
-            #   format.json { render json: {'type': 'success', 'msg': "Archive created.", 'url': "/download/#{md5}/archive.zip"} }
-            #   format.js   { render :layout => false }
-            # end
+
+          # Sore the filepath in the session
+          key = Random.rand("some random text".hash).to_s(36)[0, 6]
+          session[:tmp_file] = {key => temp_file.path}
+
+          respond_to do |format|
+            format.json { render json: {'type': 'success', 'msg': "Archive created.", 'url': download_archive_path + "?key=#{key}" }}
+            format.js   { render :layout => false }
+          end # respond_to
+
         rescue
           respond_to do |format|
             format.json { render json: {'type': 'warning', 'msg': "Error: Files archiving failure."} }
             format.js   { render :layout => false }
-          end
-        end
+          end # respond_to
+        end # begin rescue
     else
       respond_to do |format|
         format.json { render json: {'type': 'warning', 'msg': "Download error: No selected documents!"} }
         format.js   { render :layout => false }
-      end
-    end
-  end
+      end # respond
+    end # if selected
+  end # index
+
+  def archive
+      if params.has_key? "key"
+        filepath = session[:tmp_file][params[:key]]
+        if filepath
+          begin
+            zip_data = File.read(filepath)
+            send_data(zip_data, :type => 'application/zip', :filename => 'archive.zip')
+            return
+          end # begin ensure
+        end # if key
+      end # params.has_key? "key"
+      render file: "#{Rails.root}/public/404.html" , status: :not_found
+  end # archive
 end

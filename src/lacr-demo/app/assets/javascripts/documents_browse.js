@@ -160,7 +160,8 @@ $(document).ready(function() {
                                  layout: 'center',
                                  type: 'information'});
           }
-        }).success(function(response) {
+        }).success(
+          function(response) {
             n.setType(response.type);
             n.setTimeout(5000);
             if (response.type == 'success') {
@@ -171,7 +172,11 @@ $(document).ready(function() {
               n.setText('<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+response.msg+'</h4>');
             }
           })
-          .fail(function() {
+          .fail(function(response) {
+
+              var byteArray = new Uint8Array(response);
+              var blob = new Blob(byteArray, {type: "application/zip"});
+              $('#file_download').html(blob);
             $.noty.closeAll();
             n = noty({timeout: 5000, text: '<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Connection failure...</h4>', layout: 'center', type: 'error'});
           });
