@@ -1,4 +1,40 @@
 //= require ISO_639_2.min.js
+var $selected = {};
+
+function download_zip(img=false){
+  var n;
+  $.ajax({
+    type: 'POST',
+    data: {'selected': $selected, 'img': img},
+    url: 'ajax/download',
+    cache:false,
+    beforeSend: function(){
+      $.noty.closeAll();
+      n = noty({text: '<h4 class="text-center"><i class="fa fa-cog fa-spin fa-fw"></i> Creating an archive...</h4>',
+                           layout: 'center',
+                           type: 'information'});
+    }
+  }).success(
+    function(response) {
+      n.setType(response.type);
+      n.setTimeout(5000);
+      if (response.type == 'success') {
+        n.setText('<h4 class="text-center"><i class="fa fa-check" aria-hidden="true"></i> '+response.msg+'</h4>');
+        Download(response.url);
+      }
+      else {
+        n.setText('<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+response.msg+'</h4>');
+      }
+    })
+    .fail(function(response) {
+
+        var byteArray = new Uint8Array(response);
+        var blob = new Blob(byteArray, {type: "application/zip"});
+        $('#file_download').html(blob);
+      $.noty.closeAll();
+      n = noty({timeout: 5000, text: '<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Connection failure...</h4>', layout: 'center', type: 'error'});
+    });
+}
 
 function show_browser(){
   // Show pages of the first Volume in the list
@@ -35,8 +71,6 @@ function Download(url) {
 };
 
 $(document).ready(function() {
-  var $selected = {};
-
 
   function ajax_loader(){
     $.getJSON( "/ajax/doc/list").done(function(data) {
@@ -147,40 +181,9 @@ $(document).ready(function() {
   //Load the list of volumes and pages using ajax
   ajax_loader();
 
-    $('#doc_download').click(function() {
-        var n;
-        $.ajax({
-          type: 'POST',
-          data: {'selected': $selected},
-          url: 'ajax/download',
-          cache:false,
-          beforeSend: function(){
-            $.noty.closeAll();
-            n = noty({text: '<h4 class="text-center"><i class="fa fa-cog fa-spin fa-fw"></i> Creating an archive...</h4>',
-                                 layout: 'center',
-                                 type: 'information'});
-          }
-        }).success(
-          function(response) {
-            n.setType(response.type);
-            n.setTimeout(5000);
-            if (response.type == 'success') {
-              n.setText('<h4 class="text-center"><i class="fa fa-check" aria-hidden="true"></i> '+response.msg+'</h4>');
-              Download(response.url);
-            }
-            else {
-              n.setText('<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> '+response.msg+'</h4>');
-            }
-          })
-          .fail(function(response) {
+    $('#doc_download').click(function(){download_zip()});
+    $('#doc_download_img').click(function(){download_zip(img=true)});
 
-              var byteArray = new Uint8Array(response);
-              var blob = new Blob(byteArray, {type: "application/zip"});
-              $('#file_download').html(blob);
-            $.noty.closeAll();
-            n = noty({timeout: 5000, text: '<h4 class="text-center"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Connection failure...</h4>', layout: 'center', type: 'error'});
-          });
-    });
 
     $('#doc_delete').click(function() {
       selected_len = Object.keys($selected).length;

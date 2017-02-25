@@ -3,6 +3,7 @@ require 'zip'
 class DownloadController < ApplicationController
   def index
     selected = params['selected']
+    add_images = params['img'] == "true"
       # If there are selected pages
       if selected
         images_paths = Set.new
@@ -14,9 +15,11 @@ class DownloadController < ApplicationController
           if entry.key?("volume") and entry.key?("page")
             vol, page = entry['volume'], entry['page']
 
-            img = PageImage.find_by_volume_and_page(vol, page)
-            if img
-              images_paths.add([img.image_identifier, img.image.path])
+            if add_images
+              img = PageImage.find_by_volume_and_page(vol, page)
+              if img
+                images_paths.add([img.image_identifier, img.image.path])
+              end
             end
 
             xml = Search.where('volume' => vol).rewhere('page' => page)
@@ -40,16 +43,19 @@ class DownloadController < ApplicationController
                 zip_file.add("Transcriptions/#{filename}", path)
               end # xml_paths.each
             end # if (xml_paths)
-            if (images_paths)
-              zip_file.mkdir('Images')
-              images_paths.each do |filename, path|
-                zip_file.add("Images/#{filename}", path)
-              end # images_paths.each do |filename, path|
-            end # if (images_paths)
+            if add_images
+              if (images_paths)
+                zip_file.mkdir('Images')
+                images_paths.each do |filename, path|
+                  zip_file.add("Images/#{filename}", path)
+                end # images_paths.each do |filename, path|
+              end # if (images_paths)
+            end # if add_images
           end # Zip::File.open
 
           # Sore the filepath in the session
-          key = Random.rand("some random text".hash).to_s(36)[0, 6]
+          key_length = 6
+          key = rand(36**key_length).to_s(36)
           session[:tmp_file] = {key => temp_file.path}
 
           respond_to do |format|
