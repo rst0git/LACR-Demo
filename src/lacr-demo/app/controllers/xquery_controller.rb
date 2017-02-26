@@ -17,6 +17,8 @@ class XqueryController < ApplicationController
     query = session.query(declarate_ns + input)
     # Store the result
      @query_result = query.execute
+    # Count the number of results
+    @number_of_results = session.query("#{declarate_ns}count(#{input})").execute.to_i
     # close session
     session.close
   end
