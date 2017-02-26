@@ -31,8 +31,8 @@ class SearchController < ApplicationController
         if @orderBy == 0
           order_by['_score'] = :desc # most relevant first - default
         elsif @orderBy == 1
-          order_by['page'] = :asc # page ascending order
           order_by['volume'] = :asc # volume ascending order
+          order_by['page'] = :asc # page ascending order
         end
       end
 

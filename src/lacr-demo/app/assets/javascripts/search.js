@@ -24,7 +24,7 @@ function load_page(url, page, vol){
       scrollOverflow: true,
       fitToSectionDelay: 0,
       paddingTop: "70px",
-      paddingBottom: "20px",
+      paddingBottom: "50px",
       verticalCentered: false,
       loopHorizontal: false,
     });
