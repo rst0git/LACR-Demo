@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-4" id="search_tools">
-    <div class="dropdown col-md-3">
+  <div class="col-md-6 col-md-offset-3" id="search_tools">
+    <div class="dropdown col-xs-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Results Per Page</a>
       <ul class="dropdown-menu">
         <li <%if @results_per_page == 5 %>class="active"<%end%>><a href="#" onclick="insertParam('r',5,'page');">5</a></li>
@@ -10,7 +10,8 @@
         <li <%if @results_per_page == 50 %>class="active"<%end%>><a href="#" onclick="insertParam('r',50,'page');">50</a></li>
       </ul>
     </div>
-    <div class="dropdown col-md-3">
+
+    <div class="dropdown col-xs-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Spelling Variants</a>
       <ul class="dropdown-menu">
         <li <%if @misspellings == 0%>class="active"<%end%>><a href="#" onclick="insertParam('m', 0, 'page')">0</a></li>
@@ -19,6 +20,14 @@
         <li <%if @misspellings == 3%>class="active"<%end%>><a href="#" onclick="insertParam('m', 3, 'page')">3</a></li>
         <li <%if @misspellings == 4%>class="active"<%end%>><a href="#" onclick="insertParam('m', 4, 'page')">4</a></li>
         <li <%if @misspellings == 5%>class="active"<%end%>><a href="#" onclick="insertParam('m', 5, 'page')">5</a></li>
+      </ul>
+    </div>
+
+    <div class="dropdown col-xs-3">
+      <a class="dropdown-toggle" data-toggle="dropdown">Order by</a>
+      <ul class="dropdown-menu">
+        <li <%if @orderBy == 0%>class="active"<%end%>><a href="#"onclick="insertParam('o', 0, 'page')">Relevance</a></li>
+        <li <%if @orderBy == 1%>class="active"<%end%>><a href="#"onclick="insertParam('o', 1, 'page')">Volume and Page</a></li>
       </ul>
     </div>
   </div>

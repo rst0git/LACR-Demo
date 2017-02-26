@@ -20,10 +20,19 @@ then
 	fi
 fi
 
+read -r -p "Open bash in the Ruby container ? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+  docker-compose start
+  docker exec -it src_web_1 bash
+  docker-compose stop
+  exit
+fi
+
 read -r -p "Create database ? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  docker-compose run web bash -c "rails db:drop && rails db:create && rails db:migrate && rails db:seed"
+  docker-compose run web bash -c "rm /lacr-demo/tmp/pids/server.pid; rails db:drop && rails db:create && rails db:migrate && rails db:seed"
 fi
 echo ''
 echo 'Starting containers ....'
