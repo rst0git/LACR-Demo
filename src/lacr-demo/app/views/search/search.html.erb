@@ -15,7 +15,10 @@
         <% if @documents.length > 0 %>
           <div class="list-group">
             <% @documents.each do |document| %>
-            <a class="list-group-item result-link" href="<%= doc_show_path%>?p=<%=document.page%>&v=<%=document.volume%>" data-page="<%= doc_page_path%>?p=<%=document.page%>&v=<%=document.volume%>">
+            <a class="list-group-item result-link" href="<%= doc_show_path%>?p=<%=document.page%>&v=<%=document.volume%>"
+               data-url="<%= doc_page_s_path%>?p=<%=document.page%>&v=<%=document.volume%>"
+               data-page="<%=document.page%>"
+               data-vol="<%=document.volume%>">
              <h4>Volume: <%= document.volume %>, Page <%= document.page %> <sup>Date: <%= document.date %></sup></h4>
               <% if document.highlighted_content %>
               <p><%= document.highlighted_content.html_safe %></p>
@@ -44,8 +47,12 @@
         </div>
       </div> <!-- slide -->
       <div class="slide">
-        <div id="result-container">
-
+        <div class="container">
+          <div class="text-center">
+          	<h4 id="doc-title"></h4>
+          </div>
+          
+          <div id="result-container"></div>
         </div>
       </div>  <!-- section -->
     </div> <!-- slide -->
