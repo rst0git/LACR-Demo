@@ -34,4 +34,6 @@ Rails.application.routes.draw do
   # Search routes
   get 'search', to: 'search#search'
   get 'advanced_search', to: 'search#advanced_search'
+  get 'query', to: 'xquery#index'
+  post 'query', to: 'xquery#show'
 end

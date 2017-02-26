@@ -20,7 +20,7 @@ var load_document = function (p, v){
             url: $('#doc-image img').data('largeImage')
           });
 
-          // Initialise prettyPrint
+          // Initialise prettify
           PR.prettyPrint();
         }
         if(statusTxt == "error")

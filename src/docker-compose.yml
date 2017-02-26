@@ -1,9 +1,11 @@
 version: '2'
 
 services:
-  basex:
-    image: basex/basexhttp
-
+  xmldb:
+    image: basex/basexhttp:latest
+    ports:
+     - "1984:1984"
+     - "8984:8984"
   db:
     image: postgres:9.6.1
     environment:
@@ -26,4 +28,4 @@ services:
     depends_on:
       - es
       - db
-      - basex
+      - xmldb
