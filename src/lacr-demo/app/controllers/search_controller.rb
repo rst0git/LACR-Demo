@@ -25,6 +25,17 @@ class SearchController < ApplicationController
         @misspellings = 2
       end
 
+      @orderBy = params[:o].to_i
+      order_by = {}
+      if params[:o]
+        if @orderBy == 0
+          order_by['_score'] = :desc # most relevant first - default
+        elsif @orderBy == 1
+          order_by['page'] = :asc # page ascending order
+          order_by['volume'] = :asc # volume ascending order
+        end
+      end
+
       @documents = Search.search @query,
           fields: ['content'],
           suggest: true,
@@ -32,6 +43,7 @@ class SearchController < ApplicationController
           page: params[:page], per_page: @results_per_page,
           highlight: {tag: "<mark>"},
           load: false,
+          order: order_by,
           misspellings: {edit_distance: @misspellings}
   end
 
@@ -101,7 +113,7 @@ class SearchController < ApplicationController
       if params[:pr]
         where_query['paragraph'] = params[:pr].split(/,| /).map { |s| s.to_i }
       end
-      
+
       @documents = Search.search @query,
       where: where_query,
       fields: [:content],

@@ -1,19 +1,18 @@
 require 'test_helper'
 
 class DocumentsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get documents_new_url
-    assert_response :success
-  end
+	
+	test "should get documents index" do
+		get "/doc"
+		assert_response :success
+	end
 
-  test "should get index" do
-    get documents_index_url
-    assert_response :success
-  end
-
-  test "should get show" do
-    get documents_show_url
-    assert_response :success
-  end
+	test "user should not see document upload page" do
+		get "/doc/new"
+		assert_equal 302, status
+		follow_redirect!
+		assert_equal "/users/sign_in", path
+		assert_equal 200, status
+	end
 
 end

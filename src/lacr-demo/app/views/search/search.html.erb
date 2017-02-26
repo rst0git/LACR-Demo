@@ -1,43 +1,56 @@
 <% content_for :nav_menu do %>
   <% render '/search/search_tools' %>
 <%end%>
-
-<div class="container" style="padding-top: 20px;">
-  <% if @documents.try(:suggestions).length > 0 %>
-    <label> Did you mean one of:
-      <% @documents.try(:suggestions).each do |s| %>
-      <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
-      <% end %>
-    </label>
-  <%end%>
-<hr>
-  <% if @documents.length > 0 %>
-    <div class="list-group">
-      <% @documents.each do |document| %>
-      <a class="list-group-item" href="<%= doc_show_path%>?p=<%=document.page%>&v=<%=document.volume%>">
-       <h4>Volume: <%= document.volume %>, Page <%= document.page %> <sup>Date: <%= document.date %></sup></h4>
-        <% if document.highlighted_content %>
-        <p><%= document.highlighted_content.html_safe %></p>
-        <%else%>
-        <p><%= document.content %></p>
+<div id="fullpage">
+  <div class="section">
+    <div class="slide">
+      <div class="container" style="padding-top: 20px;">
+        <% if @documents.try(:suggestions).length > 0 %>
+          <label> Did you mean one of:
+            <% @documents.try(:suggestions).each do |s| %>
+            <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
+            <% end %>
+          </label>
         <%end%>
-        <small>ID: <%= document.entry %></small>
-      </a>
-      <% end %>
-    </div>
-<hr>
-    <div class="row">
-      <div class="text-center">
-        <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
-      </div>
-    </div>
-  <% else %>
-    <div class="col-md-8">
-      <p>Your search - <%= raw truncate(@query, :length => 30) %> - did not match any documents.</p>
-      <p>Suggestions:</p>
-      <ul>
-        <li>Try different keywords.</li>
-      </ul>
-    </div>
-  <% end %>
-</div>
+        <% if @documents.length > 0 %>
+          <div class="list-group">
+            <% @documents.each do |document| %>
+            <a class="list-group-item result-link" href="<%= doc_show_path%>?p=<%=document.page%>&v=<%=document.volume%>" data-page="<%= doc_page_path%>?p=<%=document.page%>&v=<%=document.volume%>">
+             <h4>Volume: <%= document.volume %>, Page <%= document.page %> <sup>Date: <%= document.date %></sup></h4>
+              <% if document.highlighted_content %>
+              <p><%= document.highlighted_content.html_safe %></p>
+              <%else%>
+              <p><%= document.content %></p>
+              <%end%>
+              <small>ID: <%= document.entry %></small>
+            </a>
+            <% end %>
+          </div>
+          <div class="row">
+            <div class="text-center">
+              <%= will_paginate @documents, renderer: BootstrapPagination::Rails %>
+            </div>
+          </div>
+
+          <% else %>
+            <div class="col-md-8">
+              <p>Your search - <%= raw truncate(@query, :length => 30) %> - did not match any documents.</p>
+              <p>Suggestions:</p>
+              <ul>
+                <li>Try different keywords.</li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div> <!-- slide -->
+      <div class="slide">
+        <div id="result-container">
+
+        </div>
+      </div>  <!-- section -->
+    </div> <!-- slide -->
+</div>  <!-- fullpage -->
+
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "search.js" %>
+<%end%>
