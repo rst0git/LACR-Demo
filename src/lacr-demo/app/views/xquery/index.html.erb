@@ -11,30 +11,45 @@
   <br>
   <br>
 
-  <h1 align ="center">Basic XQuery examples</h1>
+  <h1 align ="center">XQuery examples</h1>
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4">
             <h2>Search for element</h2>
-            <p>Xquery can be used to return all elements of an input</p>
-            <h4><font color =blue>//language</font></h4>
+            <p>Xquery can be used to return all elements of an input such as languages</p>
+            <h4><font color =blue>//ns:div[@xml:lang="lat"]</font></h4>
+            <ul>
+             <li><strong>//ns:</strong>Is used to specify the HisTEI namespace</li>
+             <li><strong>:div:</strong> specifies that we are searching for XML tags</li>
+             <li><strong>[@xml:lang:</strong> search through the lang (languages) tags</li>
+             <li><strong>="lat"]:</strong>specifies language as Latin</li>
+            </ul>
           </div>
           <div class="col-md-4">
-            <h2>Specific Element Query</h2>
-            <p>XQuery also allows you to search for specific elements.This is done simply by adding some extra text to the simple element search</p>
-            <h4><font color = blue>//element1[name = "type1"]</font></h4>
+            <h2>Specify a year in query</h2>
+            <p>XQuery allows users to search through certain ranges like dates</p>
+            <h4><font color = blue>for $i in //ns:div[@xml:lang="lat"]<br> where $i/ancestor::ns:div[1]//ns:date[@when="1501-10-20"]<br> return $i</font></h4>
+            <ul>
+             <li><strong>for $i in //ns:div[@xml:lang="lat"]:</strong>starts a 'for' loop for each result from the previous latin query.</li>
+             <li><strong>where $i/ancestor::ns:div[1]//ns:date[@when="1501-10-20"]:</strong>while it loops through each result from the latin query it was check if the entry matches the criteria. In this instance the date being "1501-10-20"</li>
+             <li><strong>return $i:</strong> when a result matches the date 1501-10-20, it will save it using this variable. This allows the app to print the results on the result page</li>
+             </ul>
          </div>
          <div class="col-md-4">
-            <h2>Basic Query Example 3</h2>
-            <p>text</p>
-            <h4><font color = blue>query input</font></h4>
+            <h2>Specify year ranges</h2>
+            <p>While the previous example allows the user to search through a single date you can also search through a time period by using wildcards, indicated by the * symbol</p>
+            <h4><font color = blue>for $i in //ns:div[@xml:lang="lat"] <br> where matches($i/ancestor::ns:div[1]//ns:date/@when, "1501-.*.-.*")<br>return $i</font></h4>
+            <ul>
+             <li><strong>for $i in //ns:div[@xml:lang="lat"]:</strong>starts a 'for' loop for each result from the previous latin query.</li>
+             <li><strong>where matches($i/ancestor::ns:div[1]//ns:date/@when, "1501-.*.-.*"):</strong>while it loops through each result from the latin query it was check if the entry matches the criteria. In this instance the date being "1501-,*,-,*"). * indicates a wildcard meaning this can be any value. Wildcards are always seperated by a comma</li>
+             <li><strong>return $i:</strong> when a result matches the date 1501-10-20, it will save it using this variable. This allows the app to print the results on the result page</li>
+            </ul>
          </div>
         </div>
       </div>
   
   <br>
 
-  <h1 align ="center">Advanced XQuery Examples</h1>
  
 
 
@@ -62,3 +77,12 @@
 
 
 </div>
+
+
+
+
+
+
+
+
+
