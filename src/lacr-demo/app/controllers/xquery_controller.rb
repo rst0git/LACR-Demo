@@ -4,13 +4,19 @@ class XqueryController < ApplicationController
   def index
   end
 
-  def show
+ def show
     # create session
     session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
     # Open DB or create if does not exist
     session.open_or_create_db("xmldb")
-    # Execute the query entered by the user
-    @query_result = session.execute("#{params[:search]}")
+    # Get user query
+    input = params[:search]
+   # XQuery declaration of the namespace
+    declarate_ns = 'declare namespace ns = "http://www.tei-c.org/ns/1.0"'
+    # Create instance the BaseX Client in Query Mode
+    query = session.query(declarate_ns + input)
+    # Store the result
+     @query_result = query.execute
     # close session
     session.close
   end

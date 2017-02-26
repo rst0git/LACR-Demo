@@ -31,7 +31,7 @@ module BaseXClient
 
       # evaluate success flag
       if read != 0.chr
-        raise "Access denied."
+        return "Access denied."
       end
 
       @char_lead_byte = "\xFF"
@@ -110,7 +110,7 @@ module BaseXClient
       send(cmd + arg + 0.chr + input)
       @info = receive
       if !ok
-        raise @info
+        return @info
       end
     end
 
@@ -153,7 +153,7 @@ module BaseXClient
           @cache << @session.receive
         end
         if !@session.ok
-          raise @session.receive
+          return @session.receive
         end
       end
       return @pos < @cache.length
@@ -182,7 +182,7 @@ module BaseXClient
       @session.send(cmd + arg)
       s = @session.receive
       if !@session.ok
-        raise @session.receive
+        return @session.receive
       end
       return s
     end
