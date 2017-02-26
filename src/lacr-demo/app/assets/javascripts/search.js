@@ -1,3 +1,8 @@
+//= require jquery.zoom.min.js
+//= require prettify.js
+//= require xml2html.js
+//= require ISO_639_2.min.js
+
 $(document).ready(function() {
     $('a.result-link').click(function(e) {
       e.preventDefault();
