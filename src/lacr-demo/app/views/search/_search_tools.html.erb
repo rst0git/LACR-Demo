@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3" id="search_tools">
-    <div class="dropdown col-md-3">
+    <div class="dropdown col-xs-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Results Per Page</a>
       <ul class="dropdown-menu">
         <li <%if @results_per_page == 5 %>class="active"<%end%>><a href="#" onclick="insertParam('r',5,'page');">5</a></li>
@@ -11,7 +11,7 @@
       </ul>
     </div>
 
-    <div class="dropdown col-md-3">
+    <div class="dropdown col-xs-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Spelling Variants</a>
       <ul class="dropdown-menu">
         <li <%if @misspellings == 0%>class="active"<%end%>><a href="#" onclick="insertParam('m', 0, 'page')">0</a></li>
@@ -23,7 +23,7 @@
       </ul>
     </div>
 
-    <div class="dropdown col-md-3">
+    <div class="dropdown col-xs-3">
       <a class="dropdown-toggle" data-toggle="dropdown">Order by</a>
       <ul class="dropdown-menu">
         <li <%if @orderBy == 0%>class="active"<%end%>><a href="#"onclick="insertParam('o', 0, 'page')">Relevance</a></li>
