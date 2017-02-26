@@ -12,7 +12,7 @@ class XqueryController < ApplicationController
     # Get user query
     input = params[:search]
    # XQuery declaration of the namespace
-    declarate_ns = 'declare namespace ns = "http://www.tei-c.org/ns/1.0"'
+    declarate_ns = 'declare namespace ns = "http://www.tei-c.org/ns/1.0";'
     # Create instance the BaseX Client in Query Mode
     query = session.query(declarate_ns + input)
     # Store the result
