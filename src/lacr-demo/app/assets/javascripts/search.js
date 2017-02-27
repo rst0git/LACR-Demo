@@ -35,7 +35,10 @@ function load_page(url, page, vol){
     });
 
     // Update the Title
-    $('#doc-title').html("Volume: "+vol+" Page: "+page);
+    $('#doc-title').html("Volume: "+vol+" Page: "+page+" \
+      <sup><a class=\"btn btn-primary btn-xs\" href=\"/doc/show?p="+page+"&v="+vol+"\"> \
+        View Page \
+      </a></sup>");
 
     // Slide to the loaded transcription
     document.location.href = "#results/1";
