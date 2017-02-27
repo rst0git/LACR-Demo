@@ -207,5 +207,11 @@ mark{
 }
 
 #noty_topRight_layout_container{
+  /*Fix notification overflow with the nav menu*/
   margin-top: 50px !important;
+}
+
+#doc_nav::before {
+  /*Remove white-space above nav-list on doc/show */
+  content: none;
 }
