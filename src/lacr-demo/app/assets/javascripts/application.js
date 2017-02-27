@@ -34,7 +34,7 @@ var autocomplete = new Bloodhound({
 s_list = Cookies.get('selected_entries');
 var selected_list = s_list !== undefined ? s_list.split(',') : [];
 
-function init_selected_checkboxes(){
+var init_selected_checkboxes = function (){
   // Event listener for add-to-list of selected entries
   $('.add-to-list').click(function(){
       if($(this).is(":checked")) {
@@ -50,11 +50,11 @@ function init_selected_checkboxes(){
           $("#documents-btn").show();
           Cookies.remove('selected_entries');
         }
-
       }
-      // Set to checked add-to-list if it is already in the list
-      $('.add-to-list').each(function () {$(this).prop('checked', selected_list.indexOf($(this).attr("data-entry")) >= 0)});
   });
+
+  // Set to checked add-to-list if it is already in the list
+  $('.add-to-list').each(function () {$(this).prop('checked', selected_list.indexOf($(this).attr("data-entry")) >= 0)});
 }
 
 // Adding a parameter to the URL
