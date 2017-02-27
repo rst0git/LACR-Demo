@@ -202,16 +202,21 @@ mark{
 }
 
 #navbar-collapse-search .navbar-form{
-  /*Fix overflow on small screen*/
+  /* Fix overflow on small screen */
   margin-right: 0;
 }
 
 #noty_topRight_layout_container{
-  /*Fix notification overflow with the nav menu*/
+  /* Fix notification overflow with the nav menu */
   margin-top: 50px !important;
 }
 
 #doc_nav::before {
-  /*Remove white-space above nav-list on doc/show */
+  /* Remove white-space above nav-list on doc/show */
   content: none;
+}
+#documents-selected-btn {
+  /* Fix dropdown-menu for the selected documets button */
+  padding-top: 8px;
+  padding-bottom: 10px;
 }
