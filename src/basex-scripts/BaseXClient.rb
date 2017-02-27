@@ -46,7 +46,7 @@ module BaseXClient
       result = receive
       @info = receive
       if !ok
-        raise @info
+        return @info
       end
       return result
     end
@@ -54,7 +54,14 @@ module BaseXClient
     def query(cmd)
       return Query.new(self, cmd)
     end
-    
+
+	def open_db(name)
+    	send("open #{name}")
+		receive
+		receive
+		return ok
+	end
+
     def create(name, input)
       sendCmd(8.chr, name, input)
     end

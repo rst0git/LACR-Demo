@@ -93,21 +93,30 @@ class DocumentsController < ApplicationController
         @unsuccesfully_uploaded = {xml:[], image:[]}
         if params.has_key?(:transcription_xml)
           xml_files = xml_upload_params
+          xml_files_content = []
           # Save all uploaded xml files, call method ...
           xml_files['xml'].each do |file|
 
             # Check namespace
-            if (Nokogiri::XML(File.open(file.path))).collect_namespaces.values.include? TranscriptionXml::HISTEI_NS
+            nokogiri_obj = Nokogiri::XML(File.open(file.path))
+            if ( nokogiri_obj.collect_namespaces.values.include? TranscriptionXml::HISTEI_NS )
               t = TranscriptionXml.new
               t.xml = file
               if t.save!
-                t.histei_split_to_paragraphs
+                # Store file content and filename for import to BaseX
+                xml_files_content.push([file.original_filename, nokogiri_obj.to_xml])
                 @succesfully_uploaded[:xml].push(file.original_filename)
+                # Proccess the XML file
+                t.histei_split_to_paragraphs
               end
             else
               @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{file.original_filename}")
             end
           end
+          # Add the successfully uploaded files to the XML database
+          x = XqueryController.new
+          x.upload(xml_files_content)
+          # Generate new index for Elasticsearch
           Search.reindex()
       end
 

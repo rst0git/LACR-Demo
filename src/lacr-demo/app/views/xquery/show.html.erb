@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Query Results</h1>
+  <%= form_tag(query_path, :method => "post", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Query Database" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+  <a href="https://www.w3schools.com/xml/xquery_intro.asp" target="_blank">Not the results you expected? Try this XQuery tutorial provided by W3Schools</a><br>
+  <p>Search returned <%=@number_of_results %> results</p>
+  <pre><code><%=@query_result%></code></pre>
+</div>
