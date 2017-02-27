@@ -33,6 +33,9 @@ class SearchController < ApplicationController
         elsif @orderBy == 1
           order_by['volume'] = :asc # volume ascending order
           order_by['page'] = :asc # page ascending order
+        elsif @orderBy == 2
+          order_by['volume'] = :desc # volume ascending order
+          order_by['page'] = :desc # page ascending order
         end
       end
 

@@ -1,0 +1,3 @@
+Search for all entries with ->  xml:lang="sco"
+
+xquery declare namespace ns = "http://www.tei-c.org/ns/1.0"; for $i in //ns:div[@xml:lang="sco"] return $i

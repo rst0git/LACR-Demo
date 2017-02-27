@@ -54,10 +54,10 @@
                <li><%= link_to "Selected entries", doc_selected_path %></li>
              </ul>
           </div>
-        </li>
-        <li><%= link_to "Advanced Search", root_path+"#advsearch" %> </li>
-        <li> <%= link_to "XQuery", query_path %> </li>
-        <!-- menu for user authenticacion -->
+          </li>
+          <li> <%= link_to "XQuery", query_path %> </li>
+          <li><%= link_to "Advanced Search", root_path+"#advsearch" %> </li>
+          <!-- menu for user authenticacion -->
           <%= render 'layouts/menu/registration_items' %>
           <%= render 'layouts/menu/login_items' %>
           <li> <%= link_to "About", root_path+"#about" %> </li>
