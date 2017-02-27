@@ -4,10 +4,9 @@ class DocumentsController < ApplicationController
   end
 
   def selected
-    selected_entries = cookies[:selected_entries].split(',')
-    puts selected_entries.to_s
+    selected_entries = cookies[:selected_entries]
     if selected_entries
-      @documents = Search.where({entry: selected_entries})
+      @documents = Search.where({entry: selected_entries.split(',')})
     else
       redirect_to doc_path, :alert => "No selected paragraphs!"
     end

@@ -24,18 +24,7 @@ var load_document = function (p, v){
           PR.prettyPrint();
 
           // Event listener for add-to-list of selected entries
-          $('.add-to-list').click(function(){
-            if($(this).is(":checked")) ){
-              if($(this).is(":checked")) {
-                selected_list.push($(this).attr('data-entry'));
-                Cookies.set('selected_entries', selected_list.toString());
-              } else {
-                selected_list.pop($(this).attr('data-entry'));
-                if (selected_list.length == 0) Cookies.remove('selected_entries');
-              }
-          });
-          // Set to checked add-to-list if it is already in the list
-          $('.add-to-list').each(function () {$(this).prop('checked', selected_list.indexOf($(this).attr("data-entry")) >= 0)});
+          init_selected_checkboxes();
         }
         if(statusTxt == "error")
             console.log("Error: " + xhr.status + ": " + xhr.statusText);

@@ -22,10 +22,8 @@
 					<%= document.tr_paragraph.content_html.html_safe %>
 				</div>
 				<div class="panel-footer">
-          <div class="col-xs-4">
-            <button class="btn btn-default btn-sm" onclick="toggle_xml(this);">XML</button>
-          </div>
-          <div class="checkbox text-right">
+          <button class="btn btn-default btn-sm" onclick="toggle_xml(this);">XML</button>
+          <div class="checkbox" style="display: inline-block; float: inline-end;">
             <label><input class="add-to-list" data-entry="<%= document.entry %>" type="checkbox"> Add to selected</label>
           </div>
 				</div>

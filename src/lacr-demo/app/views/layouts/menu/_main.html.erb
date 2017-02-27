@@ -42,8 +42,8 @@
 
       <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-menu">
         <ul class="nav navbar-nav">
-          <li <%if cookies[:selected_entries] %> style="display:none;"<%end%>><%= link_to "Documents", doc_path %></li>
-          <li <%if !cookies[:selected_entries] %> style="display:none;"<%end%>>
+          <li id="documents-btn" <%if cookies[:selected_entries] %> style="display:none;"<%end%>><%= link_to "Documents", doc_path %></li>
+          <li id="documents-selected-btn" <%if !cookies[:selected_entries] %> style="display:none;"<%end%>>
             <div class = "btn-group">
               <%= link_to "Documents", doc_path, class: "btn btn-link" %>
 
