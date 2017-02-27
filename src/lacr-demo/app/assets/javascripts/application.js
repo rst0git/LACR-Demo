@@ -18,7 +18,7 @@
 //= require jquery.fullPage.min.js
 //= require scrolloverflow.min.js
 //= require jquery.fullpage.extensions.min.js
-//= require jquery.cookie.js
+//= require js.cookie.js
 
 // Autocomplete for the Simple Search
 var autocomplete = new Bloodhound({
@@ -31,7 +31,8 @@ var autocomplete = new Bloodhound({
   });
 
 // list of selected entries
-var selected_list = $.cookie('selected_entries').split(',') || [];
+s_list = Cookies.get('selected_entries');
+var selected_list = s_list !== undefined ? s_list.split(',') : [];
 
 // Adding a parameter to the URL
 function insertParam(key, value, remove='')

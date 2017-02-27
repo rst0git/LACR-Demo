@@ -1,7 +1,16 @@
 class DocumentsController < ApplicationController
 
   def index
-    # @documents = Search.select(:page, :volume).distinct.order(volume: :asc, page: :asc).group(:volume, :page).paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def selected
+    selected_entries = cookies[:selected_entries].split(',')
+    puts selected_entries.to_s
+    if selected_entries
+      @documents = Search.where({entry: selected_entries})
+    else
+      redirect_to doc_path, :alert => "No selected paragraphs!"
+    end
   end
 
   def list
@@ -15,7 +24,7 @@ class DocumentsController < ApplicationController
 
   def new
     if not user_signed_in? or not current_user.admin?
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
     end
   end
 
@@ -69,7 +78,7 @@ class DocumentsController < ApplicationController
         end
         respond_to do |format|
          format.html { render :partial => "documents/page" }
-       end
+        end
 
       else
         render status: 500
@@ -118,7 +127,7 @@ class DocumentsController < ApplicationController
         end
       end
     else
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
     end
   end
 
@@ -151,7 +160,7 @@ class DocumentsController < ApplicationController
         end
       end # if selected
     else
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
     end # if user_signed_in?
 
   end
@@ -161,7 +170,7 @@ class DocumentsController < ApplicationController
       if user_signed_in? and current_user.admin?
         params.require(:transcription_xml).permit xml: []
       else
-        redirect_to new_user_session_path
+        redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
       end
     end
 
@@ -169,7 +178,7 @@ class DocumentsController < ApplicationController
       if user_signed_in? and current_user.admin?
         params.require(:page_image).permit image: []
       else
-        redirect_to new_user_session_path
+        redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
       end
     end
 end
