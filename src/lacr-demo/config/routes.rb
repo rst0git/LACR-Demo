@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'doc/show', to: "documents#show"
   get 'doc/page', to: "documents#page"
   get 'doc/page-s', to: "documents#page_simplified"
+  get 'doc/selected', to: "documents#selected"
   delete 'doc/destroy', to: "documents#destroy"
 
   # Download

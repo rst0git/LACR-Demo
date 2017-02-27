@@ -34,7 +34,10 @@ function load_page(url, page, vol){
       $(this).html(ISO_639_2[$(this).html()]['native'][0]);
     });
 
-    // Update the Title
+    // Event listener for add-to-list of selected entries
+    init_selected_checkboxes();
+
+    // Update title
     $('#doc-title').html("Volume: "+vol+" Page: "+page+" \
       <sup><a class=\"btn btn-primary btn-xs\" href=\"/doc/show?p="+page+"&v="+vol+"\"> \
         View Page \

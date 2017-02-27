@@ -21,6 +21,11 @@
 					<%= document.tr_paragraph.content_html.html_safe %>
 				</div>
 			</div> <!-- panel-body -->
+      <div class="panel-footer">
+        <div class="checkbox">
+          <label><input class="add-to-list" data-entry="<%= document.entry %>" type="checkbox"> Add to selected</label>
+        </div>
+      </div>
 		</div> <!-- panel panel-primary -->
   <% end %>
 </div> <!-- col-md-6 -->

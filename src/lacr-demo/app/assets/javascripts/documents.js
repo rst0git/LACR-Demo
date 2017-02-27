@@ -22,6 +22,9 @@ var load_document = function (p, v){
 
           // Initialise prettify
           PR.prettyPrint();
+
+          // Event listener for add-to-list of selected entries
+          init_selected_checkboxes();
         }
         if(statusTxt == "error")
             console.log("Error: " + xhr.status + ": " + xhr.statusText);

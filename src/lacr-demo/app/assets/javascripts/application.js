@@ -18,6 +18,7 @@
 //= require jquery.fullPage.min.js
 //= require scrolloverflow.min.js
 //= require jquery.fullpage.extensions.min.js
+//= require js.cookie.js
 
 // Autocomplete for the Simple Search
 var autocomplete = new Bloodhound({
@@ -28,6 +29,33 @@ var autocomplete = new Bloodhound({
       wildcard: '%QUERY'
     }
   });
+
+// list of selected entries
+s_list = Cookies.get('selected_entries');
+var selected_list = s_list !== undefined ? s_list.split(',') : [];
+
+var init_selected_checkboxes = function (){
+  // Event listener for add-to-list of selected entries
+  $('.add-to-list').click(function(){
+      if($(this).is(":checked")) {
+        selected_list.push($(this).attr('data-entry'));
+        Cookies.set('selected_entries', selected_list.toString());
+        $("#documents-btn").hide();
+        $("#documents-selected-btn").show();
+
+      } else {
+        selected_list.pop($(this).attr('data-entry'));
+        if (selected_list.length == 0) {
+          $("#documents-selected-btn").hide();
+          $("#documents-btn").show();
+          Cookies.remove('selected_entries');
+        }
+      }
+  });
+
+  // Set to checked add-to-list if it is already in the list
+  $('.add-to-list').each(function () {$(this).prop('checked', selected_list.indexOf($(this).attr("data-entry")) >= 0)});
+}
 
 // Adding a parameter to the URL
 function insertParam(key, value, remove='')

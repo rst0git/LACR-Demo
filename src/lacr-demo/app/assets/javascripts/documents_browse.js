@@ -58,6 +58,9 @@ function load_document (p, v){
           $(".pr-language").each(function() {
             $(this).html(ISO_639_2[$(this).html()]['native'][0]);
           });
+
+          // Event listener for add-to-list of selected entries
+          init_selected_checkboxes();
         }
     });
   $("#doc_view").attr('href', "/doc/show?p="+p+"&v="+v);
