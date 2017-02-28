@@ -58,8 +58,8 @@ var init_selected_checkboxes = function (){
 }
 
 // Adding a parameter to the URL
-function insertParam(key, value, remove='')
-{
+function insertParam(key, value, remove) {
+  remove = (remove !== 'undefined') ? remove : '';
     key = encodeURI(key); value = encodeURI(value); remove = encodeURI(value);
     var kvp = document.location.search.substr(1).split('&');
     var i=kvp.length, x, found=false;  while(i--)
