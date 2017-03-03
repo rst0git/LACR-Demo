@@ -15,3 +15,11 @@ $('#about-nav').click(function(){
 $('#home-nav').click(function(){
     $.fn.fullpage.moveTo('homepages');
 });
+
+$('.fp-controlArrow-down').click(function(){
+    $.fn.fullpage.moveSectionDown();
+});
+
+$('.fp-controlArrow-up').click(function(){
+    $.fn.fullpage.moveSectionUp();
+});
