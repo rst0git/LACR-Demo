@@ -1,3 +1,6 @@
+//= require jquery.zoom.min.js
+//= require prettify.js
+//= require xml2html.js
 //= require ISO_639_2.min.js
 
 $(document).ready(function() {
@@ -21,12 +24,15 @@ function load_page(url, page, vol){
     // Load Fullpage.js
     $('#fullpage').fullpage({
       anchors:['results'],
-      scrollOverflow: true,
-      fitToSectionDelay: 0,
-      paddingTop: "70px",
-      paddingBottom: "50px",
-      verticalCentered: false,
-      loopHorizontal: false,
+      showActiveTooltip: true,
+      scrollOverflow: true, // Enable scroll on pages
+      fitToSectionDelay: 0, // Load imidiately
+      paddingTop: "70px", // Padding for the header
+      paddingBottom: "50px", // Padding for the footer
+      controlArrows: false, // Disable navigation arrows
+      verticalCentered: false, // Do not center the content
+      loopHorizontal: false, // To prevent unwanted actions
+      verticalCentered: false
     });
 
     // Transform language codes
@@ -34,17 +40,22 @@ function load_page(url, page, vol){
       $(this).html(ISO_639_2[$(this).html()]['native'][0]);
     });
 
+    // Image zoom on hover
+    $('#doc-image').zoom({
+      url: $('#doc-image img').data('largeImage')
+    });
+
+    // Initialise prettify
+    PR.prettyPrint();
+
     // Event listener for add-to-list of selected entries
     init_selected_checkboxes();
 
     // Update title
-    $('#doc-title').html("Volume: "+vol+" Page: "+page+" \
-      <sup><a class=\"btn btn-primary btn-xs\" href=\"/doc/show?p="+page+"&v="+vol+"\"> \
-        View Page \
-      </a></sup>");
+    $('#doc-title').html("Volume: "+vol+" Page: "+page);
 
     // Slide to the loaded transcription
-    document.location.href = "#results/1";
+    $.fn.fullpage.moveTo('results', 1);
 
   });
 }
