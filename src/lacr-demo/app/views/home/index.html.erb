@@ -2,15 +2,15 @@
     <div id="home-top-container" class="section">
       <div class="container">
         <div class="jumbotron">
-          <div class="row">
-            <div class="col-md-4">
+          <div class="container">
+            <div class="col-md-4 text-center">
               <img src="/assets/lacr-round.jpg" id="index-home-image">
             </div>
             <div class="col-md-8">
               <h1 class="display-3" id="h1-home-light-text">Aberdeen Registers</h1>
               <p id="p-home-light-text">Aberdeen’s fifteenth-century town council registers illuminate the workings of this Scottish burgh in a way unsurpassed by other Scottish urban records of the era. They also demonstrate the interconnections of people and ideas across northern Europe in the age of the renaissance.</p>
             </div>
-            <div class="col-md-offset-2 col-md-6">
+            <div class="col-md-offset-3 col-md-6">
               <form action="/search" method="get">
                 <div class="input-group">
                   <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>

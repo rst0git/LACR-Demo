@@ -156,7 +156,7 @@
   }
 
   .jumbotron{
-    background-color: #1d1d1d;
+    background-color: #1E1E1E;
     padding-left: 0px ;
     padding-right: 0px;
     box-shadow: 7px 7px 5px #222222;
@@ -216,25 +216,27 @@
       -webkit-animation: scrollAnimation 1s linear infinite;
       animation: scrollAnimation 1s linear infinite;
     }
-/* Media Queries -------------------------------------------- */
-@media screen and (max-width: 1199px) {
-  .fp-controlArrow-down .icon {
-    margin-top: 350px;
-  }
-}
-@media screen and (max-width: 991px) {
-  .fp-controlArrow-down .icon {
-    margin-top: 250px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .fp-controlArrow-down .icon {
-    margin-top: 150px;
-  }
-}
 .fp-controlArrow-down .text-helper{
   display: block;
   font-size: 13px;
   color: #ffffff;
+}
+
+@media screen and (max-width: 1199px) {
+    #index-home-image {
+      // Fix FullPageJS resize
+      max-width: 300px;
+    }
+}
+@media screen and (max-width: 991px) {
+    #index-home-image {
+      // Fix FullPageJS resize
+      max-width: 200px;
+    }
+}
+@media screen and (max-width: 767px) {
+  #index-home-image {
+    // Fix FullPageJS resize
+    max-width: 150px;
+  }
 }
