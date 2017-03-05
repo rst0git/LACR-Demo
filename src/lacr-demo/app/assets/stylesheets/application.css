@@ -29,10 +29,6 @@ body{
    margin: 0;
    padding: 0;
  }
-mark{
- font-style: italic;
- background: #A9E2F3;
-}
 
  .footer {
      width:100%;
