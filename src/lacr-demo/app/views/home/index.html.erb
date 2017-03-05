@@ -64,6 +64,39 @@
           <div class="row">
             <div class="form-group">
               <div class="col-md-2">
+                  <%= label_tag 'v', 'Volume'%>
+              </div>
+              <div class="col-md-4">
+                <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                  <%= label_tag 'pg', 'Page'%>
+              </div>
+              <div class="col-md-4">
+                  <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                  <%= label_tag 'pr', 'Paragraph'%>
+              </div>
+              <div class="col-md-4">
+                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
                 <%= label_tag 'content_none', 'Date:'%>
               </div>
               <div class="col-md-2">
@@ -96,46 +129,30 @@
               </div>
             </div>
           </div>
-          <br>
-          <div class="form-inline">
+          <div class="row">
             <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="volume">Volume</span>
-                <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+              <div class="col-md-2">
+                <div class="row">
+                  <div class="col-md-11">
+                    <%= label_tag 'm', 'Spelling variants: '%>
+                  </div>
+                  <output id="mOutputId" style="display: inline;"></output>
+                </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="page">Page</span>
-                <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="paragraph">Paragraph</span>
-                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
+              <div class="col-md-4">
+                <input name="m" id="mInputId" type="range" min="0" max="5" step="1" value="<%= @misspellings ? @misspellings : 2%>" oninput="mOutputId.value = mInputId.value">
               </div>
             </div>
           </div>
           <hr>
-          <div><%= submit_tag 'Search', class: 'btn btn-primary' %></div>
+          <%= submit_tag 'Search', class: 'btn btn-primary' %>
           <% end %>
         </div>
       </div>
-      <div class="fp-controlArrow-down">
-
-      </div>
     </div>
-
-
 
     <div class="section">
           <div class="container">
-            <div class="fp-controlArrow-up">
-
-            </div>
             <div class="row text-center">
               <div class="col-md-6">
                 <h1 class="h2-home">Images of the Original Documents</h1>

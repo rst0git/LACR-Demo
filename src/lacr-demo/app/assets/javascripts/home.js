@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('#fullpage').fullpage({
         anchors:['homepage', 'advsearch', 'about']
     });
+    $('#mOutputId').html($('#mInputId').attr('value'));
 });
 
 $('#adv-search-nav').click(function(){
