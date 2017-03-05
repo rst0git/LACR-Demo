@@ -42,11 +42,11 @@ var init_selected_checkboxes = function (){
         Cookies.set('selected_entries', selected_list.toString());
         $("#documents-btn").hide();
         $("#documents-selected-btn").show();
+        // Show tooltip if this is the first selected entry
         if (selected_list.length == 1) {
           $('#doc_caret').tooltip('show');
-          setTimeout(function () {
-            $('#doc_caret').tooltip('hide');
-          }, 5000);
+          // Set 5 sec timeout.
+          setTimeout(function () { $('#doc_caret').tooltip('hide'); }, 5000);
         }
 
       } else {
