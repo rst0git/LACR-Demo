@@ -80,7 +80,8 @@ function insertParam(key, value, remove='')
   }
 
 $(document).ready(function() {
-  $('#search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
+  // Enable autocomplete for the simple search
+  $('.simple-search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
 
   $('#adv-search').submit(function () {
     // Ignore empty values

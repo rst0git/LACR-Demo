@@ -24,7 +24,7 @@
           <li>
             <form class="navbar-form" action="/search" method="get">
               <div class="input-group">
-                <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+                <input type="search" class="form-control simple-search" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
                 <div class="input-group-btn">
                   <button class="btn btn-default" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
