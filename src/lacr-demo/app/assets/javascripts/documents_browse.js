@@ -38,9 +38,16 @@ function download_zip(img=false){
 
 function show_browser(){
   // Show pages of the first Volume in the list
-    var first_volume_pages = $($("[data-collapse-group='volume']")[0]).addClass('active').attr('data-target');
-    var first_volume_no = $($("[data-collapse-group='volume']")[0]).addClass('active').attr('data-vol');
+    var first_volume = $($("[data-collapse-group='volume']")[0]);
+    var first_volume_pages = $(first_volume).attr('data-target');
+    var first_volume_no = $(first_volume).attr('data-vol');
+    // Collapse in the first volume
     $(first_volume_pages).collapse('show');
+    //Add active class on the first volume
+    $(first_volume).addClass('active');
+    //Add active class on the first page
+    $($(first_volume_pages)[1]).addClass('active');
+    // Show documents browse
     $('#doc-browse').show();
     $('.doc-tools').show();
 
@@ -98,20 +105,26 @@ $(document).ready(function() {
                             data-vol="'+e.volume+'" \
                             data-collapse-group="volume" \
                             class="btn btn-primary btn-block" \
-                            data-toggle="collapse" \
+                            onclick="$(\'.vol-'+e.volume+'\').collapse(\'show\');" \
                             data-target=".vol-'+e.volume+'">\
                       Volume '+e.volume+' <span id="badge-'+e.volume+'" class="badge"></span>\
                     </button>').appendTo('#volume');
                 $('\
-                  <div data-vol="'+e.volume+'" data-page="'+e.page+'" class="vol-'+e.volume+' collapse">\
+                  <a href="#" data-vol="'+e.volume+'" data-page="'+e.page+'" class="vol-'+e.volume+' collapse list-group-item row">\
                     <label><input type="checkbox" data-vol="'+e.volume+'" data-page="all"> Select all</label>\
-                  </div>').appendTo('#page');
+                  </a>').appendTo('#page');
               }
               $('\
-                  <div data-vol="'+e.volume+'" data-page="'+e.page+'" class="vol-'+e.volume+' collapse">\
-                    <input type="checkbox" data-vol="'+e.volume+'" data-page="'+e.page+'" name="vol-'+e.volume+'-page-'+e.page+'">\
-                    <button class="btn btn-link" onclick="load_document(p='+e.page+', v='+e.volume+');">Page '+e.page+'</button>\
-                  </div>').appendTo('#page');
+                  <a data-vol="'+e.volume+'" \
+                     data-page="'+e.page+'" \
+                     class="vol-'+e.volume+' collapse list-group-item row" \
+                     onclick="$(\'a\').removeClass(\'active\');$(this).addClass(\'active\');load_document(p='+e.page+', v='+e.volume+');">\
+                    <input type="checkbox" \
+                           data-vol="'+e.volume+'" \
+                           data-page="'+e.page+'" \
+                           name="vol-'+e.volume+'-page-'+e.page+'">\
+                      Page '+e.page+' \
+                  </a>').appendTo('#page');
           });
 
           // Display the page after it has been build
