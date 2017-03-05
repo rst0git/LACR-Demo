@@ -24,15 +24,13 @@ function load_page(url, page, vol){
     // Load Fullpage.js
     $('#fullpage').fullpage({
       anchors:['results'],
-      showActiveTooltip: true,
       scrollOverflow: true, // Enable scroll on pages
       fitToSectionDelay: 0, // Load imidiately
       paddingTop: "70px", // Padding for the header
       paddingBottom: "50px", // Padding for the footer
       controlArrows: false, // Disable navigation arrows
-      verticalCentered: false, // Do not center the content
-      loopHorizontal: false, // To prevent unwanted actions
-      verticalCentered: false
+      verticalCentered: false, // Do not center pages
+      loopHorizontal: false // To prevent unwanted actions
     });
 
     // Transform language codes
@@ -54,6 +52,9 @@ function load_page(url, page, vol){
     // Update title
     $('#doc-title').html("Volume: "+vol+" Page: "+page);
 
+    // Hide search tools
+    $('#search_tools').hide();
+    
     // Slide to the loaded transcription
     $.fn.fullpage.moveTo('results', 1);
 
