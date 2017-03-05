@@ -3,15 +3,31 @@
 //= require xml2html.js
 //= require ISO_639_2.min.js
 
+var page_init = function (){
+  $('#fullpage').fullpage({
+    anchors:['results'],
+    scrollOverflow: true, // Enable scroll on pages
+    fitToSectionDelay: 0, // Load imidiately
+    paddingTop: "70px", // Padding for the header
+    paddingBottom: "50px", // Padding for the footer
+    controlArrows: false, // Disable navigation arrows
+    verticalCentered: false, // Do not center pages
+    loopHorizontal: false // To prevent unwanted actions
+  });
+}
+
 $(document).ready(function() {
-    $('a.result-link').click(function(e) {
-      e.preventDefault();
-      var $this = $(this);
-      url = $this.attr('data-url');
-      page = $this.attr('data-page');
-      vol = $this.attr('data-vol');
-      load_page(url, page, vol);
-     });
+  // Initialise the fullpage plugin
+  page_init();
+
+  $('a.result-link').click(function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    url = $this.attr('data-url');
+    page = $this.attr('data-page');
+    vol = $this.attr('data-vol');
+    load_page(url, page, vol);
+   });
 });
 
 function load_page(url, page, vol){
@@ -21,17 +37,12 @@ function load_page(url, page, vol){
   }
   // Load the page with Ajax
   $('#result-container').load(url, function () {
-    // Load Fullpage.js
-    $('#fullpage').fullpage({
-      anchors:['results'],
-      scrollOverflow: true, // Enable scroll on pages
-      fitToSectionDelay: 0, // Load imidiately
-      paddingTop: "70px", // Padding for the header
-      paddingBottom: "50px", // Padding for the footer
-      controlArrows: false, // Disable navigation arrows
-      verticalCentered: false, // Do not center pages
-      loopHorizontal: false // To prevent unwanted actions
-    });
+
+    // Show the result slide
+    $('#result-slide').show();
+
+    // Initialise the fullpage plugin
+    page_init();
 
     // Transform language codes
     $(".pr-language").each(function() {
@@ -54,7 +65,7 @@ function load_page(url, page, vol){
 
     // Hide search tools
     $('#search_tools').hide();
-    
+
     // Slide to the loaded transcription
     $.fn.fullpage.moveTo('results', 1);
 
