@@ -2,7 +2,7 @@ class Search < ApplicationRecord
 
   has_one :tr_paragraph
   belongs_to :transcription_xml
-  searchkick  searchable: [:content], suggest: [:content], word_start: [:content]
+  searchkick  searchable: [:content], suggest: [:content], word_start: [:content, :entry]
 
   # Extract the volume, page and paragraph from the Entry ID
  def parse_entry_to_vol_page_paragraph
