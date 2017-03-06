@@ -90,4 +90,14 @@ class DownloadController < ApplicationController
       end # params.has_key? "key"
       render file: "#{Rails.root}/public/404.html" , status: :not_found
   end # archive
+
+  def selected_gen_pdf
+    selected_entries = cookies[:selected_entries]
+    if selected_entries
+      documents = Search.where({entry: selected_entries.split(',')})
+      send_data TrParagraph.new().print_data(documents), filename:'Selected_entries.pdf', type: "application/pdf", disposition: :attachment
+    else
+      render file: "#{Rails.root}/public/404.html" , status: :not_found
+    end
+  end
 end

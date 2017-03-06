@@ -19,29 +19,25 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 gem 'coffee-rails'
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'jquery-turbolinks'
-gem 'turbolinks', '~> 5'
+gem 'jquery-rails' # Use jquery as the JavaScript library
 
 # Additional gems
 # Ruby Gem of the Bootstrap
 gem 'less-rails' # Javascript runtime
 gem 'twitter-bootstrap-rails'
 gem "font-awesome-rails"
-# File upload
-gem 'carrierwave'
-# Zip files for download
-gem 'rubyzip'
-# Image resizing
-gem 'mini_magick'
-# Pagination library
-gem 'will_paginate-bootstrap'
+
+gem 'carrierwave' # File upload
+gem 'rubyzip' # Zip files for download
+gem 'mini_magick' # Image resizing
+gem 'prawn' # PDF file generator
+gem 'will_paginate-bootstrap' # Pagination library
+
 # API for Elasticsearch
 gem 'searchkick'
 gem 'oj' # Significantly increase performance with faster JSON generation.
 gem 'typhoeus' # Significantly increase performance with persistent HTTP connections
+
 #User Authentication
 gem 'devise'
 gem 'devise-bootstrap-views'
