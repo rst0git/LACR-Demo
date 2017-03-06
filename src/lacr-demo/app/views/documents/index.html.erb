@@ -2,14 +2,13 @@
   <div class="col-md-12" style="display: inline-table">
     <div class="col-md-4 vcenter doc-tools">
       <div class="btn-group">
-        <button type="button" name="download" id="doc_download" class="btn btn-info doc-tools" disabled="disabled">
+        <button type="button" name="download" data-toggle="dropdown" class="btn btn-info doc-tools dropdown-toggle" disabled="disabled">
           <%= fa_icon "download", text: "Download"%>
-        </button>
-        <button type="button" class="btn btn-info doc-tools dropdown-toggle" data-toggle="dropdown" disabled="disabled">
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <li><a href="#" id="doc_download_img">Download with images</a></li>
+          <li><a href="#" id="doc_download">Transcriptions</a></li>
+          <li><a href="#" id="doc_download_img">Transcriptions with images</a></li>
         </ul>
       </div>
 
