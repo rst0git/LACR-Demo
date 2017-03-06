@@ -31,15 +31,25 @@ class SearchController < ApplicationController
        highlight: {tag: "" ,fields: {content: {fragment_size: 0}}},
        limit: 10,
        load: false,
-       misspellings: {prefix_length: 2, edit_distance: 2}
+       misspellings: {prefix_length: 2, edit_distance: 2,below: 4}
      }).map(&:highlighted_content).uniq
+   end
+
+  def autocomplete_entry
+     render json: Search.search(params[:q], {
+       fields: ['entry'],
+       match: :word_start,
+       limit: 10,
+       load: false,
+       misspellings: {below: 5}
+     }).map(&:entry)
    end
 
   def advanced_search
     if Search.count.zero? # Fix search on empty table error msg
       redirect_to doc_path
     end
-
+    
     # Use strong params
     permited = simple_search_params
 
@@ -49,9 +59,12 @@ class SearchController < ApplicationController
     # Parse order_by parameter
     order_by = get_order_by(permited)
 
+    # Use wildcard when no content was specified
+    @query = permited[:q].present? ? permited[:q] : '*'
+
     where_query = {}
     if permited[:entry] # Filter by Entry ID
-      where_query['entry'] = permited[:entry]
+      where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
     end
     if permited[:date_from] # Filter by lower date bound
       where_query['date'] = {'gte': permited[:date_from]}
@@ -81,7 +94,7 @@ class SearchController < ApplicationController
       page: permited[:page], per_page: @results_per_page,
       order: order_by,
       misspellings: {edit_distance: @misspellings}
-
+    
     render :search
   end # def advanced_search
 

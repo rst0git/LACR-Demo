@@ -21,14 +21,17 @@
 //= require js.cookie.js
 
 // Autocomplete for the Simple Search
-var autocomplete = new Bloodhound({
+var autocomplete = function (url) {
+ return new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: '/ajax/search/autocomplete?q=%QUERY',
+      // url: '/ajax/search/autocomplete?q=%QUERY',
+      url: url,
       wildcard: '%QUERY'
     }
   });
+}
 
 // list of selected entries
 s_list = Cookies.get('selected_entries');
@@ -90,7 +93,8 @@ $(document).ready(function() {
     $('#doc_caret').tooltip('hide');
   });
   // Enable autocomplete for the simple search
-  $('.simple-search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
+  $('.simple-search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete('/ajax/search/autocomplete?q=%QUERY')});
+  $('#entry').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete('/ajax/search/autocomplete-entry?q=%QUERY')});
 
   $('#adv-search').submit(function () {
     // Ignore empty values
