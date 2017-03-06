@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   post 'ajax/doc/destroy', to: "documents#destroy"
   get 'ajax/doc/list', to: "documents#list"
   get 'ajax/search/autocomplete', to: 'search#autocomplete'
+  get 'ajax/search/autocomplete-entry', to: 'search#autocomplete_entry'
 
   # Search routes
   get 'search', to: 'search#search'

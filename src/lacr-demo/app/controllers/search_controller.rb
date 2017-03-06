@@ -57,8 +57,18 @@ class SearchController < ApplicationController
        highlight: {tag: "" ,fields: {content: {fragment_size: 0}}},
        limit: 10,
        load: false,
-       misspellings: {prefix_length: 2, edit_distance: 2}
+       misspellings: {prefix_length: 2, edit_distance: 2,below: 4}
      }).map(&:highlighted_content).uniq
+   end
+
+  def autocomplete_entry
+     render json: Search.search(params[:q], {
+       fields: ['entry'],
+       match: :word_start,
+       limit: 10,
+       load: false,
+       misspellings: {below: 5}
+     }).map(&:entry)
    end
 
   def advanced_search
