@@ -42,6 +42,12 @@ var init_selected_checkboxes = function (){
         Cookies.set('selected_entries', selected_list.toString());
         $("#documents-btn").hide();
         $("#documents-selected-btn").show();
+        // Show tooltip if this is the first selected entry
+        if (selected_list.length == 1) {
+          $('#doc_caret').tooltip('show');
+          // Set 5 sec timeout.
+          setTimeout(function () { $('#doc_caret').tooltip('hide'); }, 5000);
+        }
 
       } else {
         selected_list.pop($(this).attr('data-entry'));
@@ -80,6 +86,9 @@ function insertParam(key, value, remove) {
   }
 
 $(document).ready(function() {
+  $('#documents-selected-btn').hover(function() {
+    $('#doc_caret').tooltip('hide');
+  });
   // Enable autocomplete for the simple search
   $('.simple-search').typeahead({ hint: true, highlight: true, minLength: 2}, {source: autocomplete});
 
