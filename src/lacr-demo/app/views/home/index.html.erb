@@ -2,18 +2,18 @@
     <div id="home-top-container" class="section">
       <div class="container">
         <div class="jumbotron">
-          <div class="row">
-            <div class="col-md-4">
+          <div class="container">
+            <div class="col-md-4 text-center">
               <img src="/assets/lacr-round.jpg" id="index-home-image">
             </div>
             <div class="col-md-8">
               <h1 class="display-3" id="h1-home-light-text">Aberdeen Registers</h1>
               <p id="p-home-light-text">Aberdeen’s fifteenth-century town council registers illuminate the workings of this Scottish burgh in a way unsurpassed by other Scottish urban records of the era. They also demonstrate the interconnections of people and ideas across northern Europe in the age of the renaissance.</p>
             </div>
-            <div class="col-md-offset-2 col-md-6">
+            <div class="col-md-offset-3 col-md-6">
               <form action="/search" method="get">
                 <div class="input-group">
-                  <input type="search" class="form-control" name="q" id="search" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+                  <input type="search" class="form-control simple-search" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
                   <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                       <i class="fa fa-search" aria-hidden="true"></i>
@@ -28,6 +28,10 @@
           </div> <!-- row -->
         </div> <!-- jumbotron -->
       </div> <!-- container -->
+      <div class="fp-controlArrow-down text-center">
+        <div class="icon"></div>
+        <p class="text-helper">Scroll down</p>
+      </div>
     </div> <!-- home-top-container -->
 
     <div class="section">
@@ -41,7 +45,7 @@
                 <%= label_tag 'q', 'Content'%>
               </div>
               <div class="col-md-6">
-                <%= search_field_tag('q','', class: "form-control") %>
+                <%= search_field_tag('q','', class: "form-control simple-search") %>
               </div>
             </div>
           </div>
@@ -53,6 +57,39 @@
               </div>
               <div class="col-md-4">
                 <%= search_field_tag('entry','', class: "form-control", placeholder: "ARO-4-0005-03") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                  <%= label_tag 'v', 'Volume'%>
+              </div>
+              <div class="col-md-4">
+                <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                  <%= label_tag 'pg', 'Page'%>
+              </div>
+              <div class="col-md-4">
+                  <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-2">
+                  <%= label_tag 'pr', 'Paragraph'%>
+              </div>
+              <div class="col-md-4">
+                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
               </div>
             </div>
           </div>
@@ -92,37 +129,27 @@
               </div>
             </div>
           </div>
-          <br>
-          <div class="form-inline">
+          <div class="row">
             <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="volume">Volume</span>
-                <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+              <div class="col-md-2">
+                <div class="row">
+                  <div class="col-md-11">
+                    <%= label_tag 'm', 'Spelling variants: '%>
+                  </div>
+                  <output id="mOutputId" style="display: inline;"></output>
+                </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="page">Page</span>
-                <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon" id="paragraph">Paragraph</span>
-                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
+              <div class="col-md-4">
+                <input name="m" id="mInputId" type="range" min="0" max="5" step="1" value="<%= @misspellings ? @misspellings : 2%>" oninput="mOutputId.value = mInputId.value">
               </div>
             </div>
           </div>
           <hr>
-          <div><%= submit_tag 'Search', class: 'btn btn-primary' %></div>
+          <%= submit_tag 'Search', class: 'btn btn-primary' %>
           <% end %>
         </div>
       </div>
     </div>
-
-
 
     <div class="section">
           <div class="container">
@@ -154,6 +181,7 @@
             </div>
         </div>
     </div>
+
 </div>  <!-- <div id="fullpage"> -->
 
 

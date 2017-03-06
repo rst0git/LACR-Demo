@@ -26,9 +26,20 @@
 	$(document).ready(function() {
 		load_document(p=<%= @page%>, v=<%= @volume%>);
 		jqxhr.complete(function(){
-			$('#doc_nav').slideDown()
+			// Set current page to active
 			$('#vol-<%= @volume%>-page-<%= @page%>').addClass("active");
-		})
+			// Show list with volumes
+			$('#doc_nav').slideDown().promise().done( function () {
+				// Collapse in the selected volume
+				$('.vol-<%= @volume%>').collapse('show');
+				// Scroll down to the selected page
+				setTimeout(function () {
+						$('#doc_nav').animate({
+							scrollTop:($("#vol-<%= @volume%>-page-<%= @page%>").offset().top - $($(".vol-<%= @volume%>")[0]).offset().top)
+						}, 1000 );
+					}, 0);
+			});
+		});
 	});
 	</script>
 <% end %>

@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('#fullpage').fullpage({
         anchors:['homepage', 'advsearch', 'about']
     });
+    $('#mOutputId').html($('#mInputId').attr('value'));
 });
 
 $('#adv-search-nav').click(function(){
@@ -14,4 +15,12 @@ $('#about-nav').click(function(){
 
 $('#home-nav').click(function(){
     $.fn.fullpage.moveTo('homepages');
+});
+
+$('.fp-controlArrow-down').click(function(){
+    $.fn.fullpage.moveSectionDown();
+});
+
+$('.fp-controlArrow-up').click(function(){
+    $.fn.fullpage.moveSectionUp();
 });
