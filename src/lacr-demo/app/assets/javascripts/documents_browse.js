@@ -1,7 +1,8 @@
 //= require ISO_639_2.min.js
 var $selected = {};
 
-function download_zip(img=false){
+function download_zip(img){
+  img = (img !== 'undefined') ? img : false;
   var n;
   $.ajax({
     type: 'POST',

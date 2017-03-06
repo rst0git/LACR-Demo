@@ -3,51 +3,25 @@ class SearchController < ApplicationController
     if Search.count.zero? # Fix search on empty table error msg
       redirect_to doc_path
     end
-      @query = params[:q].present? ? params[:q] : '*'
+    # Use strong params
+    permited = simple_search_params
 
-      if params[:r].present?
-        if params[:r].to_i >= 5 and params[:r].to_i <= 50
-          @results_per_page = params[:r].to_i
-        else
-          @results_per_page = 5
-        end
-      else
-        @results_per_page = 5
-      end
+    # Parse Spelling variants and Results per page
+    get_search_tools_params(permited)
 
-      if params[:m].present?
-        if params[:m].to_i >= 0 and params[:m].to_i <= 5
-          @misspellings = params[:m].to_i
-        else
-          @misspellings = 2
-        end
-      else
-        @misspellings = 2
-      end
+    # Parse order_by parameter
+    order_by = get_order_by(permited)
 
-      @orderBy = params[:o].to_i
-      order_by = {}
-      if params[:o]
-        if @orderBy == 0
-          order_by['_score'] = :desc # most relevant first - default
-        elsif @orderBy == 1
-          order_by['volume'] = :asc # volume ascending order
-          order_by['page'] = :asc # page ascending order
-        elsif @orderBy == 2
-          order_by['volume'] = :desc # volume ascending order
-          order_by['page'] = :desc # page ascending order
-        end
-      end
-
-      @documents = Search.search @query,
-          fields: ['content'],
-          suggest: true,
-          match: :word_start,
-          page: params[:page], per_page: @results_per_page,
-          highlight: {tag: "<mark>"},
-          load: false,
-          order: order_by,
-          misspellings: {edit_distance: @misspellings}
+    # Send the query to Elasticsearch
+    @documents = Search.search @query,
+        fields: ['content'],
+        suggest: true,
+        match: :word_start,
+        page: permited[:page], per_page: @results_per_page,
+        highlight: {tag: "<mark>"},
+        load: false,
+        order: order_by,
+        misspellings: {edit_distance: @misspellings}
   end
 
   def autocomplete
@@ -75,68 +49,100 @@ class SearchController < ApplicationController
     if Search.count.zero? # Fix search on empty table error msg
       redirect_to doc_path
     end
+    
+    # Use strong params
+    permited = simple_search_params
+
+    # Parse Spelling variants and Results per page
+    get_search_tools_params(permited)
+
+    # Parse order_by parameter
+    order_by = get_order_by(permited)
 
     # Use wildcard when no content was specified
-    @query = params[:q].present? ? params[:q] : '*'
-
-    if params[:r].present?
-      if params[:r].to_i >= 5 and params[:r].to_i <= 50
-        @results_per_page = params[:r].to_i
-      else
-        @results_per_page = 5
-      end
-    else
-      @results_per_page = 5
-    end
-
-    if params[:m].present?
-      if params[:m].to_i >= 0 and params[:m].to_i <= 5
-        @misspellings = params[:m].to_i
-      else
-        @misspellings = 2
-      end
-    else
-      @misspellings = 2
-    end
+    @query = permited[:q].present? ? permited[:q] : '*'
 
     where_query = {}
-
-    if params[:entry]
-      where_query['entry'] = Regexp.new "#{params[:entry]}.*"
+    if permited[:entry] # Filter by Entry ID
+      where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
     end
-
-    if params[:date_from]
-      where_query['date'] = {'gte': params[:date_from]}
+    if permited[:date_from] # Filter by lower date bound
+      where_query['date'] = {'gte': permited[:date_from]}
     end
-
-    if params[:date_to]
-      where_query['date'] = {'lte': params[:date_to]}
+    if permited[:date_to] # Filter by upper date bound
+      where_query['date'] = {'lte': permited[:date_to]}
     end
-
-    if params[:lang]
-      where_query['lang'] = params[:lang]
+    if permited[:lang] # Filter by language
+      where_query['lang'] = permited[:lang]
     end
-
-    if params[:v]
-      where_query['volume'] = params[:v].split(/,| /).map { |s| s.to_i }
+    if permited[:v] # Filter by voume
+      where_query['volume'] = permited[:v].split(/,| /).map { |s| s.to_i }
     end
-    if params[:pg]
-      where_query['page'] = params[:pg].split(/,| /).map { |s| s.to_i }
+    if permited[:pg] # Filter by page
+      where_query['page'] = permited[:pg].split(/,| /).map { |s| s.to_i }
     end
-    if params[:pr]
-      where_query['paragraph'] = params[:pr].split(/,| /).map { |s| s.to_i }
+    if permited[:pr] # Filter by paragraph
+      where_query['paragraph'] = permited[:pr].split(/,| /).map { |s| s.to_i }
     end
 
     @documents = Search.search @query,
-    where: where_query,
-    fields: [:content],
-    highlight: {tag: "<mark>"},
-    suggest: true,
-    load: false,
-    page: params[:page], per_page: @results_per_page,
-    misspellings: {edit_distance: @misspellings}
-
+      where: where_query,
+      fields: [:content],
+      highlight: {tag: "<mark>"},
+      suggest: true,
+      load: false,
+      page: permited[:page], per_page: @results_per_page,
+      order: order_by,
+      misspellings: {edit_distance: @misspellings}
+    
     render :search
   end # def advanced_search
 
+  private
+
+  def simple_search_params
+    params.permit(:q, :r, :m, :o, :entry, :date_from, :date_to, :v, :pg, :pr, :lang, :page)
+  end
+
+  def get_search_tools_params(permited)
+
+    # Get text from the user input. In case of empty search -> use '*'
+    @query = permited[:q].present? ? permited[:q] : '*'
+
+    # Get the number of results per page; Default value -> 5
+    @results_per_page = 5
+    results_per_page = permited[:r].to_i
+    if results_per_page >= 5 and results_per_page <= 50
+      @results_per_page = results_per_page
+    end
+
+    # Get the misspelling distance; Default value -> 2
+    @misspellings = 2
+    misspellings = permited[:m].to_i
+    if misspellings >= 0 and misspellings <= 5
+      @misspellings = misspellings
+    end
+  end
+
+  def get_order_by(permited)
+    # Get the orderBy mode
+    # 0 -> Most relevant first
+    # 1 -> Volume/Page in ascending order
+    # 2 -> Volume/Page in descending order
+    # 3 -> Chronological orther
+    @orderBy = permited[:o].to_i
+    order_by = {}
+    if @orderBy == 0
+      order_by['_score'] = :desc # most relevant first - default
+    elsif @orderBy == 1
+      order_by['volume'] = :asc # volume ascending order
+      order_by['page'] = :asc # page ascending order
+    elsif @orderBy == 2
+      order_by['volume'] = :desc # volume descending order
+      order_by['page'] = :desc # page descending order
+    elsif @orderBy == 3
+      order_by['date'] = :asc
+    end
+    return order_by
+  end
 end
