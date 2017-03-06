@@ -2,7 +2,6 @@
 //= require xml2html.js
 //= require ISO_639_2.min.js
 
-
 $(document).ready(function() {
   // Deselect all
   $('#deselect-all').click(function() {
@@ -25,6 +24,7 @@ $(document).ready(function() {
   $('#download-pdf').click(function() {
     // TODO use prawn plugin to create PDF document
   });
+
   // Transform language codes
   $(".pr-language").each(function() {
     $(this).html(ISO_639_2[$(this).html()]['native'][0]);
