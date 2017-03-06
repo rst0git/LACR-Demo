@@ -177,7 +177,7 @@
       display: inline-block;
       width: 20px;
       height: 38px;
-      margin-bottom: 3px;
+      margin-bottom: -80px;
       position: relative;
       background: url("scroll-down.png") center center no-repeat;
       background-size: 20px 38px;
@@ -220,6 +220,7 @@
   display: block;
   font-size: 13px;
   color: #ffffff;
+  margin-top: 75px;
 }
 
 @media screen and (max-width: 1199px) {

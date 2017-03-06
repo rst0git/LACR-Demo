@@ -1,6 +1,9 @@
 $(document).ready(function() {
     $('#fullpage').fullpage({
-        anchors:['homepage', 'advsearch', 'about']
+        anchors:['homepage', 'advsearch', 'about'],
+        navigation: true,
+        menu: '#myMenu'
+
     });
     $('#mOutputId').html($('#mInputId').attr('value'));
 });
