@@ -24,7 +24,7 @@
                <sup>Date: <%= document.date %></sup>
              </h4>
               <% if document.highlighted_content %>
-              <p><%= document.highlighted_content.html_safe %></p>
+              <p class="highlighted_content"><%= document.highlighted_content.html_safe %></p>
               <%else%>
               <p><%= document.content %></p>
               <%end%>
