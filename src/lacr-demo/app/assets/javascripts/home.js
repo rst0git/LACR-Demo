@@ -1,6 +1,11 @@
 $(document).ready(function() {
     $('#fullpage').fullpage({
-        anchors:['homepage', 'advsearch', 'about']
+        anchors:['homepage', 'advsearch', 'about'],
+        navigation: true,
+        menu: '#myMenu',
+        paddingTop: '60px',
+        paddingBottom: '30px',
+
     });
     $('#mOutputId').html($('#mInputId').attr('value'));
 });

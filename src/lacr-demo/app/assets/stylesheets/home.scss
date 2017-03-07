@@ -167,17 +167,23 @@
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
-    position: absolute;
     z-index: 4;
     cursor: pointer;
-    margin-left: 47%;
+    // Horiszontal center
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    // Stick to the bottom of the page
+    margin-bottom: auto;
+    bottom: 0;
     }
 
     .fp-controlArrow-down .icon{
       display: inline-block;
       width: 20px;
       height: 38px;
-      margin-bottom: 3px;
       position: relative;
       background: url("scroll-down.png") center center no-repeat;
       background-size: 20px 38px;

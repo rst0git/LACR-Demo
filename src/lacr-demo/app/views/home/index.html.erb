@@ -1,37 +1,55 @@
+
+  <nav class="hide">
+    <ul id="myMenu">
+  <li data-menuanchor="firstSection">
+    <a href="#firstSection" title="First Section">First Section</a>
+  </li>
+  <li data-menuanchor="secondSection">
+    <a href="#secondSection" title="Second Section">Second Section</a>
+  </li>
+  <li data-menuanchor="thirdSection">
+    <a href="#thirdSection" title="Second Section">Third Section</a>
+  </li>
+</ul>
+</nav>
 <div id="fullpage">
     <div id="home-top-container" class="section">
       <div class="container">
-        <div class="jumbotron">
-          <div class="container">
-            <div class="col-md-4 text-center">
-              <img src="/assets/lacr-round.jpg" id="index-home-image">
-            </div>
-            <div class="col-md-8">
-              <h1 class="display-3" id="h1-home-light-text">Aberdeen Registers</h1>
-              <p id="p-home-light-text">Aberdeen’s fifteenth-century town council registers illuminate the workings of this Scottish burgh in a way unsurpassed by other Scottish urban records of the era. They also demonstrate the interconnections of people and ideas across northern Europe in the age of the renaissance.</p>
-            </div>
-            <div class="col-md-offset-3 col-md-6">
-              <form action="/search" method="get">
-                <div class="input-group">
-                  <input type="search" class="form-control simple-search" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
-                  <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                      <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
+        <div class="row">
+          <div class="jumbotron">
+            <div class="container">
+              <div class="col-md-4 text-center">
+                <img src="/assets/lacr-round.jpg" id="index-home-image">
+              </div>
+              <div class="col-md-8">
+                <h1 class="display-3" id="h1-home-light-text">Aberdeen Registers</h1>
+                <p id="p-home-light-text">Aberdeen’s fifteenth-century town council registers illuminate the workings of this Scottish burgh in a way unsurpassed by other Scottish urban records of the era. They also demonstrate the interconnections of people and ideas across northern Europe in the age of the renaissance.</p>
+              </div>
+              <div class="col-md-offset-3 col-md-6">
+                <form action="/search" method="get">
+                  <div class="input-group">
+                    <input type="search" class="form-control simple-search" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <input type="hidden" name="r" value="<%= @results_per_page%>">
-                <input type="hidden" name="m" value="<%= @misspellings%>">
-                <input type="hidden" name="o" value="<%= @orderBy%>">
-              </form>
+                  <input type="hidden" name="r" value="<%= @results_per_page%>">
+                  <input type="hidden" name="m" value="<%= @misspellings%>">
+                  <input type="hidden" name="o" value="<%= @orderBy%>">
+                </form>
+              </div>
+            </div> <!-- row -->
+          </div> <!-- jumbotron -->
+          <div class="row">
+            <div class="fp-controlArrow-down text-center">
+              <div class="icon"></div>
+              <p class="text-helper">Scroll Down</p>
             </div>
-          </div> <!-- row -->
-        </div> <!-- jumbotron -->
+          </div>
+        </div>
       </div> <!-- container -->
-      <div class="fp-controlArrow-down text-center">
-        <div class="icon"></div>
-        <p class="text-helper">Scroll down</p>
-      </div>
     </div> <!-- home-top-container -->
 
     <div class="section">
