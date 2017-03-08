@@ -51,8 +51,10 @@ ActiveRecord::Schema.define(version: 20170213221951) do
 
   create_table "transcription_xmls", force: :cascade do |t|
     t.jsonb    "xml"
+    t.string   "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["filename"], name: "index_transcription_xmls_on_filename", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

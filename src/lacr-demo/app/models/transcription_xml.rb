@@ -1,4 +1,7 @@
 class TranscriptionXml < ApplicationRecord
+  # Use unique filenames and overwrite on upload
+  validates_uniqueness_of :filename
+
   HISTEI_NS = 'http://www.tei-c.org/ns/1.0'
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
@@ -54,17 +57,27 @@ class TranscriptionXml < ApplicationRecord
       xml_to_html(entry)
       entry_html = entry.to_xml
 
-      # Create TrParagraph record
-      pr = TrParagraph.new
+      # Overwrite if exists
+      if Search.exists?(entry: entry_id)
+        s = Search.find_by(entry: entry_id)
+        # Get existing paragraph
+        pr = s.tr_paragraph
+      else
+        # Create new search record
+        s = Search.new
+        s.entry = entry_id
+        # Create TrParagraph record
+        pr = TrParagraph.new
+      end
+
+      # Save the new content
       pr.content_xml = entry_xml
       pr.content_html = entry_html
       pr.save
 
       # Create Search record
-      s = Search.new
       s.tr_paragraph = pr
       s.transcription_xml = self
-      s.entry = entry_id
       s.lang = entry_lang
       s.date = entry_date
       s.date_incorrect = entry_date_incorrect
