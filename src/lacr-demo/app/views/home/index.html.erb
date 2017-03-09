@@ -42,7 +42,7 @@
               </div>
             </div> <!-- row -->
           </div> <!-- jumbotron -->
-          <div class="row">
+          <div class="row hidden-xs">
             <div class="fp-controlArrow-down text-center">
               <div class="icon"></div>
               <p class="text-helper">Scroll Down</p>
@@ -53,120 +53,7 @@
     </div> <!-- home-top-container -->
 
     <div class="section">
-      <div class="container">
-        <h1>Advanced Search</h1>
-        <div class="row">
-          <%= form_tag advanced_search_path, id: "adv-search", method: :get do |f|%>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                <%= label_tag 'q', 'Content'%>
-              </div>
-              <div class="col-md-6">
-                <%= search_field_tag('q','', class: "form-control simple-search") %>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                <%= label_tag 'entry', 'Entry ID'%>
-              </div>
-              <div class="col-md-4">
-                <%= search_field_tag('entry','', class: "form-control", placeholder: "ARO-4-0005-03") %>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                  <%= label_tag 'v', 'Volume'%>
-              </div>
-              <div class="col-md-4">
-                <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                  <%= label_tag 'pg', 'Page'%>
-              </div>
-              <div class="col-md-4">
-                  <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                  <%= label_tag 'pr', 'Paragraph'%>
-              </div>
-              <div class="col-md-4">
-                <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                <%= label_tag 'content_none', 'Date:'%>
-              </div>
-              <div class="col-md-2">
-                <div class="input-group">
-                  <span class="input-group-addon" id="date_from">from</span>
-                  <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd", describedby: "date_from", class: "form-control") %>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="input-group">
-                  <span class="input-group-addon" id="date_to">to</span>
-                  <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd ", describedby: "date_to", class: "form-control") %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                <label for="lang">Language:</label>
-              </div>
-              <div class="col-md-2">
-                <select class="form-control" id="lang" name="lang">
-                  <option value="">Any</option>
-                  <option value="lat">Latin</option>
-                  <option value="sco">Scots</option>
-                  <option value="nld">Dutch</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <div class="col-md-2">
-                <div class="row">
-                  <div class="col-md-11">
-                    <%= label_tag 'm', 'Spelling variants: '%>
-                  </div>
-                  <output id="mOutputId" style="display: inline;"></output>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <input name="m" id="mInputId" type="range" min="0" max="5" step="1" value="<%= @misspellings ? @misspellings : 2%>" oninput="mOutputId.value = mInputId.value">
-              </div>
-            </div>
-          </div>
-          <hr>
-          <%= submit_tag 'Search', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-      </div>
+      <%= render template: "search/advanced_search"%>
     </div>
 
     <div class="section">
