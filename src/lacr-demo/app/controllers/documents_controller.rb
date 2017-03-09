@@ -96,21 +96,29 @@ class DocumentsController < ApplicationController
           xml_files_content = []
           # Save all uploaded xml files, call method ...
           xml_files['xml'].each do |file|
-
+            # Get filename
+            filename = file.original_filename
             # Check namespace
             nokogiri_obj = Nokogiri::XML(File.open(file.path))
             if ( nokogiri_obj.collect_namespaces.values.include? TranscriptionXml::HISTEI_NS )
-              t = TranscriptionXml.new
+              # Show message when overwrites
+              output_message = TranscriptionXml.exists?(filename: filename) ? "Overwritten #{filename}" : filename
+              # Create new or find existing record
+              t = TranscriptionXml.find_or_create_by(filename: filename)
+              # Store the information about the uploaded file
               t.xml = file
+              # If the save was successful
               if t.save!
+                @succesfully_uploaded[:xml].push(output_message)
                 # Store file content and filename for import to BaseX
-                xml_files_content.push([file.original_filename, nokogiri_obj.to_xml])
-                @succesfully_uploaded[:xml].push(file.original_filename)
+                xml_files_content.push([filename, nokogiri_obj.to_xml])
                 # Proccess the XML file
                 t.histei_split_to_paragraphs
+              else
+                @unsuccesfully_uploaded[:xml].push("Unexpected error on saving: #{filename}")
               end
             else
-              @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{file.original_filename}")
+              @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{filename}")
             end
           end
           # Add the successfully uploaded files to the XML database

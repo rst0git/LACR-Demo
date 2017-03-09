@@ -28,14 +28,6 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
-  # Generate thumbnail version
-  version :thumb do
-    process :efficient_conversion => [200,200]
-    def filename
-      super.chomp(File.extname(super)) + '.jpeg' if original_filename.present?
-    end
-  end
-
   def store_dir
     "uploads/image/"
   end
