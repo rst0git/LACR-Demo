@@ -2,7 +2,7 @@
 <div class="<% if @document_image_normal %>col-md-6<%else%>col-md-10<%end%>">
 
   <% @documents.each do |document| %>
-		<div class="panel panel-primary">
+		<div class="panel panel-primary" id="<%= document.entry %>">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-md-4">

@@ -40,8 +40,11 @@ var selected_list = s_list !== undefined ? s_list.split(',') : [];
 var init_selected_checkboxes = function (){
   // Event listener for add-to-list of selected entries
   $('.add-to-list').click(function(){
+    // Store the entry ID
+    var entryID = $(this).attr('data-entry');
+
       if($(this).is(":checked")) {
-        selected_list.push($(this).attr('data-entry'));
+        selected_list.push(entryID);
         Cookies.set('selected_entries', selected_list.toString());
         $("#documents-btn").hide();
         $("#documents-selected-btn").show();
@@ -53,11 +56,17 @@ var init_selected_checkboxes = function (){
         }
 
       } else {
-        selected_list.pop($(this).attr('data-entry'));
+        // Remove all records with this entryID
+        selected_list = jQuery.grep(selected_list, function( a ) { return a !== entryID ;});
+        // If on select page remove hide the entry
+        if (window.location.pathname == "/doc/selected") { $('#'+entryID).fadeOut(); }
+        // Remove the cookie if no selected documents are left
         if (selected_list.length == 0) {
           $("#documents-selected-btn").hide();
           $("#documents-btn").show();
           Cookies.remove('selected_entries');
+          // Redirect to documents
+          if (window.location.pathname == "/doc/selected") { window.location.pathname="/doc"; }
         }
       }
   });

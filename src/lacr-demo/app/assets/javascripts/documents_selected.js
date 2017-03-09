@@ -15,14 +15,9 @@ $(document).ready(function() {
             window.location.href="/doc";
           }
         },
-        { addClass: 'btn btn-default', text: 'Cancel',onClick: function($noty) { $noty.close(); }}
+        { addClass: 'btn btn-default', text: 'Cancel', onClick: function($noty) { $noty.close(); }}
       ]
     });
-  });
-
-  // Download as PDF
-  $('#download-pdf').click(function() {
-    // TODO use prawn plugin to create PDF document
   });
 
   // Transform language codes
