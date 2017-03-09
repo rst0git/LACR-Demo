@@ -5,13 +5,24 @@
   <div class="section">
     <div class="slide">
       <div class="container" style="padding-top: 20px;">
-        <% if @documents.try(:suggestions).length > 0 %>
-          <label> Did you mean one of:
-            <% @documents.try(:suggestions).each do |s| %>
-            <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
-            <% end %>
-          </label>
-        <%end%>
+        <div class="row">
+          <% if @documents.try(:suggestions).length > 0 %>
+          <div class="col-xs-6">
+            <label> Did you mean one of:
+              <% @documents.try(:suggestions).each do |s| %>
+              <a href="/search?utf8=✓&q=<%= s %>"><%= s %></a>
+              <% end %>
+            </label>
+          </div>
+          <div class="col-xs-6 text-right">
+            <span><%= @documents.total_count %> <%if @documents.total_count == 1 %>result<% else %>results<%end%> (<%= @documents.took / 1000.0 %> sec)</span>
+          </div>
+          <%else%>
+          <div class="col-xs-12 text-right">
+            <span><%= @documents.total_count %> <%if @documents.total_count == 1 %>result<% else %>results<%end%> (<%= @documents.took / 1000.0 %> sec)</span>
+          </div>
+          <%end%>
+        </div>
         <% if @documents.length > 0 %>
           <div class="list-group">
             <% @documents.each do |document| %>
