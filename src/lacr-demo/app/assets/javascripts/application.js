@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require typeahead.bundle.js
@@ -26,7 +27,6 @@ var autocomplete = function (url) {
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      // url: '/ajax/search/autocomplete?q=%QUERY',
       url: url,
       wildcard: '%QUERY'
     }
@@ -89,6 +89,7 @@ function insertParam(key, value, remove) {
   }
 
 $(document).ready(function() {
+
   $('#documents-selected-btn').hover(function() {
     $('#doc_caret').tooltip('hide');
   });

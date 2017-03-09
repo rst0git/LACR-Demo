@@ -1,13 +1,70 @@
 $(document).ready(function() {
-    $('#fullpage').fullpage({
-        anchors:['homepage', 'advsearch', 'about'],
-        navigation: true,
-        menu: '#myMenu',
-        paddingTop: '60px',
-        paddingBottom: '30px',
+  var dateFormat = 'yy-mm-dd';
+  var minDate = '1398-01-01';
+  var maxDate = '1511-12-31';
+  // Initialise date fields for Advanced Search
+  $( "#date_from" ).datepicker({
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: 'yy-mm-dd',
+    minDate: $.datepicker.parseDate( dateFormat, minDate ),
+    maxDate: $.datepicker.parseDate( dateFormat, maxDate ),
+    defaultDate: $.datepicker.parseDate( dateFormat, minDate )
+  }).on( "change", function() {
+    $( "#date_to" ).datepicker( "option", "minDate", getDate( this ) );
+  });
 
+  $( "#date_to" ).datepicker({
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: dateFormat,
+    minDate: $.datepicker.parseDate( dateFormat, minDate ),
+    maxDate: $.datepicker.parseDate( dateFormat, maxDate ),
+    defaultDate: $.datepicker.parseDate( dateFormat, maxDate )
+  }).on( "change", function() {
+    $( "#date_from" ).datepicker( "option", "maxDate", getDate( this ) );
+  });
+
+  function getDate( element ) {
+    var date;
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
+    return date;
+  }
+
+  window.onresize = function() {
+    responsiveScreen();
+  };
+
+  var responsiveScreen = function() {
+    screenCheck = $(window).height() > 630 && $(window).width() > 1024;
+    $.fn.fullpage.setFitToSection(screenCheck);
+    $.fn.fullpage.setAutoScrolling(screenCheck);
+  };
+
+  // Initialise FullPageJS
+    $('#fullpage').fullpage({
+      anchors:['homepage', 'advsearch', 'about'],
+      navigation: true,
+      menu: '#myMenu',
+      paddingTop: '60px',
+      paddingBottom: '30px',
+      onLeave: function(index, nextIndex, direction){
+        // Hide datepicer after leaving Advanced Search section
+        if(index == 2){
+          $( ".datepicker" ).datepicker('hide');
+        }
+      }
     });
+
+  // Show the number of spelling variants
+  $('#mOutputId').html($('#mInputId').attr('value'));
+  $('#mInputId').change(function () {
     $('#mOutputId').html($('#mInputId').attr('value'));
+  })
 });
 
 $('#adv-search-nav').click(function(){

@@ -46,7 +46,7 @@ class TranscriptionXml < ApplicationRecord
         entry_date = "#{date_str}-1-1".to_date # If the day and month are missing set ot 1-st Jan.
       else
         entry_date_incorrect = 'N/A'
-        date = nil # The date is missing
+        entry_date = nil # The date is missing
       end
 
       # Convert the 'entry' and 'date' Nokogiri objects to Ruby Hashes
