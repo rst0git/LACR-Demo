@@ -12,9 +12,9 @@ class TranscriptionXml < ApplicationRecord
       c.keys.each do |k|
         c["data-#{k}"] = c.delete(k)
       end
-      # Rename the tag
+      # Rename the tag and replace lb with br
       c['class'] = "xml-tag #{c.name.gsub(':', '-')}"
-      c.name = "span"
+      c.name = c.name == 'lb' ?  "br" : "span"
       # Use recursion
       xml_to_html(c)
     end
