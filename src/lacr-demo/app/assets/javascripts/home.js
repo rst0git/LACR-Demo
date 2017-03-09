@@ -60,11 +60,17 @@ $(document).ready(function() {
       }
     });
 
-  // Show the number of spelling variants
-  $('#mOutputId').html($('#mInputId').attr('value'));
-  $('#mInputId').change(function () {
-    $('#mOutputId').html($('#mInputId').attr('value'));
-  })
+    // Initialise spelling variants slider
+    $('#slider-spellVar').slider({
+      range: "max",
+      min: 0,
+      max: 5,
+      value: 2,
+      slide: function( event, ui ) {
+        $( "#spellVar" ).val( ui.value );
+      }
+    });
+    $( "#spellVar" ).val( $( "#slider-spellVar" ).slider( "value" ) );
 });
 
 $('#adv-search-nav').click(function(){

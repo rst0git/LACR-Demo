@@ -95,15 +95,11 @@
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
-          <div class="row">
-            <div class="col-md-11">
-              <%= label_tag 'm', 'Spelling variants: '%>
-            </div>
-            <output class="hidden-sm" id="mOutputId" style="display: inline;"></output>
-          </div>
+          <label for="spellVar">Spelling variants:</label>
+          <input name="m" type="text" id="spellVar" readonly style="border:0; font-weight:bold; width: 12px;">
         </div>
         <div class="col-md-4">
-          <input name="m" id="mInputId" type="range" min="0" max="5" step="1" value="<%= @misspellings ? @misspellings : 2%>" oninput="mOutputId.value = mInputId.value">
+          <div id="slider-spellVar"></div>
         </div>
       </div>
     </div>
