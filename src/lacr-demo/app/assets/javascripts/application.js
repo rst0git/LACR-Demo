@@ -58,6 +58,7 @@ var init_selected_checkboxes = function (){
       } else {
         // Remove all records with this entryID
         selected_list = jQuery.grep(selected_list, function( a ) { return a !== entryID ;});
+        Cookies.set('selected_entries', selected_list.toString());
         // If on select page remove hide the entry
         if (window.location.pathname == "/doc/selected") { $('#'+entryID).fadeOut(); }
         // Remove the cookie if no selected documents are left
