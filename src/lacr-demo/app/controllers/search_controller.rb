@@ -25,7 +25,7 @@ class SearchController < ApplicationController
   end
 
   def autocomplete
-     render json: Search.search(params[:q], {
+     render json: Search.search(params[:term], {
        fields: ['content'],
        match: :word_start,
        highlight: {tag: "" ,fields: {content: {fragment_size: 0}}},
@@ -36,7 +36,7 @@ class SearchController < ApplicationController
    end
 
   def autocomplete_entry
-     render json: Search.search(params[:q], {
+     render json: Search.search(params[:term], {
        fields: ['entry'],
        match: :word_start,
        limit: 10,

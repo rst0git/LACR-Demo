@@ -23,4 +23,4 @@ ADD lacr-demo /lacr-demo
 RUN echo '' > /etc/apt/apt.conf
 
 ENV http_proxy=''
-ENV http_proxy=''
+ENV https_proxy=''

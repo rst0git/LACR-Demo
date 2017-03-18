@@ -13,7 +13,6 @@
  *= require jquery-ui
  *= require bootstrap_and_overrides
  *= require font-awesome
- *= require typeaheadjs.css
  *= require documents.scss
  *= require home.scss
  *= require search.scss
@@ -21,10 +20,12 @@
  *= require_self
  */
 
+/*Leave space for the top nav menu and footer*/
 body{
     padding-top: 70px;
     padding-bottom: 30px;
 }
+
  /*Sticky the foother to bottom of the page*/
  footer p{
    margin: 0;
