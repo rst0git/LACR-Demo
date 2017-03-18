@@ -1,0 +1,437 @@
+/*-----------------------------------------------------------------------------------------------
+----- HisTEI framework customizations for Oxygen
+-----   made to the TEI css available at
+-----   http://tei.svn.sourceforge.net/viewvc/tei/trunk/TEICSS/
+-------------------------------------------------------------------------------------------------*/
+
+
+/* Global styles for hover/focus during inline editing */
+.supplied:focus:after,
+.foreign:focus:after,
+.gap:hover:after,
+.supplied:focus:after,
+.unclear:focus:after,
+.add:focus:after,
+.del:focus:after,
+.handShift:hover:after {
+    padding:5px;
+    border:1px dashed;
+}
+
+/* Sections, fields & labels */
+
+/* (Sub)Sections */
+.gloss:before,
+.titlePage:before,
+.docTitle:before,
+.docImprint:before,
+.docDate:before,
+.titlePart:before,
+.figure:before,
+.figDesc:before,
+.opener:before,
+.closer:before,
+.postscript:before {
+    display:block;
+    color:white;
+    background-color:gray;
+    font-weight:bold;
+    width:100%;
+    margin:5px;
+}
+
+.titlePage:before,
+.docTitle:before,
+.docDate:before,
+.titlePart:before,
+.docImprint:before {
+    color:black;
+    background-color:silver;
+}
+
+/* Foldable Sections */
+.titlePage,
+.docTitle,
+.docImprint,
+.docDate,
+.figure,
+.figDesc,
+.opener,
+.closer,
+.postscript,
+.gloss {
+    display:block;
+}
+
+.titlePage,
+.docTitle,
+.figure,
+.figDesc,
+.opener,
+.closer,
+.byline,
+.dateline,
+.salute {
+    display:block;
+    padding:1px;
+}
+
+.opener {
+    margin-bottom:.5em;
+}
+
+.closer {
+    margin-top:.5em;
+}
+
+.titlePart,
+.byline,
+.dateline,
+.salute,
+.signed {
+    display:block;
+    padding:2px;
+    margin:2px;
+    margin-bottom: 5px;
+}
+
+.byline {
+    font-size:smaller;
+    font-variant:small-caps;
+}
+
+.fw {
+    display:block;
+    padding:5px;
+    text-align:right;
+}
+
+.fw:before {
+    padding: 0px;
+    vertical-align: middle;
+    content: url('forme_work-16.png');
+}
+
+/* Inline elements for text */
+
+/* Elements with hidden Oxygen tags */
+.titlePart,
+.byline,
+.dateline,
+.salute,
+.signed,
+.abbr,
+.expan,
+.add,
+.del,
+.gap,
+.unclear,
+.supplied,
+.foreign,
+.ab,
+.seg,
+.term,
+.handShift,
+.pb,
+.pc,
+.title,
+.opener > *,
+.closer > * {
+  /*display: none;*/
+}
+
+.date,
+.persName,
+.orgName,
+.placeName,
+.district,
+.settlement,
+.region,
+.country,
+.bloc,
+.addrLine,
+.street,
+.postcode,
+.postbox {
+    color:olive;
+}
+
+.address {
+    background-color: rgba(64, 128, 64, 0.1);
+}
+
+.persName:focus:after,
+.placeName:focus:after,
+.orgName:focus:after,
+.district:focus:after,
+.settlement:focus:after,
+.region:focus:after,
+.country:focus:after,
+.bloc:focus:after {
+    padding-left: 2px;
+}
+
+
+/* Milestones or elements with no text */
+.pb,
+.handShift,
+.gap {
+  /*visibility: collapse;*/
+}
+
+.abbr {
+    background-color: rgba(0, 255, 0, 0.1);
+    font-weight:bold;
+}
+
+.expan {
+    background-color: rgba(128, 0, 0, 0.1);
+    font-style:italic;
+}
+
+.add {
+    color: green;
+    text-decoration: underline;
+    vertical-align: middle;
+}
+.add[data-place="below"] {
+  vertical-align:sub;
+}
+.add[data-place="above"] {
+  vertical-align: super;
+}
+
+.del {
+    color: red;
+    text-decoration: line-through;
+}
+
+.gap::before {
+    color:orange;
+    content: "[...]";
+    font-style: italic;
+}
+
+.unclear {
+    color: maroon;
+    font-style: italic;
+}
+
+.supplied:before {
+    font-weight:normal;
+    padding:0px;
+    content: "[";
+}
+
+.supplied {
+    color: blue;
+    font-style:italic;
+}
+
+.supplied:focus:after,
+.supplied:after {
+    border:0px;
+    padding:0px;
+    content: "]";
+}
+
+.pc {
+    color:purple;
+}
+
+.foreign {
+    color:#3D5229;
+    font-style:italic;
+    font-weight:bold;
+}
+
+.foreign:focus:after {
+  content: attr(data-xml-lang);
+  /*vertical-align: sub;*/
+}
+
+salute,
+seg[function='salute'] {
+    background-color:silver;
+    font-style:italic;
+}
+
+seg[function='formulaic']{
+    background-color: rgba(0, 128, 128, 0.2);
+    font-style:italic;
+}
+
+text title {
+    display:inline;
+    font-weight:bold;
+    text-decoration: underline;
+}
+
+text title:before {
+    padding-right: 2px;
+    vertical-align: middle;
+    content: url('title-16.png');
+}
+
+/* Note */
+
+.note {
+    display:inline;
+    border: 1px solid maroon;
+    padding:1px;
+    font-size: 11px;
+}
+
+.note:before {
+    font-size:smaller;
+    font-weight:bold;
+}
+
+/* @reason */
+
+.gap:hover:before,
+.supplied:hover:after,
+.unclear:hover:after {
+  font-size: small;
+  font-style: normal;
+  color: black;
+  vertical-align: sub;
+  content: attr(data-reason);
+}
+
+/* @place */
+.note:before,
+.fw:before,
+.add:focus:after {
+  content: attr(place);
+  vertical-align: sub;
+}
+
+/* Page Break */
+.pb {
+    display:block;
+    background-color:transparent;
+    border-style:solid none;
+    border-width:1px 0px;
+    vertical-align:middle;
+    padding:5px;
+    margin:5px 0px;
+    font-weight:bold;
+    font-size:small;
+    line-height:1.5;
+}
+
+.pb:before {
+    padding: 0px;
+    vertical-align: middle;
+    content: url('page_break-16.png')
+}
+
+/* Hand References */
+.handShift {
+    padding:0px;
+    vertical-align: middle;
+    content: url('hand_shift-16.png');
+}
+
+.handShift:hover:after {
+  content: attr(data-script);
+  vertical-align: sub;
+}
+
+.add:focus:after,
+.del:focus:after,
+.unclear:focus:after,
+.gap:hover:after {
+  content: attr(data-hand);
+  vertical-align: sub;
+}
+
+.handShift[data-new]:hover:after {
+    padding-left: 5px;
+    vertical-align: middle;
+    content: url('hand_open-16.png');
+}
+
+[data-hand]:focus:after,
+.gap[data-hand]:hover:after {
+    padding-left: 5px;
+    vertical-align: middle;
+    content: url('hand_open-16.png');
+}
+
+/* Linking elements - anchors and pointers that refer to them (mainly for glosses) */
+
+.ab {
+    display:block;
+    border:1px solid green;
+}
+
+.seg:not([data-function]) {
+    border-top:1px solid blue;
+}
+
+.term {
+    background-color: rgba(0, 0, 128, 0.1);
+    font-style:italic;
+}
+
+.ab:focus:after,
+.seg:not([data-function]):focus:after,
+.term:focus:after {
+    content: attr(data-xml-id) " " attr(data-xml-lang);
+    vertical-align: sub;
+}
+
+.gloss:before {
+    background-color: rgba(0, 0, 255, 0.5);
+}
+
+.gloss[data-target]:after {
+    padding-left: 5px;
+    vertical-align: middle;
+    content: url('link_open-16.png');
+}
+
+
+/* Linguistic units and annotations */
+
+.s,
+.cl,
+.phr,
+.w,
+.pc,
+.num,
+.measure {
+    vertical-align:bottom;
+    padding-top:2px;
+    /*display: none;*/
+}
+
+.s {
+    border:1px solid rgb(53, 25, 0);
+}
+
+.cl {
+    border:1px solid rgb(64, 64, 255);
+}
+
+.phr {
+    border:1px solid rgb(0, 128, 0);
+}
+
+.w {
+    border:1px solid rgb(0, 49, 200);
+}
+
+.pc {
+    border:1px solid rgb(0, 49, 200);
+}
+
+.num {
+    border:1px solid rgb(255, 128, 0);
+}
+
+.measure {
+    border:1px solid rgb(128, 0, 255);
+}
