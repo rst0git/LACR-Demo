@@ -65,9 +65,6 @@ function load_page(url, page, vol, highlighted_content){
     // Update title
     $('#doc-title').html("Volume: "+vol+" Page: "+page);
 
-    // Hide search tools
-    $('#search_tools').hide();
-
     // Slide to the loaded transcription
     $.fn.fullpage.moveTo('results', 1);
 

@@ -1,10 +1,8 @@
-<% content_for :nav_menu do %>
-  <% render '/search/search_tools' %>
-<%end%>
 <div id="fullpage">
   <div class="section">
     <div class="slide">
-      <div class="container" style="padding-top: 20px;">
+      <div class="container" >
+        <%= render '/search/search_tools' %>
         <% if @documents.try(:suggestions) %>
           <div class="row">
             <% if @documents.try(:suggestions).length > 0 %>

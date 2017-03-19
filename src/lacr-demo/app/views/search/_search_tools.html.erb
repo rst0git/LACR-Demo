@@ -1,49 +1,60 @@
-<div class="row">
-  <div class="col-md-6 col-md-offset-3" id="search_tools">
-
-    <div class="dropdown col-xs-3">
-      <a class="dropdown-toggle" data-toggle="dropdown">Search Method</a>
-      <ul class="dropdown-menu">
-        <li <%if @searchMethod == 0%>class="active"<%end%>><a href="#"onclick="insertParam('sm', 0, 'page')">Keywords</a></li>
-        <li <%if @searchMethod == 1%>class="active"<%end%>><a href="#"onclick="insertParam('sm', 1, 'page')">Phrase</a></li>
-        <li <%if @searchMethod == 2%>class="active"<%end%>><a href="#"onclick="insertParam('sm', 2, 'page')">Word start</a></li>
-        <li <%if @searchMethod == 3%>class="active"<%end%>><a href="#"onclick="insertParam('sm', 3, 'page')">Word middle</a></li>
-        <li <%if @searchMethod == 4%>class="active"<%end%>><a href="#"onclick="insertParam('sm', 4, 'page')">Word end</a></li>
-      </ul>
+<div class="row text-center">
+  <div class="col-sm-3 form-group" style="margin:5px; padding:0;">
+    <div class="col-sm-6" style="padding: 5px 0;">
+      <%= label_tag 'sm', 'Search Method:', style: "font-weight: normal;"%>
     </div>
-
-    <div class="dropdown col-xs-3">
-      <a class="dropdown-toggle" data-toggle="dropdown">Spelling Variants</a>
-      <ul class="dropdown-menu">
-        <li <%if @misspellings == 0%>class="active"<%end%>><a href="#" onclick="insertParam('m', 0, 'page')">0</a></li>
-        <li <%if @misspellings == 1%>class="active"<%end%>><a href="#" onclick="insertParam('m', 1, 'page')">1</a></li>
-        <li <%if @misspellings == 2%>class="active"<%end%>><a href="#" onclick="insertParam('m', 2, 'page')">2</a></li>
-        <li <%if @misspellings == 3%>class="active"<%end%>><a href="#" onclick="insertParam('m', 3, 'page')">3</a></li>
-        <li <%if @misspellings == 4%>class="active"<%end%>><a href="#" onclick="insertParam('m', 4, 'page')">4</a></li>
-        <li <%if @misspellings == 5%>class="active"<%end%>><a href="#" onclick="insertParam('m', 5, 'page')">5</a></li>
-      </ul>
+    <div class="col-sm-6" style="padding:0;">
+      <select class="form-control" name="sm" onchange="insertParam('sm', this.value, 'page')">
+        <option value="0" <%if @searchMethod == 0%>selected="selected"<%end%>>Keywords</option>
+        <option value="1" <%if @searchMethod == 1%>selected="selected"<%end%>>Phrase</option>
+        <option value="2" <%if @searchMethod == 2%>selected="selected"<%end%>>Word start</option>
+        <option value="3" <%if @searchMethod == 3%>selected="selected"<%end%>>Word middle</option>
+        <option value="4" <%if @searchMethod == 4%>selected="selected"<%end%>>Word end</option>
+      </select>
     </div>
+  </div>
 
-    <div class="dropdown col-xs-3">
-      <a class="dropdown-toggle" data-toggle="dropdown">Results Per Page</a>
-      <ul class="dropdown-menu">
-        <li <%if @results_per_page == 5 %>class="active"<%end%>><a href="#" onclick="insertParam('r',5,'page');">5</a></li>
-        <li <%if @results_per_page == 10 %>class="active"<%end%>><a href="#" onclick="insertParam('r',10,'page');">10</a></li>
-        <li <%if @results_per_page == 20 %>class="active"<%end%>><a href="#" onclick="insertParam('r',20,'page');">20</a></li>
-        <li <%if @results_per_page == 30%>class="active"<%end%>><a href="#" onclick="insertParam('r',30,'page');">30</a></li>
-        <li <%if @results_per_page == 50 %>class="active"<%end%>><a href="#" onclick="insertParam('r',50,'page');">50</a></li>
-      </ul>
+  <div class="col-sm-2 form-group" style="margin:5px; padding:0;">
+    <div class="col-sm-8" style="padding: 5px 0;">
+      <%= label_tag 'm', 'Spelling Variants:', style: "font-weight: normal;"%>
     </div>
-
-    <div class="dropdown col-xs-3">
-      <a class="dropdown-toggle" data-toggle="dropdown">Order By</a>
-      <ul class="dropdown-menu">
-        <li <%if @orderBy == 0%>class="active"<%end%>><a href="#"onclick="insertParam('o', 0, 'page')">Relevance</a></li>
-        <li <%if @orderBy == 1%>class="active"<%end%>><a href="#"onclick="insertParam('o', 1, 'page')">Volume, Page ascending</a></li>
-        <li <%if @orderBy == 2%>class="active"<%end%>><a href="#"onclick="insertParam('o', 2, 'page')">Volume, Page descending</a></li>
-        <li <%if @orderBy == 3%>class="active"<%end%>><a href="#"onclick="insertParam('o', 3, 'page')">Chronological</a></li>
-      </ul>
+    <div class="col-sm-4" style="padding:0;">
+      <select class="form-control" name="m" onchange="insertParam('m', this.value, 'page')">
+        <option value="0" <%if @misspellings == 0%>selected="selected"<%end%>>0</option>
+        <option value="1" <%if @misspellings == 1%>selected="selected"<%end%>>1</option>
+        <option value="2" <%if @misspellings == 2%>selected="selected"<%end%>>2</option>
+        <option value="3" <%if @misspellings == 3%>selected="selected"<%end%>>3</option>
+        <option value="4" <%if @misspellings == 4%>selected="selected"<%end%>>4</option>
+      </select>
     </div>
+  </div>
 
+  <div class="col-sm-2 form-group" style="margin:5px; padding:0;">
+    <div class="col-sm-8" style="padding: 5px 0;">
+      <%= label_tag 'r', 'Results Per Page:', style: "font-weight: normal;"%>
+    </div>
+    <div class="col-sm-4" style="padding:0;">
+      <select class="form-control" name="r" onchange="insertParam('r', this.value, 'page')">
+        <option value="5" <%if @results_per_page == 5%>selected="selected"<%end%>>5</option>
+        <option value="10" <%if @results_per_page == 10%>selected="selected"<%end%>>10</option>
+        <option value="20" <%if @results_per_page == 20%>selected="selected"<%end%>>20</option>
+        <option value="30" <%if @results_per_page == 30%>selected="selected"<%end%>>30</option>
+        <option value="50" <%if @results_per_page == 50%>selected="selected"<%end%>>50</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col-sm-4 form-group" style="margin:5px; padding:0;">
+    <div class="col-sm-3" style="padding: 5px 0;">
+      <%= label_tag 'o', 'Order By:', style: "font-weight: normal;"%>
+    </div>
+    <div class="col-sm-9" style="padding:0;">
+        <select class="form-control" name="o" onchange="insertParam('o', this.value, 'page')">
+        <option value="0" <%if @orderBy == 0%>selected="selected"<%end%>>Relevance</option>
+        <option value="1" <%if @orderBy == 1%>selected="selected"<%end%>>Volume, Page ascending</option>
+        <option value="2" <%if @orderBy == 2%>selected="selected"<%end%>>Volume, Page descending</option>
+        <option value="3" <%if @orderBy == 3%>selected="selected"<%end%>>Chronological</option>
+      </select>
+    </div>
   </div>
 </div>
