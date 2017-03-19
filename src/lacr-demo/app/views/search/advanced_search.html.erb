@@ -7,12 +7,33 @@
         <div class="col-md-2">
           <%= label_tag 'q', 'Content'%>
         </div>
-        <div class="col-md-6">
-          <%= search_field_tag('q','', class: "form-control simple-search") %>
+        <div class="col-md-4">
+          <%= search_field_tag('q','', class: "form-control simple-search", placeholder: "Search for words or phrases...") %>
+        </div>
+
+        <div class="col-md-2">
+          <%= label_tag 'sm', 'Search Method'%>
+          <select name="sm">
+            <option value="0">Keywords</option>
+            <option value="1">Phrase</option>
+            <option value="2">Word start</option>
+            <option value="3">Word middle</option>
+            <option value="4">Word end</option>
+          </select>
         </div>
       </div>
     </div>
-    <br>
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2">
+          <label for="spellVar">Spelling variants:</label>
+          <input name="m" type="text" id="spellVar" readonly style="border:0; font-weight:bold; width: 12px;">
+        </div>
+        <div class="col-md-4">
+          <div id="slider-spellVar"></div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
@@ -23,7 +44,6 @@
         </div>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
@@ -34,7 +54,6 @@
         </div>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
@@ -56,7 +75,6 @@
         </div>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
@@ -76,7 +94,6 @@
         </div>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="form-group">
         <div class="col-md-2">
@@ -89,17 +106,6 @@
             <option value="sco">Scots</option>
             <option value="nld">Dutch</option>
           </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <label for="spellVar">Spelling variants:</label>
-          <input name="m" type="text" id="spellVar" readonly style="border:0; font-weight:bold; width: 12px;">
-        </div>
-        <div class="col-md-4">
-          <div id="slider-spellVar"></div>
         </div>
       </div>
     </div>
