@@ -27,12 +27,14 @@ body{
     color: #444;
     font-size: 1.35rem;
     line-height: 1.7;
+    /* Leave space for top nav bar */
     padding-top: 70px;
+    /* Set backgroud image */
+    background-image: url('bg.jpg');
 }
 
  /*The style for the menu*/
  .navbar-default {
-   background-color: #eaeaea;
    border-color: #eaeaea;
  }
  .navbar-default .navbar-brand {

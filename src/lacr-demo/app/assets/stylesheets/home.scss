@@ -2,16 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-  .header-image {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: url('https://aberdeenregisters.files.wordpress.com/2016/05/cropped-header-image.jpg') no-repeat center center scroll;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      background-size: cover;
-      -o-background-size: cover;
-  }
 
   .headline {
       padding: 120px 0;
@@ -136,10 +126,12 @@
   #h1-home-light-text{
     color: #ffffff;
     font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;
+    text-rendering: optimizeLegibility;
   }
 
   #p-home-light-text{
-    color: #777
+    color: #777;
+    text-rendering: optimizeLegibility;
   }
 
   .h2-home{
@@ -148,10 +140,10 @@
   }
 
   #home-top-container{
-    background-color: #888888;
+    // background-color: #888888;
     width: 100%;
-    margin-top: -20px;
-    margin-bottom: -20px;
+    // margin-top: -20px;
+    // margin-bottom: -20px;
 
   }
 
@@ -218,14 +210,14 @@
       position: absolute;
       top: 6px;
       left: 9px;
-      background: #ffffff;
+      background: #444;
       -webkit-animation: scrollAnimation 1s linear infinite;
       animation: scrollAnimation 1s linear infinite;
     }
 .fp-controlArrow-down .text-helper{
   display: block;
   font-size: 13px;
-  color: #ffffff;
+  color: #444;
 }
 
 @media screen and (max-width: 1199px) {
