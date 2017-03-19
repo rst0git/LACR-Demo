@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+
+  # Simple Search
   def search
     if Search.count.zero? # Fix search on empty table error msg
       redirect_to doc_path
@@ -12,16 +14,19 @@ class SearchController < ApplicationController
     # Parse order_by parameter
     order_by = get_order_by(permited)
 
+    # Parse search method parameter
+    search_method = get_serch_method(permited)
+
     # Send the query to Elasticsearch
     @documents = Search.search @query,
         fields: ['content'],
         suggest: true,
-        match: :word_start,
+        match: search_method,
         page: permited[:page], per_page: @results_per_page,
         highlight: {tag: "<mark>"},
         load: false,
         order: order_by,
-        misspellings: {edit_distance: @misspellings}
+        misspellings: {edit_distance: @misspellings,transpositions: false, below: 5}
   end
 
   def autocomplete
@@ -58,6 +63,9 @@ class SearchController < ApplicationController
 
     # Parse order_by parameter
     order_by = get_order_by(permited)
+
+    # Parse search method parameter
+    search_method = get_serch_method(permited)
 
     # Use wildcard when no content was specified
     @query = permited[:q].present? ? permited[:q] : '*'
@@ -117,11 +125,12 @@ class SearchController < ApplicationController
       where: where_query,
       fields: [:content],
       highlight: {tag: "<mark>"},
+      match: search_method,
       suggest: true,
       load: false,
       page: permited[:page], per_page: @results_per_page,
       order: order_by,
-      misspellings: {edit_distance: @misspellings}
+      misspellings: {edit_distance: @misspellings, below: 5}
 
     render :search
   end # def advanced_search
@@ -129,7 +138,7 @@ class SearchController < ApplicationController
   private
 
   def simple_search_params
-    params.permit(:q, :r, :m, :o, :entry, :date_from, :date_to, :v, :pg, :pr, :lang, :page)
+    params.permit(:q, :r, :m, :o, :sm, :entry, :date_from, :date_to, :v, :pg, :pr, :lang, :page)
   end
 
   def get_search_tools_params(permited)
@@ -172,5 +181,31 @@ class SearchController < ApplicationController
       order_by['date'] = :asc
     end
     return order_by
+  end
+
+  def get_serch_method(permited)
+    # Get the search method value
+    # 0 -> Analyzed (Default)
+    # 1 -> Phrase
+    # 2 -> Exact
+    # 3 -> word_start
+    # 4 -> word_middle
+    # 5 -> word_end
+    @searchMethod = permited[:sm].to_i
+
+    case @searchMethod
+    when 1
+      search_method = :phrase
+    when 2
+      search_method = :word_start
+    when 3
+      search_method = :word_middle
+    when 4
+      search_method = :word_end
+    else
+      search_method = :analyzed
+    end
+
+    return search_method
   end
 end

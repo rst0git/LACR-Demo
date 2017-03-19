@@ -41,15 +41,19 @@ var init_selected_checkboxes = function (){
   $('.add-to-list').each(function () {$(this).prop('checked', selected_list.indexOf($(this).attr("data-entry")) >= 0)});
 }
 
-// Adding a parameter to the URL
+/* Adding a parameter to the URL
+ * key - name of parameter
+ * value - value of parameter
+ * remove - parameter to be removed from url
+ */
 function insertParam(key, value, remove) {
   remove = (remove !== 'undefined') ? remove : '';
-    key = encodeURI(key); value = encodeURI(value); remove = encodeURI(value);
+    key = encodeURI(key); value = encodeURI(value); remove = encodeURI(remove);
     var kvp = document.location.search.substr(1).split('&');
-    var i=kvp.length, x, found=false;  while(i--)
+    var i=kvp.length, found=false;
+    while(i--)
     {
         x = kvp[i].split('=');
-
         if (x[0]==remove) {kvp.splice(i, 1)}
         else if (x[0]==key && !found)
         {

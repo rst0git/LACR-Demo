@@ -36,9 +36,7 @@ then
 fi
 echo ''
 echo 'Starting containers ....'
-docker-compose up
-read -r -p "Destroy the containers ? [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-  docker-compose down
-fi
+docker-compose up -d &&
+echo 'The server is running!'
+echo ''
+echo 'Run "docker-compose stop" to stop the server...'

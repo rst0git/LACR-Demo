@@ -218,3 +218,8 @@ body{
   padding-top: 8px;
   padding-bottom: 10px;
 }
+
+.ui-widget{
+  /* Fix overlap when using autocomplete */
+  z-index: 99999;
+}
