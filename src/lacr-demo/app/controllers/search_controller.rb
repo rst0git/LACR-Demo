@@ -2,9 +2,8 @@ class SearchController < ApplicationController
 
   # Simple Search
   def search
-    if Search.count.zero? # Fix search on empty table error msg
-      redirect_to doc_path
-    end
+    redirect_to doc_path if Search.count.zero? # Fix search on empty DB
+
     # Use strong params
     permited = simple_search_params
 
@@ -17,8 +16,12 @@ class SearchController < ApplicationController
     # Parse search method parameter
     search_method = get_serch_method(permited)
 
+    # Parse advanced search parameters
+    where_query = get_adv_search_params(permited)
+
     # Send the query to Elasticsearch
     @documents = Search.search @query,
+        where: where_query,
         fields: ['content'],
         suggest: true,
         match: search_method,
@@ -26,115 +29,48 @@ class SearchController < ApplicationController
         highlight: {tag: "<mark>"},
         load: false,
         order: order_by,
-        misspellings: {edit_distance: @misspellings,transpositions: false, below: 5}
+        misspellings: {edit_distance: @misspellings,transpositions: false}
   end
 
   def autocomplete
-     render json: Search.search(params[:term], {
-       fields: ['content'],
-       match: :word_start,
-       highlight: {tag: "" ,fields: {content: {fragment_size: 0}}},
-       limit: 10,
-       load: false,
-       misspellings: {prefix_length: 2, edit_distance: 2,below: 4}
-     }).map(&:highlighted_content).uniq
+    # Strip white-space at the beginning and the end.
+    query = params[:term].strip.gsub(/[^0-9a-z]/i, '')
+
+    # Do not use autocomplete phrases, the search method is not appropriate
+    if query.length < 20 and !query.include? ' '
+       render json: (Search.search(query, {
+         fields: ['content'], # Autocomplete for words in content
+         match: :word_start, # Use word_start method
+         highlight: {tag: "" ,
+           fields: {content: {fragment_size: 0}}}, # Highlight only single word
+         limit: 10, # Limit the number of results
+         load: false, # Do not query the database (PostgreSQL)
+         misspellings: {
+           edit_distance: 1, # Limit misspelled distance to 1
+           below: 4, # Do not use misspellings if there are more than 4 results
+           transpositions: false # Show more accurate results
+         }
+       }
+      # Get only the highlighted word
+      # Remove non-aplhanumeric characters, such as white-space
+      # Return only unique words
+      ).map {|x| x.highlighted_content.gsub(/[^0-9a-z]/i, '')}).uniq
+     else
+       render json: {}
+    end
    end
 
   def autocomplete_entry
-     render json: Search.search(params[:term], {
+     render json: Search.search(params[:term].strip, {
        fields: ['entry'],
        match: :word_start,
-       limit: 10,
+       limit: 5,
        load: false,
-       misspellings: {below: 5}
+       misspellings: false
      }).map(&:entry)
    end
 
-  def advanced_search
-    if Search.count.zero? # Fix search on empty table error msg
-      redirect_to doc_path
-    end
-
-    # Use strong params
-    permited = simple_search_params
-
-    # Parse Spelling variants and Results per page
-    get_search_tools_params(permited)
-
-    # Parse order_by parameter
-    order_by = get_order_by(permited)
-
-    # Parse search method parameter
-    search_method = get_serch_method(permited)
-
-    # Use wildcard when no content was specified
-    @query = permited[:q].present? ? permited[:q] : '*'
-
-    where_query = {}
-    if permited[:entry] # Filter by Entry ID
-      where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
-    end
-    if permited[:date_from] # Filter by lower date bound
-      begin
-        # Get date and calc length
-        date_str = permited[:date_from]
-        date_str_length = date_str.split('-').length
-        # Fix incorrect date format
-        if date_str_length == 3
-          where_query['date'] = {'gte':  date_str.to_date }
-        elsif date_str_length == 2
-          where_query['date'] = {'gte': "#{date_str}-1".to_date }
-        elsif date_str_length == 1
-          where_query['date'] = {'gte': "#{date_str}-1-1".to_date }
-        end
-      rescue
-        flash[:notice] = "Incorrect \"Date from\" format"
-      end
-    end
-    if permited[:date_to] # Filter by upper date bound
-      begin
-        # Get date and calc length
-        date_str = permited[:date_to]
-        date_str_length = date_str.split('-').length
-        # Fix incorrect date format
-        if date_str_length == 3
-          where_query['date'] = {'lte': date_str.to_date }
-        elsif date_str_length == 2
-          where_query['date'] = {'lte': "#{date_str}-28".to_date }
-        elsif date_str_length == 1
-          where_query['date'] = {'lte': "#{date_str}-12-31".to_date}
-        end
-      rescue
-        flash[:notice] = "Incorrect \"Date to\" format"
-      end
-    end
-    if permited[:lang] # Filter by language
-      where_query['lang'] = permited[:lang]
-    end
-    if permited[:v] # Filter by voume
-      where_query['volume'] = permited[:v].split(/,| /).map { |s| s.to_i }
-    end
-    if permited[:pg] # Filter by page
-      where_query['page'] = permited[:pg].split(/,| /).map { |s| s.to_i }
-    end
-    if permited[:pr] # Filter by paragraph
-      where_query['paragraph'] = permited[:pr].split(/,| /).map { |s| s.to_i }
-    end
-
-    @documents = Search.search @query,
-      where: where_query,
-      fields: [:content],
-      highlight: {tag: "<mark>"},
-      match: search_method,
-      suggest: true,
-      load: false,
-      page: permited[:page], per_page: @results_per_page,
-      order: order_by,
-      misspellings: {edit_distance: @misspellings, below: 5}
-
-    render :search
-  end # def advanced_search
-
+   # Define functions for simplicity
   private
 
   def simple_search_params
@@ -142,9 +78,8 @@ class SearchController < ApplicationController
   end
 
   def get_search_tools_params(permited)
-
     # Get text from the user input. In case of empty search -> use '*'
-    @query = permited[:q].present? ? permited[:q] : '*'
+    @query = permited[:q].present? ? permited[:q].strip : '*'
 
     # Get the number of results per page; Default value -> 5
     @results_per_page = 5
@@ -207,5 +142,59 @@ class SearchController < ApplicationController
     end
 
     return search_method
+  end
+
+  def get_adv_search_params(permited)
+    where_query = {}
+    if permited[:entry] # Filter by Entry ID
+      where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
+    end
+    if permited[:date_from] # Filter by lower date bound
+      begin
+        # Get date and calc length
+        date_str = permited[:date_from]
+        date_str_length = date_str.split('-').length
+        # Fix incorrect date format
+        if date_str_length == 3
+          where_query['date'] = {'gte':  date_str.to_date }
+        elsif date_str_length == 2
+          where_query['date'] = {'gte': "#{date_str}-1".to_date }
+        elsif date_str_length == 1
+          where_query['date'] = {'gte': "#{date_str}-1-1".to_date }
+        end
+      rescue
+        flash[:notice] = "Incorrect \"Date from\" format"
+      end
+    end
+    if permited[:date_to] # Filter by upper date bound
+      begin
+        # Get date and calc length
+        date_str = permited[:date_to]
+        date_str_length = date_str.split('-').length
+        # Fix incorrect date format
+        if date_str_length == 3
+          where_query['date'] = {'lte': date_str.to_date }
+        elsif date_str_length == 2
+          where_query['date'] = {'lte': "#{date_str}-28".to_date }
+        elsif date_str_length == 1
+          where_query['date'] = {'lte': "#{date_str}-12-31".to_date}
+        end
+      rescue
+        flash[:notice] = "Incorrect \"Date to\" format"
+      end
+    end
+    if permited[:lang] # Filter by language
+      where_query['lang'] = permited[:lang]
+    end
+    if permited[:v] # Filter by voume
+      where_query['volume'] = permited[:v].split(/,| /).map { |s| s.to_i }
+    end
+    if permited[:pg] # Filter by page
+      where_query['page'] = permited[:pg].split(/,| /).map { |s| s.to_i }
+    end
+    if permited[:pr] # Filter by paragraph
+      where_query['paragraph'] = permited[:pr].split(/,| /).map { |s| s.to_i }
+    end
+    return where_query
   end
 end
