@@ -27,7 +27,7 @@ class SearchController < ApplicationController
     # Strip white-space at the beginning and the end.
     query = params[:term].strip.gsub(/[^0-9a-z]/i, '')
 
-    # Do not use autocomplete phrases, the search method is not appropriate
+    # Do not use autocomplete for phrases; The search method is not appropriate
     if query.length < 20 and !query.include? ' '
        render json: (Search.search(query, {
          fields: ['content'], # Autocomplete for words in content
@@ -120,16 +120,11 @@ class SearchController < ApplicationController
     @searchMethod = permited[:sm].to_i
 
     case @searchMethod
-    when 1
-      search_method = :phrase
-    when 2
-      search_method = :word_start
-    when 3
-      search_method = :word_middle
-    when 4
-      search_method = :word_end
-    else
-      search_method = :analyzed
+      when 1 then search_method = :phrase
+      when 2 then search_method = :word_start
+      when 3 then search_method = :word_middle
+      when 4 then search_method = :word_end
+      else search_method = :analyzed
     end
 
     return search_method
@@ -140,40 +135,38 @@ class SearchController < ApplicationController
     if permited[:entry] # Filter by Entry ID
       where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
     end
-    # if permited[:date_from] # Filter by lower date bound
-    #   begin
-    #     # Get date and calc length
-    #     date_str = permited[:date_from]
-    #     date_str_length = date_str.split('-').length
-    #     # Fix incorrect date format
-    #     if date_str_length == 3
-    #       where_query['date'] = {'gte':  date_str.to_date }
-    #     elsif date_str_length == 2
-    #       where_query['date'] = {'gte': "#{date_str}-1".to_date }
-    #     elsif date_str_length == 1
-    #       where_query['date'] = {'gte': "#{date_str}-1-1".to_date }
-    #     end
-    #   rescue
-    #     flash[:notice] = "Incorrect \"Date from\" format"
-    #   end
-    # end
-    # if permited[:date_to] # Filter by upper date bound
-    #   begin
-    #     # Get date and calc length
-    #     date_str = permited[:date_to]
-    #     date_str_length = date_str.split('-').length
-    #     # Fix incorrect date format
-    #     if date_str_length == 3
-    #       where_query['date'] = {'lte': date_str.to_date }
-    #     elsif date_str_length == 2
-    #       where_query['date'] = {'lte': "#{date_str}-28".to_date }
-    #     elsif date_str_length == 1
-    #       where_query['date'] = {'lte': "#{date_str}-12-31".to_date}
-    #     end
-    #   rescue
-    #     flash[:notice] = "Incorrect \"Date to\" format"
-    #   end
-    # end
+    date_range = {}
+    if permited[:date_from] # Filter by lower date bound
+      begin
+        date_str = permited[:date_from] # Get date
+        # Fix incorrect date format
+        case date_str.split('-').length
+        when 3 then date_range[:gte] =  date_str.to_date
+        when 2 then date_range[:gte] = "#{date_str}-1".to_date
+        when 1 then date_range[:gte] = "#{date_str}-1-1".to_date
+        else flash[:notice] = "Incorrect \"Date from\" format"
+        end
+      rescue
+        flash[:notice] = "Incorrect \"Date from\" format"
+      end
+    end
+    if permited[:date_to] # Filter by upper date bound
+      begin
+        date_str = permited[:date_to] # Get date
+        # Fix incorrect date format
+        case date_str.split('-').length
+        when 3 then date_range[:lte] = date_str.to_date
+        when 2 then date_range[:lte] = "#{date_str}-28".to_date
+        when 1 then date_range[:lte] = "#{date_str}-12-31".to_date
+        else  flash[:notice] = "Incorrect \"Date to\" format"
+        end
+      rescue
+        flash[:notice] = "Incorrect \"Date to\" format"
+      end
+    end
+    # Append to where_query
+    where_query['date'] = date_range
+
     if permited[:lang] # Filter by language
       where_query['lang'] = permited[:lang]
     end
