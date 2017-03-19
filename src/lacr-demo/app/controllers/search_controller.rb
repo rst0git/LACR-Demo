@@ -10,26 +10,17 @@ class SearchController < ApplicationController
     # Parse Spelling variants and Results per page
     get_search_tools_params(permited)
 
-    # Parse order_by parameter
-    order_by = get_order_by(permited)
-
-    # Parse search method parameter
-    search_method = get_serch_method(permited)
-
-    # Parse advanced search parameters
-    where_query = get_adv_search_params(permited)
-
     # Send the query to Elasticsearch
     @documents = Search.search @query,
-        where: where_query,
-        fields: ['content'],
-        suggest: true,
-        match: search_method,
-        page: permited[:page], per_page: @results_per_page,
-        highlight: {tag: "<mark>"},
-        load: false,
-        order: order_by,
-        misspellings: {edit_distance: @misspellings,transpositions: false}
+        misspellings: {edit_distance: @misspellings,transpositions: false},
+        page: permited[:page], per_page: @results_per_page, # Pagination
+        where: get_adv_search_params(permited), # Parse adv search parameters
+        match: get_serch_method(permited), # Parse search method parameter
+        order: get_order_by(permited), # Parse order_by parameter
+        highlight: {tag: "<mark>"}, # Set html tag for highlight
+        fields: ['content'], # Search for the query only within content
+        suggest: true, # Enable suggestions
+        load: false # Do not retrieve data from PostgreSQL
   end
 
   def autocomplete
@@ -149,40 +140,40 @@ class SearchController < ApplicationController
     if permited[:entry] # Filter by Entry ID
       where_query['entry'] = Regexp.new "#{permited[:entry]}.*"
     end
-    if permited[:date_from] # Filter by lower date bound
-      begin
-        # Get date and calc length
-        date_str = permited[:date_from]
-        date_str_length = date_str.split('-').length
-        # Fix incorrect date format
-        if date_str_length == 3
-          where_query['date'] = {'gte':  date_str.to_date }
-        elsif date_str_length == 2
-          where_query['date'] = {'gte': "#{date_str}-1".to_date }
-        elsif date_str_length == 1
-          where_query['date'] = {'gte': "#{date_str}-1-1".to_date }
-        end
-      rescue
-        flash[:notice] = "Incorrect \"Date from\" format"
-      end
-    end
-    if permited[:date_to] # Filter by upper date bound
-      begin
-        # Get date and calc length
-        date_str = permited[:date_to]
-        date_str_length = date_str.split('-').length
-        # Fix incorrect date format
-        if date_str_length == 3
-          where_query['date'] = {'lte': date_str.to_date }
-        elsif date_str_length == 2
-          where_query['date'] = {'lte': "#{date_str}-28".to_date }
-        elsif date_str_length == 1
-          where_query['date'] = {'lte': "#{date_str}-12-31".to_date}
-        end
-      rescue
-        flash[:notice] = "Incorrect \"Date to\" format"
-      end
-    end
+    # if permited[:date_from] # Filter by lower date bound
+    #   begin
+    #     # Get date and calc length
+    #     date_str = permited[:date_from]
+    #     date_str_length = date_str.split('-').length
+    #     # Fix incorrect date format
+    #     if date_str_length == 3
+    #       where_query['date'] = {'gte':  date_str.to_date }
+    #     elsif date_str_length == 2
+    #       where_query['date'] = {'gte': "#{date_str}-1".to_date }
+    #     elsif date_str_length == 1
+    #       where_query['date'] = {'gte': "#{date_str}-1-1".to_date }
+    #     end
+    #   rescue
+    #     flash[:notice] = "Incorrect \"Date from\" format"
+    #   end
+    # end
+    # if permited[:date_to] # Filter by upper date bound
+    #   begin
+    #     # Get date and calc length
+    #     date_str = permited[:date_to]
+    #     date_str_length = date_str.split('-').length
+    #     # Fix incorrect date format
+    #     if date_str_length == 3
+    #       where_query['date'] = {'lte': date_str.to_date }
+    #     elsif date_str_length == 2
+    #       where_query['date'] = {'lte': "#{date_str}-28".to_date }
+    #     elsif date_str_length == 1
+    #       where_query['date'] = {'lte': "#{date_str}-12-31".to_date}
+    #     end
+    #   rescue
+    #     flash[:notice] = "Incorrect \"Date to\" format"
+    #   end
+    # end
     if permited[:lang] # Filter by language
       where_query['lang'] = permited[:lang]
     end

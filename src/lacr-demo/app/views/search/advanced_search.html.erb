@@ -1,116 +1,103 @@
 <div class="container" id="adv-search-section">
   <h1>Advanced Search</h1>
-  <div class="row">
     <%= form_tag search_path, id: "adv-search", method: :get do |f|%>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <%= label_tag 'q', 'Content'%>
-        </div>
-        <div class="col-md-4">
-          <%= search_field_tag('q','', class: "form-control simple-search", placeholder: "Search for words or phrases...") %>
-        </div>
+      <div class="row">
+        <div class="form-group">
+            <div class="col-sm-2">
+              <%= label_tag 'q', 'Content'%>
+            </div>
+            <div class="col-sm-5">
+              <%= search_field_tag('q','', class: "form-control simple-search", placeholder: "Search for words or phrases...") %>
+            </div>
 
-        <div class="col-md-2">
-          <%= label_tag 'sm', 'Search Method'%>
-          <select name="sm">
-            <option value="0">Keywords</option>
-            <option value="1">Phrase</option>
-            <option value="2">Word start</option>
-            <option value="3">Word middle</option>
-            <option value="4">Word end</option>
-          </select>
+            <div class="col-sm-5">
+              <%= label_tag 'sm', 'Search Method'%>
+              <select name="sm">
+                <option value="0">Keywords</option>
+                <option value="1">Phrase</option>
+                <option value="2">Word start</option>
+                <option value="3">Word middle</option>
+                <option value="4">Word end</option>
+              </select>
+            </div>
+        </div><br>
+        <div class="form-group">
+            <div class="col-sm-2">
+              <label for="lang">Language:</label>
+            </div>
+            <div class="col-sm-2">
+              <select class="form-control" id="lang" name="lang">
+                <option value="">Any</option>
+                <option value="lat">Latin</option>
+                <option value="sco">Scots</option>
+                <option value="nld">Dutch</option>
+              </select>
+            </div>
+        </div><br>
+        <div class="form-group" style="padding-top: 5px;">
+            <div class="col-sm-2">
+              <label for="spellVar">Spelling variants:</label>
+              <input name="m" type="text" id="spellVar" readonly style="border:0; font-weight:bold; width: 12px;">
+            </div>
+            <div class="col-sm-4">
+              <div id="slider-spellVar"></div>
+            </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <%= label_tag 'v', 'Volume:'%>
+            </div>
+            <div class="col-sm-4">
+              <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
+            </div>
+        </div> <br>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <%= label_tag 'pg', 'Page:'%>
+            </div>
+            <div class="col-sm-4">
+                <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
+            </div>
+        </div><br>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <%= label_tag 'pr', 'Paragraph:'%>
+            </div>
+            <div class="col-sm-4">
+              <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
+            </div>
+        </div>
+      </div><br>
+      <div class="row form-group">
+        <div class="col-sm-2">
+          <%= label_tag 'content_none', 'Date:'%>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon" id="date_from-label">from</span>
+              <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd", describedby: "date_from-label", class: "form-control datepicker") %>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon" id="date_to-label">to</span>
+              <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd ", describedby: "date_to-label", class: "form-control datepicker") %>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <label for="spellVar">Spelling variants:</label>
-          <input name="m" type="text" id="spellVar" readonly style="border:0; font-weight:bold; width: 12px;">
+      <div class="row form-group">
+        <div class="col-sm-2">
+          <%= label_tag 'entry', 'Entry ID:'%>
         </div>
-        <div class="col-md-4">
-          <div id="slider-spellVar"></div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <%= label_tag 'entry', 'Entry ID'%>
-        </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <%= search_field_tag('entry','', class: "form-control", placeholder: "ARO-4-0005-03") %>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-            <%= label_tag 'v', 'Volume'%>
-        </div>
-        <div class="col-md-4">
-          <%= search_field_tag('v','', class: "form-control", placeholder: "4, 5, 7") %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-            <%= label_tag 'pg', 'Page'%>
-        </div>
-        <div class="col-md-4">
-            <%= search_field_tag('pg','', class: "form-control", placeholder: "5, 18, 9") %>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-            <%= label_tag 'pr', 'Paragraph'%>
-        </div>
-        <div class="col-md-4">
-          <%= search_field_tag('pr','', class: "form-control", placeholder: "1, 2") %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <%= label_tag 'content_none', 'Date:'%>
-        </div>
-        <div class="col-md-2">
-          <div class="input-group">
-            <span class="input-group-addon" id="date_from-label">from</span>
-            <%= search_field_tag('date_from','', placeholder: "yyyy-mm-dd", describedby: "date_from-label", class: "form-control datepicker") %>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="input-group">
-            <span class="input-group-addon" id="date_to-label">to</span>
-            <%= search_field_tag('date_to','', placeholder: "yyyy-mm-dd ", describedby: "date_to-label", class: "form-control datepicker") %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="col-md-2">
-          <label for="lang">Language:</label>
-        </div>
-        <div class="col-md-2">
-          <select class="form-control" id="lang" name="lang">
-            <option value="">Any</option>
-            <option value="lat">Latin</option>
-            <option value="sco">Scots</option>
-            <option value="nld">Dutch</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <hr>
+      <hr>
     <%= submit_tag 'Search', class: 'btn btn-primary' %>
     <% end %>
-  </div>
 </div>
