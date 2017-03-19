@@ -1,6 +1,7 @@
 class TranscriptionXml < ApplicationRecord
   # Use unique filenames and overwrite on upload
   validates_uniqueness_of :filename
+  validates :filename, :xml, presence: true
 
   HISTEI_NS = 'http://www.tei-c.org/ns/1.0'
   # Mount the file uploader
