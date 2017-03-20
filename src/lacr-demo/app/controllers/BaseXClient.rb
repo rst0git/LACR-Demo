@@ -51,10 +51,17 @@ module BaseXClient
       return result
     end
 
+    def create_readOnly
+      send("CREATE USER readOnly") # Create user
+      # By default, the user will have no permissions ('none'):
+      send("ALTER PASSWORD readOnly readOnly")
+      send("GRANT read TO readOnly")
+    end
+
     def open_or_create_db(db_name)
       send("open #{db_name}")
-      receive # Hack need to be fixed
-      receive # Hack need to be fixed
+      receive
+      receive
       if !ok
         create(db_name, '')
       end

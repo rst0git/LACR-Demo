@@ -32,7 +32,7 @@ fi
 read -r -p "Create database ? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-  docker-compose run web bash -c "rm /lacr-demo/tmp/pids/server.pid > /dev/null; rails db:drop && rails db:create && rails db:migrate && rails db:seed"
+  docker-compose run web bash -c "rails db:drop && rails db:create && rails db:migrate && rails db:seed"
 fi
 echo ''
 echo 'Starting containers ....'

@@ -10,7 +10,7 @@ var page_init = function (){
     scrollOverflow: true, // Enable scroll on pages
     fitToSectionDelay: 0, // Load imidiately
     paddingTop: "70px", // Padding for the header
-    paddingBottom: "50px", // Padding for the footer
+    // paddingBottom: "50px", // Padding for the footer
     controlArrows: false, // Disable navigation arrows
     verticalCentered: false, // Do not center pages
     loopHorizontal: false // To prevent unwanted actions
