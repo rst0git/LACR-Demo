@@ -4,7 +4,7 @@ require 'fileutils'
 class PageImageTest < ActiveSupport::TestCase
 
 	test_files_path = Rails.root.join('test/fixtures/files/')
-
+	
 	test 'should not save image if not tif format' do
 		FileUtils.copy test_files_path.join('jpg/Awesome_Bridge_11658x6112.jpg'), \
 		test_files_path.join('jpg/Awesome_Bridge_11658x6112-copy.jpg')
@@ -20,7 +20,7 @@ class PageImageTest < ActiveSupport::TestCase
 		img = PageImage.new
 		img.image = File.open(test_files_path.join('tif/GB0230CA000100001-00005-00001-09998-.tif'), 'r')
 		img.parse_filename_to_volume_page 'GB0230CA000100001-00005-00001-09998-.tif'
-		assert img.save, 'Saved the image if it was not tif format'
+		assert img.save!, 'It did not save the image in tif format'
 	end
 
 	test 'should not save image without volume' do

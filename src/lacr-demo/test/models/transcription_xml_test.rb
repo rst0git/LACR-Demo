@@ -16,14 +16,14 @@ class TranscriptionXmlTest < ActiveSupport::TestCase
 	# this test fails because carrierwave does not support file checking
 	# it tests only the extension
 	# it could be done in the future by using unix 'file' command
-	test 'should not save transcription if content type is not xml' do
+	test 'should not save transcription if content is not xml' do
 		skip('To be implemented: check file type with unix command file. carrierwave determines content based on extension.')
 		FileUtils.copy test_files_path.join('xml/landscape.jpg'), \
 		test_files_path.join('xml/ARO-5-9999-01_ARO-5-9998-12_WH_EF_AH.xml')
 		transcription_xml = TranscriptionXml.new
 		transcription_xml.filename = 'ARO-5-9999-01_ARO-5-9998-12_WH_EF_AH.xml'
 		transcription_xml.xml = File.open(test_files_path.join('xml/ARO-5-9999-01_ARO-5-9998-12_WH_EF_AH.xml'), 'r')
-		assert_not transcription_xml.save, 'Saved transcription despite content type was not xml'
+		assert_not transcription_xml.save, 'Saved transcription despite content was not xml'
 	end
 
 	test 'should not save transcription without filename' do
