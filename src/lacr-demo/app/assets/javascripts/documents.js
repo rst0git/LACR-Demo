@@ -25,6 +25,10 @@ var load_document = function (p, v){
 
           // Event listener for add-to-list of selected entries
           init_selected_checkboxes();
+
+          // Enable scroll for transcriptions
+          $('#doc-transcriptions').height("600px");
+          $('#doc-transcriptions').css("overflow", "auto");
         }
         if(statusTxt == "error")
             console.log("Error: " + xhr.status + ": " + xhr.statusText);

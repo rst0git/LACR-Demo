@@ -130,7 +130,7 @@
   }
 
   #p-home-light-text{
-    color: #777;
+    color: rgba(255, 255, 255, 0.8);
     text-rendering: optimizeLegibility;
   }
 
@@ -148,10 +148,11 @@
   }
 
   .jumbotron{
-    background-color: #1E1E1E;
+    // background-color: #1E1E1E;
+    background-color: #BB7B3D;
     padding-left: 0px ;
     padding-right: 0px;
-    box-shadow: 7px 7px 5px #222222;
+    box-shadow: 7px 7px 5px #703904;
   }
 
   .fp-controlArrow-down {
