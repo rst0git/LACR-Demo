@@ -1,23 +1,17 @@
-<% content_for :stylesheet_includes do %>
-	<%= stylesheet_link_tag    'histei/annotation.css' %>
-<% end %>
 <div class="text-center">
 	<h4 id="doc-title"></h4>
 </div>
-
-<div class="col-md-1">
-	<div class="sidebar-nav">
-		<ul class="nav nav-list" id="doc_nav" style="display:none;">
-		</ul> <!-- <ul class="nav nav-list"> -->
+<div class="col-md-2 hidden-sm hidden-xs">
+	<div class="sidebar-nav" style="position:fixed;">
+		<!-- <nav data-spy="affix" data-offset-top="0"> -->
+			<ul class="nav nav-list" data-spy="affix" id="doc_nav" style="display:none;"></ul> <!-- <ul class="nav nav-list"> -->
+		<!-- </nav> -->
 	</div> <!-- <div class="sidebar-nav"> -->
 </div> <!-- <div class="col-md-1"> -->
 
-<div class="container">
-	<div class="col-md-10">
-		<div class="container" id="transcription-image">
-		</div> <!-- container -->
-	</div> <!-- <div class="col-md-10" id="transcription-image"> -->
-</div>
+<div class="col-md-10">
+	<div id="transcription-image"></div>
+</div> <!-- <div class="col-md-10" id="transcription-image"> -->
 
 
 <% content_for :javascript_includes do %>

@@ -1,17 +1,3 @@
-
-  <nav class="hide">
-    <ul id="myMenu">
-  <li data-menuanchor="firstSection">
-    <a href="#firstSection" title="First Section">First Section</a>
-  </li>
-  <li data-menuanchor="secondSection">
-    <a href="#secondSection" title="Second Section">Second Section</a>
-  </li>
-  <li data-menuanchor="thirdSection">
-    <a href="#thirdSection" title="Second Section">Third Section</a>
-  </li>
-</ul>
-</nav>
 <div id="fullpage">
     <div id="home-top-container" class="section">
       <div class="container">
@@ -19,7 +5,7 @@
           <div class="jumbotron">
             <div class="container">
               <div class="col-md-4 text-center">
-                <img src="/assets/lacr-round.jpg" id="index-home-image">
+                <img src="/assets/lacr-round.png" id="index-home-image">
               </div>
               <div class="col-md-8">
                 <h1 class="display-3" id="h1-home-light-text">Aberdeen Registers</h1>
@@ -28,16 +14,13 @@
               <div class="col-md-offset-3 col-md-6">
                 <form action="/search" method="get">
                   <div class="input-group">
-                    <input type="search" class="form-control simple-search" name="q" placeholder="Search for..." <% if @query %> value="<%= @query%>" <%end%>>
+                    <input type="search" class="form-control simple-search" name="q" placeholder="Search for words or phrases..." <% if @query %> value="<%= @query%>" <%end%>>
                     <div class="input-group-btn">
                       <button class="btn btn-default" type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <%= fa_icon "search"%>
                       </button>
                     </div>
                   </div>
-                  <input type="hidden" name="r" value="<%= @results_per_page%>">
-                  <input type="hidden" name="m" value="<%= @misspellings%>">
-                  <input type="hidden" name="o" value="<%= @orderBy%>">
                 </form>
               </div>
             </div> <!-- row -->

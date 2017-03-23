@@ -6,6 +6,7 @@ class TranscriptionXml < ApplicationRecord
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
 
+  # Recursive function to convert the XML format to valid HTML5
   def xml_to_html(tag)
     tag.children().each do |c|
       # Rename the attributes
@@ -14,6 +15,7 @@ class TranscriptionXml < ApplicationRecord
       end
       # Rename the tag and replace lb with br
       c['class'] = "xml-tag #{c.name.gsub(':', '-')}"
+      # To avoid invalid void tags: Use "br" if "lb", otherwise "span"
       c.name = c.name == 'lb' ?  "br" : "span"
       # Use recursion
       xml_to_html(c)
@@ -52,7 +54,15 @@ class TranscriptionXml < ApplicationRecord
       # Convert the 'entry' and 'date' Nokogiri objects to Ruby Hashes
       entry_id = entry.xpath("@xml:id").to_s
       entry_lang = entry.xpath("@xml:lang").to_s
-      entry_xml = entry.to_xml
+      case entry_lang # Fix language standad
+      when 'sc'
+        entry_lang = 'sco'
+      when 'la'
+        entry_lang = 'lat'
+      when 'nl'
+        entry_lang = 'nld'
+      end
+      entry_xml = entry.to_xml.gsub('xml:lang="sc"', 'xml:lang="sco"').gsub('xml:lang="la"', 'xml:lang="lat"').gsub('xml:lang="nl"', 'xml:lang="nld"')
       entry_text =(Nokogiri::XML(entry_xml.gsub('<lb break="yes"/>', "\n"))).xpath('normalize-space()')
       xml_to_html(entry)
       entry_html = entry.to_xml

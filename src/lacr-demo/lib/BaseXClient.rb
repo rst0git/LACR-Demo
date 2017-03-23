@@ -31,7 +31,7 @@ module BaseXClient
 
       # evaluate success flag
       if read != 0.chr
-        return "Access denied."
+        raise "Access denied."
       end
 
       @char_lead_byte = "\xFF"
@@ -46,18 +46,9 @@ module BaseXClient
       result = receive
       @info = receive
       if !ok
-        return @info
+        raise @info
       end
       return result
-    end
-
-    def open_or_create_db(db_name)
-      send("open #{db_name}")
-      receive # Hack need to be fixed
-      receive # Hack need to be fixed
-      if !ok
-        create(db_name, '')
-      end
     end
 
     def query(cmd)
@@ -110,7 +101,7 @@ module BaseXClient
       send(cmd + arg + 0.chr + input)
       @info = receive
       if !ok
-        return @info
+        raise @info
       end
     end
 
@@ -153,7 +144,7 @@ module BaseXClient
           @cache << @session.receive
         end
         if !@session.ok
-          return @session.receive
+          raise @session.receive
         end
       end
       return @pos < @cache.length
@@ -182,7 +173,7 @@ module BaseXClient
       @session.send(cmd + arg)
       s = @session.receive
       if !@session.ok
-        return @session.receive
+        raise @session.receive
       end
       return s
     end

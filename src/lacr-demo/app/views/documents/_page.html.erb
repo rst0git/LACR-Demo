@@ -1,17 +1,17 @@
 <!-- Left Side: Text contet -->
-<div class="<% if @document_image_normal %>col-md-6<%else%>col-md-10<%end%>">
+<div class="<% if @document_image_normal %>col-md-6<%else%>col-md-10<%end%>" id="doc-transcriptions">
 
   <% @documents.each do |document| %>
 		<div class="panel panel-primary" id="<%= document.entry %>">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<strong>ID: </strong><span><%= document.entry %></span>
 					</div>
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<strong>Date: </strong><span><% if document.date_incorrect %><%= document.date_incorrect %><% else %><%= document.date %><% end %></span>
 					</div>
-					<div class="col-md-4">
+					<div class="col-sm-4">
 						<strong>Language: </strong><span class="pr-language"><%= document.lang %></span>
 					</div> <!-- col-md-4 -->
 				</div> <!-- row -->
@@ -35,7 +35,7 @@
 <!-- Right Side: Image -->
 <% if @document_image_normal %>
 	<div class="col-md-6">
-		<span class='zoom' id="doc-image">
+		<span class='zoom' id="doc-image" data-spy="affix" data-offset-top="205">
 			<%= image_tag(@document_image_normal, class:"img-rounded img-responsive", data:	{large_image: @document_image_large}) %>
 		</span>
 	</div> <!-- col-md-6 -->

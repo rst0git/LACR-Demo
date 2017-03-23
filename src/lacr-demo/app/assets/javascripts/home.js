@@ -49,23 +49,22 @@ $(document).ready(function() {
     $('#fullpage').fullpage({
       anchors:['homepage', 'advsearch', 'about'],
       navigation: true,
-      menu: '#myMenu',
       paddingTop: '60px',
-      paddingBottom: '30px',
       onLeave: function(index, nextIndex, direction){
         // Hide datepicer after leaving Advanced Search section
         if(index == 2){
           $( ".datepicker" ).datepicker('hide');
         }
-      }
+      },
+      // Focus earch input field
+      afterLoad: function(anchorLink, index){
+         if(index == 1 || index == 2){$('.simple-search').eq(index-1).focus();}
+       }
     });
 
     // Initialise spelling variants slider
-    $('#slider-spellVar').slider({
-      range: "max",
-      min: 0,
-      max: 5,
-      value: 2,
+    $('#slider-spellVar').slider({ range: "max",
+      min: 0, max: 5, value: 1,
       slide: function( event, ui ) {
         $( "#spellVar" ).val( ui.value );
       }
@@ -87,8 +86,4 @@ $('#home-nav').click(function(){
 
 $('.fp-controlArrow-down').click(function(){
     $.fn.fullpage.moveSectionDown();
-});
-
-$('.fp-controlArrow-up').click(function(){
-    $.fn.fullpage.moveSectionUp();
 });
