@@ -28,6 +28,35 @@ class TranscriptionXml < ApplicationRecord
     # Remove Processing Instructions. Tags of type <? .. ?>
     doc.xpath('//processing-instruction()').remove
 
+    # Create empty pages
+    page_breaks = doc.xpath("//xmlns:pb[@n]", 'xmlns' => HISTEI_NS)
+    page_breaks.each do |pb|
+      begin
+        # The attribute <pb n=""> is assumed to be the page number
+        page = pb.xpath('@n').to_s.to_i
+        # The volume  number is extracted from the xml:id of the closest div
+        volume = pb.xpath('( ancestor::xmlns:div[@xml:id][1]/@xml:id  |  preceding::xmlns:div[@xml:id][1]/@xml:id ) [last()]'
+        ).to_s.split(/-|_/).map{|x| x.to_i}.delete_if{|i| i==0}[0]
+        # The note contains information about the page
+        # it content is usually "Page is empty."
+        note = pb.xpath('following::xmlns:note[@type="editorial"][1]', 'xmlns' => HISTEI_NS)
+        note_text = note.to_s ? note.to_s : nil
+        if note_text and page and volume
+          s = Search.new
+          pr = TrParagraph.new
+          pr.content_xml = note.to_xml
+          pr.content_html = note_text
+          pr.save
+          s.tr_paragraph = pr
+          s.transcription_xml = self
+          s.volume = volume
+          s.page = page
+          s.save
+        end
+      rescue Exception => e
+        logger.error(e)
+      end
+    end
     # Extract all "div" tags with atribute "xml:id"
     entries = doc.xpath("//xmlns:div[@xml:id]", 'xmlns' => HISTEI_NS)
 
