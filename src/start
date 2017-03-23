@@ -36,7 +36,4 @@ then
 fi
 echo ''
 echo 'Starting containers ....'
-docker-compose up -d &&
-echo 'The server is running!'
-echo ''
-echo 'Run "docker-compose stop" to stop the server...'
+docker-compose up

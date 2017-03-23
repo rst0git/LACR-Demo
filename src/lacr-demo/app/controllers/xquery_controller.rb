@@ -1,40 +1,33 @@
+require "#{Rails.root}/lib/BaseXClient"
+
 class XqueryController < ApplicationController
- require 'BaseXClient.rb'
 
   def index
   end
 
  def show
-    # create session
-    session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
-    # session.create_readOnly()
-    # Open DB or create if does not exist
-    session.open_or_create_db("xmldb")
-    # Get user query
-    input = params[:search]
-   # XQuery declaration of the namespace
-    declarate_ns = 'declare namespace ns = "http://www.tei-c.org/ns/1.0";'
-    # Create instance the BaseX Client in Query Mode
-    query = session.query(declarate_ns + input)
-    # Store the result
-     @query_result = query.execute
-    # Count the number of results
-    @number_of_results = session.query("#{declarate_ns}count(#{input})").execute.to_i
-    # close session
-    session.close
+   begin
+      # create session
+      session = BaseXClient::Session.new("xmldb", 1984, "readOnly", "cde452a35ef0323cc30fbdfd47538ecb3003f772")
+      # session.create_readOnly()
+      # Open DB or create if does not exist
+      session.execute("open xmldb")
+      # Get user query
+      input = params[:search]
+     # XQuery declaration of the namespace
+      declarate_ns = 'declare namespace ns = "http://www.tei-c.org/ns/1.0";'
+      # Create instance the BaseX Client in Query Mode
+      query = session.query(declarate_ns + input)
+      # Store the result
+      @query_result = query.execute
+      # Count the number of results
+      @number_of_results = session.query("#{declarate_ns}count(#{input})").execute.to_i
+      # close session
+      query.close()
+      session.close
+    rescue Exception => e
+      logger.error(e)
+      @query_result = "--- Sorry, this query cannot be executed ---\n"+e.to_s
+    end
   end
-
-  def upload(files)
-    if user_signed_in? and current_user.admin?
-     session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
-     session.open_or_create_db("xmldb")
-     files.each do |file_name, file_content|
-       session.add(file_name, file_content)
-     end
-     session.close
-   else
-     redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
-   end
-  end
-
 end
