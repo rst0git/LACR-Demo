@@ -54,3 +54,15 @@
 .measure:focus:after {
     background-color: rgba(128, 0, 255, 0.7);
 }
+
+.choice > .sic{
+  color: gray;
+  font-style: italic;
+}
+
+.choice > .corr{
+  display: none;
+}
+.choice:hover > .corr{
+  display: initial;
+}
