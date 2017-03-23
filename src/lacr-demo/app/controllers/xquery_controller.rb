@@ -25,16 +25,12 @@ class XqueryController < ApplicationController
   end
 
   def upload(files)
-    if user_signed_in? and current_user.admin?
      session = BaseXClient::Session.new("xmldb", 1984, "admin", "admin")
      session.open_or_create_db("xmldb")
      files.each do |file_name, file_content|
        session.add(file_name, file_content)
      end
      session.close
-   else
-     redirect_to new_user_session_path, :alert => "Not logged in or Insufficient rights!"
-   end
   end
 
 end
