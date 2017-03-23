@@ -40,17 +40,26 @@ class TranscriptionXml < ApplicationRecord
         # The note contains information about the page
         # it content is usually "Page is empty."
         note = pb.xpath('following::xmlns:note[@type="editorial"][1]', 'xmlns' => HISTEI_NS)
-        note_text = note.to_s ? note.to_s : nil
-        if note_text and page and volume
-          s = Search.new
-          pr = TrParagraph.new
+        note_text =  "Page is empty."
+        if page and volume
+	  if Search.exists?(volume: volume, page: page)
+	        s = Search.find_by(volume: volume, page: page)
+	        # Get existing paragraph
+	        pr = s.tr_paragraph
+
+	  else
+	        # Create new search record
+	        s = Search.new
+	        s.volume = volume
+	        s.page = page
+	        # Create TrParagraph record
+	        pr = TrParagraph.new
+	  end
           pr.content_xml = note.to_xml
           pr.content_html = note_text
           pr.save
           s.tr_paragraph = pr
           s.transcription_xml = self
-          s.volume = volume
-          s.page = page
           s.save
         end
       rescue Exception => e
