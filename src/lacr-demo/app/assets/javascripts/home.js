@@ -64,7 +64,7 @@ $(document).ready(function() {
 
     // Initialise spelling variants slider
     $('#slider-spellVar').slider({ range: "max",
-      min: 0, max: 5, value: 1,
+      min: 0, max: 4, value: 1,
       slide: function( event, ui ) {
         $( "#spellVar" ).val( ui.value );
       }
