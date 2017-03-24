@@ -62,6 +62,8 @@
 
 .choice > .corr{
   display: none;
+  font-size:small;
+  vertical-align:sub;
 }
 .choice:hover > .corr{
   display: initial;
