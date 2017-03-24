@@ -6,6 +6,11 @@ class TranscriptionXml < ApplicationRecord
   # Mount the file uploader
   mount_uploader :xml, XmlUploader
 
+  # Extract the volume, page and paragraph from the Entry ID
+  def splitEntryID(id)
+    return id.to_s.split(/-|_/).map{|x| x.to_i}.delete_if{|i| i==0}
+  end
+
   # Recursive function to convert the XML format to valid HTML5
   def xml_to_html(tag)
     tag.children().each do |c|
@@ -28,38 +33,37 @@ class TranscriptionXml < ApplicationRecord
     # Remove Processing Instructions. Tags of type <? .. ?>
     doc.xpath('//processing-instruction()').remove
 
-    # Create empty pages
-    #page_breaks = doc.xpath("//xmlns:pb[@n]", 'xmlns' => HISTEI_NS)
-    #page_breaks.each do |pb|
-      #begin
-        # The attribute <pb n=""> is assumed to be the page number
-        #page = pb.xpath('@n').to_s.to_i
-        # The volume  number is extracted from the xml:id of the closest div
-        #volume = pb.xpath('( ancestor::xmlns:div[@xml:id][1]/@xml:id  |  preceding::xmlns:div[@xml:id][1]/@xml:id ) [last()]'
-        #).to_s.split(/-|_/).map{|x| x.to_i}.delete_if{|i| i==0}[0]
-        # The note contains information about the page
-        # it content is usually "Page is empty."
-        #note = pb.xpath('following::xmlns:note[@type="editorial"][1]', 'xmlns' => HISTEI_NS)
-        #note_text =  note.to_xml.to_s
-	#if note_text != "" and volume and page
-		#s = Search.new
-		#s.volume = volume
-		#s.page = page
-        	#pr = TrParagraph.new
-        	#pr.content_xml = note.to_xml
-        	#pr.content_html = "Page is empty."
-        	#pr.save
-        	#s.tr_paragraph = pr
-        	#s.transcription_xml = self
-        	#s.save
-        #end
-      #rescue Exception => e
-        #logger.error(e)
-      #end
-    #end
+    # # Create empty pages
+    # page_breaks = doc.xpath("//xmlns:pb[@n]", 'xmlns' => HISTEI_NS)
+    # # The volume number is extracted from the xml:id of div
+    # volume = splitEntryID(doc.xpath('//xmlns:div[@xml:id]/@xml:id', 'xmlns' => HISTEI_NS)[0])[0]
+    # page_breaks.each do |pb|
+    #   begin
+    #     # The attribute @n is assumed to be the page number
+    #     page = pb.xpath('@n').to_s.to_i
+    #
+    #     # The note contains information about the page
+    #     # it content is usually "Page is empty."
+    #     if not Search.exists?(page: page, volume: volume, paragraph: 1)
+    #       s = Search.new
+    #       s.volume = volume
+    #       s.page = page
+    #       s.paragraph = 1
+    #       pr = TrParagraph.new
+    #       pr.content_xml = note.to_xml
+    #       pr.content_html = "Page is empty."
+    #       pr.save
+    #       s.tr_paragraph = pr
+    #       s.transcription_xml = self
+    #       s.save
+    #     end
+    #   rescue Exception => e
+    #     logger.error(e)
+    #   end
+    # end
+
     # Extract all "div" tags with atribute "xml:id"
     entries = doc.xpath("//xmlns:div[@xml:id]", 'xmlns' => HISTEI_NS)
-
     # Parse each entry as follows
     entries.each do |entry|
 
@@ -96,8 +100,10 @@ class TranscriptionXml < ApplicationRecord
       xml_to_html(entry)
       entry_html = entry.to_xml
 
+      # Split entryID
+      volum, page, paragraph = splitEntryID(entry)
       # Overwrite if exists
-      if Search.exists?(entry: entry_id)
+      if Search.exists?(page: page, volume: volume, paragraph: paragraph)
         s = Search.find_by(entry: entry_id)
         # Get existing paragraph
         pr = s.tr_paragraph
@@ -105,6 +111,9 @@ class TranscriptionXml < ApplicationRecord
         # Create new search record
         s = Search.new
         s.entry = entry_id
+        s.volume = volume
+        s.page = page
+        s.paragraph = paragraph
         # Create TrParagraph record
         pr = TrParagraph.new
       end
@@ -120,7 +129,6 @@ class TranscriptionXml < ApplicationRecord
       s.lang = entry_lang
       s.date = entry_date
       s.date_incorrect = entry_date_incorrect
-      s.parse_entry_to_vol_page_paragraph
       # Replace line-break tag with \n and normalize whitespace
       s.content = entry_text
       s.save
