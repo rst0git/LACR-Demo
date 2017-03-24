@@ -346,16 +346,21 @@ text title:before {
 /* Note */
 
 .note {
-    display:inline;
-    border: 1px solid maroon;
-    padding:1px;
-    font-size: 11px;
+    font-size: 0;
 }
 
-.note:before {
-    font-size:smaller;
-    font-weight:bold;
+.note:before{
+  font-size: smaller;
+  content: url('note-16.png');
 }
+
+.note:hover {
+  border: 1px solid maroon;
+  padding:1px;
+  font-size:smaller;
+  font-weight:bold;
+}
+
 
 /* @reason */
 
@@ -369,8 +374,8 @@ text title:before {
   content: attr(data-reason);
 }
 
+
 /* @place */
-.note:before,
 .fw:before,
 .add:focus:after {
   content: attr(place);
