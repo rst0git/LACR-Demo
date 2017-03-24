@@ -4,8 +4,8 @@ default: &default
   database: lacrDB_development
   username: postgres
   password: database
-  #host: db
-  host: localhost # Used only for local testing
+  host: db
+  #host: localhost # Used only for local testing
   pool: 5
   timeout: 5000
 
