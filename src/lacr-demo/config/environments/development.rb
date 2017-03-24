@@ -10,7 +10,9 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
-  config.consider_all_requests_local = true
+  # config.consider_all_requests_local = true
+
+  config.action_controller.perform_caching = true
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
@@ -32,7 +34,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
+  # config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load

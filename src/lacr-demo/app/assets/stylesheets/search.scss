@@ -1,13 +1,5 @@
-// *= require histei/annotation.css
+// *= require annotation.css
 
-.highlight {
-    font-style: italic;
-    background-color: #EF0FFF;
-    color: #FFFFFF;
-}
-
-mark{
-  font-style: italic;
-  background-color: #EF0FFF;
-  color: #FFFFFF;
+.highlight, mark{
+  background-color: #ffff4d;
 }

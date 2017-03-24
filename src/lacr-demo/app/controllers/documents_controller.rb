@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/BaseXClient"
+
 class DocumentsController < ApplicationController
 
   def index
@@ -111,7 +113,7 @@ class DocumentsController < ApplicationController
               if t.save!
                 @succesfully_uploaded[:xml].push(output_message)
                 # Store file content and filename for import to BaseX
-                xml_files_content.push([filename, nokogiri_obj.to_xml])
+                xml_files_content.push([filename, nokogiri_obj.to_xml.gsub('xml:lang="sc"', 'xml:lang="sco"').gsub('xml:lang="la"', 'xml:lang="lat"').gsub('xml:lang="nl"', 'xml:lang="nld"')])
                 # Proccess the XML file
                 t.histei_split_to_paragraphs
               else
@@ -121,11 +123,26 @@ class DocumentsController < ApplicationController
               @unsuccesfully_uploaded[:xml].push("HisTEI namespace not found: #{filename}")
             end
           end
-          # Add the successfully uploaded files to the XML database
-          x = XqueryController.new
-          x.upload(xml_files_content)
-          # Generate new index for Elasticsearch
-          Search.reindex()
+
+          # Upload xml contnet to BaseX
+          begin # Catch connection error
+            session = BaseXClient::Session.new("xmldb", 1984, "createOnly", "1a85637cd2ba8c936306c0fa2438b9fcf23dcfa1")
+            session.execute('open xmldb') # Open XML database
+            xml_files_content.each do |file_name, file_content|
+              begin # Catch document creation error
+                session.replace(file_name, file_content)
+              rescue Exception => e
+                logger.error(e)
+              end
+            end
+            session.close
+        rescue Exception => e
+          logger.error(e)
+        end
+         #End of uploading to BaseX
+
+        # Generate new index for Elasticsearch
+        Search.reindex()
       end
 
       if params.has_key?(:page_image)
@@ -150,15 +167,34 @@ class DocumentsController < ApplicationController
   def destroy
     if user_signed_in? and current_user.admin?
       selected = params['selected']
-      # If there are selected pages
+      # If there is at least one selected page
       if selected
         selected.each do |s|
           entry = selected[s]
           if entry.key?("volume") and entry.key?("page")
             vol, page = entry['volume'], entry['page']
             tr_xml = Search.where('volume' => vol).rewhere('page' => page)
-            if tr_xml
+            if tr_xml # If the db record was found
               tr_xml.each do |tr|
+                # Remove content from BaseX
+                begin # Catch connection error
+                  session = BaseXClient::Session.new("xmldb", 1984, "createOnly", "1a85637cd2ba8c936306c0fa2438b9fcf23dcfa1")
+                  session.execute('open xmldb') # Open XML database
+
+                  # XQuery delete node query
+                  # Create instance the BaseX Client in Query Mode
+                  query = session.query("\
+                    declare namespace ns = \"http://www.tei-c.org/ns/1.0\"; \
+                    delete node //ns:div[@xml:id=\"#{tr.entry}\"] \
+                  ")
+                  query.execute
+                  query.close
+                  session.close
+                rescue Exception => e
+                  logger.error(e)
+                end
+                # End of BaseX remove
+
                 tr.tr_paragraph.destroy
                 tr.destroy
               end # tr_xml.each
