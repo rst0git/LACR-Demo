@@ -48,7 +48,7 @@ class TranscriptionXmlTest < ActiveSupport::TestCase
 		transcription_xml = TranscriptionXml.new
 		transcription_xml.filename = 'ARO-5-9999-01_ARO-5-9998-12_WH_EF_AH.xml'
 		transcription_xml.xml = File.open(test_files_path.join('xml/ARO-5-9999-01_ARO-5-9998-11_WH_EF_AH.xml'), 'r')
-		assert transcription_xml.save, 'Saved transcription without xml'
+		assert transcription_xml.save, 'Did not save transcription with valid parameters'
 	end
 	
 	test 'should split the xml to paragraphs' do
