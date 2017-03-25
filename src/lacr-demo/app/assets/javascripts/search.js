@@ -48,7 +48,10 @@ function load_page(url, page, vol, highlighted_content){
 
     // Transform language codes
     $(".pr-language").each(function() {
-      $(this).html(ISO_639_2[$(this).html()]['native'][0]);
+      try{
+        $(this).html(ISO_639_2[$(this).html()]['native'][0]);
+      }catch (err) {}
+
     });
 
     // Image zoom on hover

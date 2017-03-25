@@ -19,4 +19,5 @@
 //= require scrolloverflow.min.js
 //= require jquery.fullpage.extensions.min.js
 //= require js.cookie.js
+//= require ISO_639_2.min.js
 //= require init.js

@@ -12,7 +12,9 @@ var load_document = function (p, v){
         if(statusTxt == "success"){
           // Transform language codes
           $(".pr-language").each(function() {
-            $(this).html(ISO_639_2[$(this).html()]['native'][0]);
+            try {
+              $(this).html(ISO_639_2[$(this).html()]['native'][0]);
+            } catch (e) {console.log(e);}
           });
 
           // Image zoom on hover
@@ -21,7 +23,7 @@ var load_document = function (p, v){
           });
 
           // Initialise prettify
-          PR.prettyPrint();
+          try {PR.prettyPrint(); } catch (e) {console.log(e);}
 
           // Event listener for add-to-list of selected entries
           init_selected_checkboxes();

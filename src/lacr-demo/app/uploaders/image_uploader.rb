@@ -2,6 +2,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   storage :file
 
+  CarrierWave.configure do |config|
+     config.ignore_processing_errors = true
+  end
+
   # Fix By default, CarrierWave copies an uploaded file twice,
   # first copying the file into the cache, then copying the file into the store.#
   # For large files, this can be prohibitively time consuming.

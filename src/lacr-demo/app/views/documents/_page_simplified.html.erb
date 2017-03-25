@@ -3,16 +3,23 @@
   <% @documents.each do |document| %>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<div class="row">
-					<div class="col-sm-4">
+        <div class="row">
+					<% if document.entry %><div class="col-sm-4">
 						<strong>ID: </strong><span><%= document.entry %></span>
 					</div>
+          <%end%>
+
+          <%if document.date %>
 					<div class="col-sm-4">
 						<strong>Date: </strong><span><% if document.date_incorrect %><%= document.date_incorrect %><% else %><%= document.date %><% end %></span>
 					</div>
+          <%end%>
+
+          <%if document.lang %>
 					<div class="col-sm-4">
 						<strong>Language: </strong><span class="pr-language"><%= document.lang %></span>
 					</div> <!-- col-md-4 -->
+          <%end%>
 				</div> <!-- row -->
 			</div>  <!-- panel-heading -->
 			<div class="panel-body">
