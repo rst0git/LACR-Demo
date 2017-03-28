@@ -5,7 +5,7 @@ default: &default
   username: postgres
   password: database
   host: db
-  #host: localhost # Used only for local testing
+  # host: localhost # Used only for local testing
   pool: 5
   timeout: 5000
 
